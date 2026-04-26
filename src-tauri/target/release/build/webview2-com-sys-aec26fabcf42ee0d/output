@@ -1,2 +1,0 @@
-cargo:rustc-link-search=native=c:\Users\dh-m\slamtest\comptia-study-app\src-tauri\target\release\build\webview2-com-sys-aec26fabcf42ee0d\out\x64
-cargo:rustc-link-lib=advapi32
