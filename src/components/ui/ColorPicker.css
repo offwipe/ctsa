@@ -1,0 +1,52 @@
+.color-picker-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.color-picker-label {
+  flex: 0 0 140px;
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+.color-picker-wrap {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.color-picker-swatch {
+  width: 32px;
+  height: 32px;
+  padding: 2px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-input);
+  cursor: pointer;
+}
+
+.color-picker-swatch::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.color-picker-swatch::-webkit-color-swatch {
+  border: none;
+  border-radius: var(--radius-sm);
+}
+
+.color-picker-hex {
+  width: 7ch;
+  padding: var(--space-2) var(--space-3);
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-family: ui-monospace, 'Cascadia Code', 'Fira Code', monospace;
+}
+
+.color-picker-hex:focus {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}

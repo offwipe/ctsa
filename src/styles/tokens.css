@@ -1,0 +1,118 @@
+:root,
+[data-theme="dark"] {
+  --bg-main: #0a0a0f;
+  --bg-sidebar: transparent;
+  --bg-panel: #111116;
+  --bg-card: #141419;
+  --bg-input: #16161b;
+  --bg-elevated: #1a1a20;
+  --bg-hover: rgba(255, 255, 255, 0.04);
+
+  --text-primary: #ececf0;
+  --text-secondary: #a0a0aa;
+  --text-muted: #5a5a66;
+
+  --accent: var(--accent-color, #8b5cf6);
+  --accent-hover: #a78bfa;
+  --accent-glow: var(--accent-glow-computed, rgba(139, 92, 246, 0.25));
+  --accent-gradient: linear-gradient(135deg, var(--accent-color, #7c3aed) 0%, #a855f7 100%);
+  --accent-subtle: rgba(139, 92, 246, 0.12);
+
+  --accent-secondary: #ef4444;
+  --accent-secondary-bg: rgba(239, 68, 68, 0.12);
+
+  --success: #22c55e;
+  --success-bg: rgba(34, 197, 94, 0.12);
+
+  --border: var(--border-soft, rgba(255, 255, 255, 0.08));
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --border-focus: var(--accent);
+
+  --track-bg: #1e1e24;
+  --slider-fill: var(--accent);
+  --toggle-off: #2a2a32;
+  --toggle-on: var(--accent);
+
+  --shadow-card: var(--shell-shadow, 0 2px 8px rgba(0, 0, 0, 0.3));
+  --window-shadow-1: rgba(0, 0, 0, 0.4);
+  --window-shadow-2: rgba(0, 0, 0, 0.25);
+
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --bg-main: #f4f5f9;
+  --bg-sidebar: transparent;
+  --bg-panel: #ecedf2;
+  --bg-card: #ffffff;
+  --bg-input: #ffffff;
+  --bg-elevated: #eef0f4;
+  --bg-hover: rgba(0, 0, 0, 0.04);
+
+  --text-primary: #111118;
+  --text-secondary: #555560;
+  --text-muted: #9999a4;
+
+  --accent: var(--accent-color, #7c3aed);
+  --accent-hover: #6d28d9;
+  --accent-glow: var(--accent-glow-computed, rgba(124, 58, 237, 0.18));
+  --accent-gradient: linear-gradient(135deg, var(--accent-color, #7c3aed) 0%, #a855f7 100%);
+  --accent-subtle: rgba(124, 58, 237, 0.08);
+
+  --accent-secondary: #dc2626;
+  --accent-secondary-bg: rgba(220, 38, 38, 0.08);
+
+  --success: #16a34a;
+  --success-bg: rgba(22, 163, 74, 0.08);
+
+  --border: var(--border-soft, rgba(0, 0, 0, 0.1));
+  --border-subtle: rgba(0, 0, 0, 0.06);
+  --border-focus: var(--accent);
+
+  --track-bg: #d4d4da;
+  --slider-fill: var(--accent);
+  --toggle-off: #cccccc;
+  --toggle-on: var(--accent);
+
+  --shadow-card: 0 1px 4px rgba(0, 0, 0, 0.08);
+  --window-shadow-1: rgba(0, 0, 0, 0.18);
+  --window-shadow-2: rgba(0, 0, 0, 0.1);
+
+  color-scheme: light;
+}
+
+:root {
+  --font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --text-xs: 0.6875rem;
+  --text-sm: 0.8125rem;
+  --text-base: 0.9375rem;
+  --text-lg: 1.0625rem;
+  --text-xl: 1.1875rem;
+  --text-2xl: 1.375rem;
+  --text-3xl: 1.75rem;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 10px;
+  --radius-xl: 14px;
+  --radius-full: 9999px;
+
+  --sidebar-width: 200px;
+
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+}

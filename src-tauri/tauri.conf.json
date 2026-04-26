@@ -1,0 +1,60 @@
+{
+  "productName": "CompTIA Study",
+  "version": "0.1.4",
+  "identifier": "com.comptia.study",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build",
+    "devUrl": "http://localhost:5173",
+    "frontendDist": "../dist"
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "createUpdaterArtifacts": true,
+    "icon": ["icons/icon.ico"],
+    "windows": {
+      "certificateThumbprint": null,
+      "digestAlgorithm": "sha256",
+      "timestampUrl": ""
+    },
+    "longDescription": "Study app for CompTIA certifications (Network+, A+, and more).",
+    "shortDescription": "CompTIA Study App",
+    "category": "Education",
+    "copyright": ""
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "CompTIA Study",
+        "width": 1200,
+        "height": 800,
+        "minWidth": 900,
+        "minHeight": 600,
+        "resizable": true,
+        "fullscreen": false,
+        "decorations": false,
+        "transparent": true,
+        "shadow": false
+      }
+    ],
+    "security": {
+      "assetProtocol": {
+        "enable": true,
+        "scope": ["**/*"]
+      },
+      "capabilities": ["default"]
+    }
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDRBNjFEMUNCMEY3OUEzREYKUldUZm8za1B5OUZoU2kwZW5VNG14b2pLSmJiRmhxRlJYbG9GdGptQVd3WGd1SVlLN2VmVTIzVmIK",
+      "endpoints": [
+        "https://github.com/REPLACE_OWNER/comptia-study-app/releases/latest/download/latest.json"
+      ],
+      "windows": {
+        "installMode": "passive"
+      }
+    }
+  }
+}

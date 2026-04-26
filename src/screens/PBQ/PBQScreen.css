@@ -1,0 +1,277 @@
+.pbq-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+  gap: var(--space-5);
+}
+
+.pbq-setup-grid,
+.pbq-mode-grid,
+.pbq-target-grid,
+.pbq-review-grid {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.pbq-mode-grid,
+.pbq-review-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.pbq-action-row,
+.pbq-side-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.pbq-meta,
+.pbq-explanation,
+.pbq-review-copy {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+}
+
+.pbq-workspace {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.pbq-pool-label {
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: var(--space-2);
+}
+
+.pbq-pool {
+  min-height: 80px;
+  padding: var(--space-3) var(--space-4);
+  border: 1px dashed var(--border);
+  border-radius: calc(var(--radius-lg) + 2px);
+  background: rgba(255, 255, 255, 0.02);
+  transition: border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
+}
+
+.pbq-pool--active {
+  border-color: var(--accent);
+  background: var(--accent-subtle, rgba(255, 255, 255, 0.04));
+  box-shadow: 0 0 0 3px rgba(99, 126, 182, 0.12) inset;
+}
+
+.pbq-pool-empty {
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  text-align: center;
+  padding: var(--space-3);
+}
+
+.pbq-draggable-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.pbq-drag-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 40px;
+  padding: 0 var(--space-4) 0 10px;
+  border-radius: calc(var(--radius-md) + 2px);
+  border: 1px solid var(--border);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01)),
+    var(--bg-card);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  transition: transform 140ms ease, border-color 140ms ease, box-shadow 160ms ease, background 160ms ease, opacity 140ms ease;
+}
+
+.pbq-drag-item > * {
+  pointer-events: none;
+}
+
+.pbq-drag-item .pbq-drag-remove {
+  pointer-events: auto;
+}
+
+.pbq-drag-item:hover {
+  border-color: var(--border-focus, var(--accent));
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+}
+
+.pbq-drag-item:active,
+.pbq-drag-item--dragging {
+  cursor: grabbing;
+}
+
+.pbq-drag-item--dragging {
+  opacity: 0.55;
+  transform: scale(0.97);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+.pbq-drag-item--placed {
+  width: 100%;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)),
+    var(--accent-subtle, var(--bg-card));
+  border-color: var(--accent);
+  justify-content: flex-start;
+}
+
+.pbq-drag-handle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.pbq-drag-label {
+  flex: 1 1 auto;
+  text-align: left;
+}
+
+.pbq-drag-remove {
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-secondary);
+  cursor: pointer;
+  margin-left: auto;
+  transition: color 140ms ease, background 140ms ease, border-color 140ms ease;
+}
+
+.pbq-drag-remove:hover {
+  color: #fff;
+  background: rgba(239, 68, 68, 0.4);
+  border-color: rgba(239, 68, 68, 0.6);
+}
+
+.pbq-target-grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.pbq-target {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: calc(var(--radius-lg) + 2px);
+  background: rgba(255, 255, 255, 0.025);
+  transition: border-color 160ms ease, background 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.pbq-target--hover {
+  border-color: var(--accent);
+  background: var(--accent-subtle, rgba(255, 255, 255, 0.05));
+  box-shadow: 0 0 0 3px rgba(99, 126, 182, 0.18) inset, 0 12px 24px rgba(0, 0, 0, 0.18);
+  transform: translateY(-1px);
+}
+
+.pbq-target--filled {
+  border-color: var(--accent);
+}
+
+.pbq-target-label,
+.pbq-review-title {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+}
+
+.pbq-target-slot {
+  min-height: 44px;
+  border-radius: calc(var(--radius-md) + 2px);
+  border: 1px dashed var(--border);
+  background: rgba(255, 255, 255, 0.015);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  pointer-events: none;
+}
+
+.pbq-review-score {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.pbq-review-card {
+  padding: var(--space-4);
+  border-radius: calc(var(--radius-lg) + 2px);
+  border: 1px solid var(--border);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)),
+    var(--bg-card);
+}
+
+.pbq-review-card--correct {
+  box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.18) inset;
+}
+
+.pbq-review-card--wrong {
+  box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.18) inset;
+}
+
+.pbq-drag-ghost {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  pointer-events: none;
+  padding: 8px 14px;
+  border-radius: calc(var(--radius-md) + 2px);
+  border: 1px solid var(--accent);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)),
+    var(--bg-card);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  white-space: nowrap;
+  box-shadow:
+    0 0 0 3px rgba(99, 126, 182, 0.18),
+    0 14px 32px rgba(0, 0, 0, 0.45);
+  transform: translate3d(0, 0, 0);
+  margin: -16px 0 0 12px;
+  user-select: none;
+  will-change: transform;
+}
+
+body.pbq-dragging-cursor,
+body.pbq-dragging-cursor * {
+  cursor: grabbing !important;
+}
+
+@media (max-width: 1120px) {
+  .pbq-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .pbq-mode-grid,
+  .pbq-review-grid {
+    grid-template-columns: 1fr;
+  }
+}

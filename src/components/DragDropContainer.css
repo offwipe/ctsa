@@ -1,0 +1,19 @@
+.drag-drop-container {
+  min-height: 200px;
+  padding: var(--space-6);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.drag-drop-container[data-empty="true"] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.drag-drop-empty {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}

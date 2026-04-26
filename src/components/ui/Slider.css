@@ -1,0 +1,90 @@
+.slider-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.slider-label {
+  flex: 0 0 140px;
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+}
+
+.slider-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.slider-input {
+  flex: 1;
+  min-width: 100px;
+  height: 16px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+  margin: 0;
+}
+
+.slider-input::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(
+    to right,
+    var(--btn-solid, var(--slider-fill)) 0%,
+    var(--btn-solid, var(--slider-fill)) var(--slider-pct, 0%),
+    var(--track-bg) var(--slider-pct, 0%),
+    var(--track-bg) 100%
+  );
+}
+
+.slider-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--btn-solid, var(--slider-fill));
+  cursor: pointer;
+  box-shadow: 0 0 0 2px var(--bg-main), 0 0 var(--btn-glow-blur, 0px) var(--btn-glow, transparent);
+  margin-top: -5px;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.slider-input::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 0 2px var(--bg-main), 0 0 calc(var(--btn-glow-blur, 8px) * 1.5) var(--btn-glow, transparent);
+}
+
+.slider-input::-moz-range-track {
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--track-bg);
+}
+
+.slider-input::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--btn-solid, var(--slider-fill));
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 0 2px var(--bg-main);
+}
+
+.slider-input::-moz-range-progress {
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--btn-solid, var(--slider-fill));
+}
+
+.slider-value {
+  flex-shrink: 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  min-width: 4ch;
+  text-align: right;
+}

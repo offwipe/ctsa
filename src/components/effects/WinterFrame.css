@@ -1,0 +1,38 @@
+.winter-frame {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.winter-particle {
+  position: absolute;
+  border-radius: 50%;
+  animation-name: winterFall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes winterFall {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+  }
+  4% {
+    opacity: var(--particle-opacity, 0.3);
+  }
+  50% {
+    transform: translate3d(calc(var(--snow-drift, 0px) * 0.5), calc(50vh - var(--snow-edge, 20px)), 0);
+    opacity: var(--particle-opacity, 0.3);
+  }
+  92% {
+    opacity: var(--particle-opacity, 0.15);
+  }
+  100% {
+    transform: translate3d(var(--snow-drift, 0px), calc(100vh - var(--snow-edge, 20px)), 0);
+    opacity: 0;
+  }
+}

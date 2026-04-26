@@ -1,0 +1,157 @@
+/*
+ * Two-layer window structure for true rounded outer edges:
+ * .app-window-frame — outer wrapper, carries the drop shadow + CSS vars,
+ *                     NOT clipped so the shadow renders outside the radius.
+ * .app-shell        — inner surface, has border-radius + overflow:hidden
+ *                     to clip ALL content (UI, effects, snow) to the rounded shape.
+ */
+.app-window-frame {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  padding: 4px 4px 8px;
+  filter: drop-shadow(0 4px 16px var(--window-shadow-1, rgba(0, 0, 0, 0.4)))
+          drop-shadow(0 1px 4px var(--window-shadow-2, rgba(0, 0, 0, 0.25)));
+  transition: border-radius 220ms ease, padding 180ms ease, filter 180ms ease;
+}
+
+[data-maximized="true"] .app-window-frame {
+  padding: 0;
+  filter: none;
+}
+
+.app-shell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: var(--bg-main);
+  border: 1px solid var(--border-soft, var(--border-subtle));
+  border-radius: var(--shell-radius, 18px);
+  isolation: isolate;
+  transition: background-color 220ms ease, border-color 220ms ease, border-radius 220ms ease;
+}
+
+[data-maximized="true"] .app-shell {
+  border-radius: 0;
+  border: none;
+}
+
+.app-noise {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: var(--noise-opacity, 0);
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+  background-size: 100% 3px, 3px 100%;
+  mask-image: radial-gradient(circle at center, black, transparent 92%);
+  border-radius: inherit;
+}
+
+.app-ambient {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  opacity: var(--ambience-intensity, 0.5);
+  background:
+    radial-gradient(
+      circle at 18% 0%,
+      var(--ambience-color-1, #4c1d95) 0%,
+      transparent var(--ambience-spread, 28%)
+    ),
+    radial-gradient(
+      circle at 88% 12%,
+      var(--ambience-color-2, #2563eb) 0%,
+      transparent var(--ambience-spread, 28%)
+    ),
+    radial-gradient(
+      circle at 28% 100%,
+      var(--ambience-color-3, #f5b21a) 0%,
+      transparent var(--ambience-spread, 28%)
+    );
+  filter: blur(calc((1 - var(--ambience-softness, 0.8)) * 30px));
+  transition: opacity 300ms ease, filter 300ms ease, background 300ms ease;
+}
+
+.app-layout {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  z-index: 2;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  overflow: hidden;
+}
+
+.app-layout--sidebar-right {
+  flex-direction: row-reverse;
+}
+
+.app-layout--sidebar-right .sidebar {
+  border-right: none;
+  border-left: 1px solid var(--border-subtle);
+}
+
+.app-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.app-main-inner {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-8) var(--space-12);
+}
+
+.page-transition {
+  animation: pageEnter var(--animation-speed, 320ms) cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.interactive-lift {
+  transition: transform var(--animation-speed, 180ms) ease,
+              box-shadow var(--animation-speed, 180ms) ease,
+              background-color var(--animation-speed, 180ms) ease,
+              border-color var(--animation-speed, 180ms) ease,
+              color var(--animation-speed, 180ms) ease;
+}
+.interactive-lift:hover {
+  transform: translateY(calc(var(--hover-lift, 0) * -4px));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-transition {
+    animation: none;
+  }
+  .interactive-lift:hover {
+    transform: none;
+  }
+}

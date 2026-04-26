@@ -1,0 +1,14 @@
+c:\Users\dh-m\slamtest\comptia-study-app\src-tauri\target\release\deps\serde-ad870ff1c1ccf98e.d: C:\Users\dh-m\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\lib.rs C:\Users\dh-m\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\integer128.rs C:\Users\dh-m\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\mod.rs C:\Users\dh-m\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\de.rs C:\Users\dh-m\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\ser.rs c:\Users\dh-m\slamtest\comptia-study-app\src-tauri\target\release\build\serde-8d0ca09767a6dd0f\out/private.rs
+
+c:\Users\dh-m\slamtest\comptia-study-app\src-tauri\target\release\deps\libserde-ad870ff1c1ccf98e.rlib: C:\Users\dh-m\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\lib.rs C:\Users\dh-m\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\integer128.rs C:\Users\dh-m\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\mod.rs C:\Users\dh-m\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\de.rs C:\Users\dh-m\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\ser.rs c:\Users\dh-m\slamtest\comptia-study-app\src-tauri\target\release\build\serde-8d0ca09767a6dd0f\out/private.rs
+
+c:\Users\dh-m\slamtest\comptia-study-app\src-tauri\target\release\deps\libserde-ad870ff1c1ccf98e.rmeta: C:\Users\dh-m\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\lib.rs C:\Users\dh-m\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\integer128.rs C:\Users\dh-m\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\mod.rs C:\Users\dh-m\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\de.rs C:\Users\dh-m\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\ser.rs c:\Users\dh-m\slamtest\comptia-study-app\src-tauri\target\release\build\serde-8d0ca09767a6dd0f\out/private.rs
+
+C:\Users\dh-m\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\lib.rs:
+C:\Users\dh-m\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\integer128.rs:
+C:\Users\dh-m\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\mod.rs:
+C:\Users\dh-m\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\de.rs:
+C:\Users\dh-m\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\serde-1.0.228\src\private\ser.rs:
+c:\Users\dh-m\slamtest\comptia-study-app\src-tauri\target\release\build\serde-8d0ca09767a6dd0f\out/private.rs:
+
+# env-dep:OUT_DIR=c:\\Users\\dh-m\\slamtest\\comptia-study-app\\src-tauri\\target\\release\\build\\serde-8d0ca09767a6dd0f\\out

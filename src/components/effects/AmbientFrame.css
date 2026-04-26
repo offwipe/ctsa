@@ -1,0 +1,106 @@
+/*
+ * Edge Light system. Two layered effects:
+ *  - .ambient-frame-inner: an inset box-shadow ring that hugs the rounded corners
+ *    of the shell. Soft, large blur, no hard padded "frame".
+ *  - .ambient-frame-halo: an optional color overlay that lives only at the edges
+ *    via a radial mask, used when multi-color is on or for the drift animation.
+ *
+ * Animations:
+ *  - drift   : slow gradient angle rotation on the halo (24-40s)
+ *  - breathe : opacity + blur pulse on the inner ring (4-12s)
+ *  - pulse   : a brief intensity flare every cycle (3-9s)
+ */
+
+.ambient-frame {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: inherit;
+  overflow: hidden;
+}
+
+.ambient-frame-inner {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow:
+    inset 0 0 var(--af-inner-blur, 28px) var(--af-inner-spread, 12px) var(--af-tint, rgba(255, 255, 255, 0.18)),
+    0 0 var(--af-outer-blur, 18px) 0 var(--af-outer-tint, rgba(255, 255, 255, 0.08));
+  opacity: var(--af-halo-opacity, 1);
+  transition: box-shadow 220ms ease, opacity 220ms ease;
+}
+
+.ambient-frame-halo {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: var(--af-halo, transparent);
+  background-size: 200% 200%;
+  background-position: 0% 50%;
+  opacity: 0.65;
+  mix-blend-mode: screen;
+  -webkit-mask: radial-gradient(120% 120% at 50% 50%, transparent 55%, black 88%, black 100%);
+          mask: radial-gradient(120% 120% at 50% 50%, transparent 55%, black 88%, black 100%);
+}
+
+/* Drift: rotate the gradient origin smoothly */
+.ambient-frame--drift .ambient-frame-halo {
+  animation: ambientDrift var(--af-drift-duration, 24s) linear infinite;
+}
+
+@keyframes ambientDrift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Breathe: gentle inner-ring pulse */
+.ambient-frame--breathe .ambient-frame-inner {
+  animation: ambientBreathe var(--af-breathe-duration, 6s) ease-in-out infinite;
+}
+
+@keyframes ambientBreathe {
+  0%, 100% {
+    opacity: 0.78;
+    box-shadow:
+      inset 0 0 calc(var(--af-inner-blur, 28px) * 0.85) calc(var(--af-inner-spread, 12px) * 0.85) var(--af-tint-soft, var(--af-tint)),
+      0 0 var(--af-outer-blur, 18px) 0 var(--af-outer-tint, transparent);
+  }
+  50% {
+    opacity: 1;
+    box-shadow:
+      inset 0 0 var(--af-inner-blur, 28px) var(--af-inner-spread, 12px) var(--af-tint, rgba(255, 255, 255, 0.18)),
+      0 0 calc(var(--af-outer-blur, 18px) * 1.15) 0 var(--af-outer-tint, transparent);
+  }
+}
+
+/* Pulse: a subtle flare every cycle, asymmetric so it feels alive */
+.ambient-frame--pulse .ambient-frame-inner {
+  animation: ambientPulse var(--af-pulse-duration, 5s) cubic-bezier(0.35, 0, 0.45, 1) infinite;
+}
+
+@keyframes ambientPulse {
+  0%, 60%, 100% {
+    opacity: 0.82;
+    box-shadow:
+      inset 0 0 calc(var(--af-inner-blur, 28px) * 0.9) calc(var(--af-inner-spread, 12px) * 0.9) var(--af-tint-soft, var(--af-tint)),
+      0 0 var(--af-outer-blur, 18px) 0 var(--af-outer-tint, transparent);
+  }
+  20% {
+    opacity: 1;
+    box-shadow:
+      inset 0 0 calc(var(--af-inner-blur, 28px) * 1.25) calc(var(--af-inner-spread, 12px) * 1.15) var(--af-tint, rgba(255, 255, 255, 0.22)),
+      0 0 calc(var(--af-outer-blur, 18px) * 1.4) 0 var(--af-outer-tint, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-frame--drift .ambient-frame-halo,
+  .ambient-frame--breathe .ambient-frame-inner,
+  .ambient-frame--pulse .ambient-frame-inner {
+    animation: none;
+  }
+}
