@@ -25,7 +25,7 @@ below mean the same thing.
 > Update the placeholder once: in
 > `src-tauri/tauri.conf.json` change
 > `https://github.com/REPLACE_OWNER/comptia-study-app/...`
-> to your real owner. **Commit this change before building 0.1.4** — the
+> to your real owner. **Commit this change before you build a release** — the
 > `pubkey` is baked into the binary and so is the endpoint URL, so a wrong
 > endpoint is sticky.
 
@@ -55,14 +55,14 @@ If you want to use `gh release create ...` instead of the GitHub web UI, install
 
 ## 1. Pick the new version
 
-Pick a SemVer string. Today the app is at **0.1.4**. For the next release,
+Pick a SemVer string. Today the app is at **0.1.5**. For the next release,
 increment using these rules:
 
-| Change                                                   | Bump |
-| -------------------------------------------------------- | ---- |
-| Bug fix only, no new behaviour                            | 0.1.4 → 0.1.5 |
-| New feature, no breaking change                           | 0.1.4 → 0.2.0 |
-| Breaking change to data files / settings / save format    | 0.1.4 → 1.0.0 |
+| Change                                                   | Bump       |
+| -------------------------------------------------------- | ---------- |
+| Bug fix only, no new behaviour                            | 0.1.5 → 0.1.6 |
+| New feature, no breaking change                           | 0.1.5 → 0.2.0 |
+| Breaking change to data files / settings / save format    | 0.1.5 → 1.0.0 |
 
 The version string must be identical in **every** file in section 2.
 

@@ -87,7 +87,7 @@ export function UpdaterSection() {
       const { getVersion } = await import('@tauri-apps/api/app')
       setCurrentVersion(await getVersion())
     } catch {
-      setCurrentVersion('0.1.4')
+      setCurrentVersion('0.1.5')
     }
   }
 

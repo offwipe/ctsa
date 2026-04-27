@@ -5,21 +5,23 @@ Atmosphere system.
 
 ## Drop in your own loops (optional)
 
-The audio engine in `src/audio/atmosphereAudio.ts` looks for these two files
-on startup:
+The audio engine in `src/audio/atmosphereAudio.ts` looks for these files on
+startup:
 
 ```
 rain-loop.ogg
 wind-loop.ogg
+wind-chime.ogg   (optional — mixed only in Wind mode; use the Wind chime level slider)
 ```
 
-If a file is present, the engine will play it via `AudioBufferSourceNode` with
+If a loop is present, the engine will play it via `AudioBufferSourceNode` with
 `loop = true`, which produces a sample-perfect seamless loop with no click or
-gap at the boundary.
+gap at the boundary. The chime, when present, is a separate one-shot/loop
+element mixed under user control; if it is missing, wind mode is unchanged.
 
-If a file is missing, the engine silently falls back to a procedural Web Audio
-synthesizer (filtered noise) that gives a believable rain or wind bed. This
-means the app works out of the box without any audio assets.
+If `rain-loop.ogg` or `wind-loop.ogg` is missing, the engine silently falls back
+to a procedural Web Audio synthesizer (filtered noise) for that mode. The app
+works out of the box without any audio assets.
 
 ## What to put here
 

@@ -107,11 +107,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
       rainFallSpeed: defaultSettings.rainFallSpeed,
       rainDropSize: defaultSettings.rainDropSize,
       rainAngle: defaultSettings.rainAngle,
+      rainWindMph: defaultSettings.rainWindMph,
+      rainTurbulence: defaultSettings.rainTurbulence,
       rainColor: defaultSettings.rainColor,
       rainGlow: defaultSettings.rainGlow,
       windCloudDensity: defaultSettings.windCloudDensity,
       windDriftSpeed: defaultSettings.windDriftSpeed,
       windCloudOpacity: defaultSettings.windCloudOpacity,
+      windChimeLevel: defaultSettings.windChimeLevel,
       windTone: defaultSettings.windTone,
       windHowlIntensity: defaultSettings.windHowlIntensity,
     }))
@@ -139,7 +142,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const applyPreset = useCallback((preset: PresetRecord) => {
-    setSettings({ ...defaultSettings, ...preset.settings })
+    setSettings({ ...defaultSettings, ...preset.settings, ambientFrameEnabled: false })
   }, [])
 
   const saveCurrentAsPreset = useCallback((name: string) => {

@@ -80,7 +80,8 @@ export function StudyScreen() {
   const [missed, setMissed] = useState(0)
   const [results, setResults] = useState<RoundResult[]>([])
   const [secondsLeft, setSecondsLeft] = useState(0)
-  const [startTime, setStartTime] = useState<number>(0)
+  const [startTime, setStartTime] = useState(0)
+  const [roundEndTime, setRoundEndTime] = useState(0)
 
   const tickRef = useRef<number | null>(null)
   const pack = useMemo(() => getCertificationPack(certification), [certification])
@@ -126,6 +127,7 @@ export function StudyScreen() {
     setMissed(0)
     setResults([])
     setStartTime(Date.now())
+    setRoundEndTime(0)
     setPhase('active')
     startTimer()
   }, [availablePool, roundSize, startTimer])
@@ -170,11 +172,17 @@ export function StudyScreen() {
     if (phase !== 'active') return
     if (queue.length === 0) {
       stopTimer()
-      setPhase('complete')
-      return
+      const endId = setTimeout(() => {
+        setRoundEndTime(Date.now())
+        setPhase('complete')
+      }, 0)
+      return () => clearTimeout(endId)
     }
     if (!revealed && timerSeconds > 0) {
-      startTimer()
+      const startId = setTimeout(() => {
+        startTimer()
+      }, 0)
+      return () => clearTimeout(startId)
     }
   }, [queue.length, phase, revealed, timerSeconds, startTimer, stopTimer])
 
@@ -184,6 +192,7 @@ export function StudyScreen() {
     setQueue([])
     setRevealed(false)
     setResults([])
+    setRoundEndTime(0)
   }, [stopTimer])
 
   if (phase === 'setup') {
@@ -379,7 +388,10 @@ export function StudyScreen() {
     )
   }
 
-  const elapsedSeconds = Math.max(1, Math.round((Date.now() - startTime) / 1000))
+  const elapsedSeconds =
+    roundEndTime > 0 && startTime > 0
+      ? Math.max(1, Math.round((roundEndTime - startTime) / 1000))
+      : 0
   const totalAnswered = mastered + missed
   const accuracy = totalAnswered === 0 ? 0 : Math.round((mastered / totalAnswered) * 100)
 

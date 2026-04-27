@@ -12,57 +12,124 @@
   inset: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at 80% 18%, rgba(220, 230, 245, 0.05), transparent 60%),
-    radial-gradient(ellipse at 18% 78%, rgba(180, 200, 230, 0.04), transparent 60%);
+    radial-gradient(ellipse 80% 55% at 78% 12%, rgba(200, 215, 245, 0.07), transparent 55%),
+    radial-gradient(ellipse 70% 50% at 12% 85%, rgba(150, 175, 210, 0.05), transparent 50%),
+    linear-gradient(180deg, rgba(6, 10, 20, 0.15), transparent 40%, rgba(4, 8, 16, 0.12));
+}
+
+/* Soft “moon lane” for depth (inspired by night-sky scapes) */
+.wind-frame-ambient-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    120% 60% at 30% 8%,
+    rgba(200, 220, 255, 0.06),
+    transparent 55%
+  );
+  mix-blend-mode: screen;
+  pointer-events: none;
 }
 
 .wind-cloud {
   position: absolute;
-  left: -25%;
+  left: -35%;
   border-radius: 50%;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(220, 230, 245, 0.85) 0%,
-    rgba(200, 215, 235, 0.55) 40%,
-    rgba(180, 200, 225, 0.18) 70%,
-    transparent 100%
-  );
+  display: block;
   animation-name: windDrift;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   will-change: transform;
+  transform: translate3d(0, 0, 0);
 }
 
-.wind-cloud--back {
+.wind-cloud__bloom,
+.wind-cloud__body,
+.wind-cloud__rim {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Soft outer volumetric haze */
+.wind-cloud__bloom {
+  transform: scale(1.12);
+  filter: blur(4px);
+  opacity: 0.55;
   background: radial-gradient(
-    ellipse at center,
-    rgba(190, 200, 220, 0.55) 0%,
-    rgba(170, 185, 210, 0.35) 40%,
-    transparent 75%
+    ellipse 100% 80% at 50% 50%,
+    rgba(200, 215, 240, 0.35) 0%,
+    rgba(180, 200, 230, 0.12) 50%,
+    transparent 80%
   );
 }
 
-.wind-cloud--front {
+/* Main lit mass */
+.wind-cloud__body {
   background: radial-gradient(
-    ellipse at center,
-    rgba(235, 240, 250, 0.92) 0%,
-    rgba(215, 225, 240, 0.65) 35%,
-    rgba(190, 205, 225, 0.22) 70%,
+    ellipse 85% 70% at 45% 48%,
+    rgba(240, 245, 255, 0.9) 0%,
+    rgba(210, 220, 240, 0.5) 42%,
+    rgba(180, 200, 230, 0.2) 68%,
     transparent 100%
   );
+  mix-blend-mode: screen;
+  opacity: 0.9;
+}
+
+/* Subtle top-edge “silver” read */
+.wind-cloud__rim {
+  background: linear-gradient(
+    165deg,
+    rgba(255, 255, 255, 0.22) 0%,
+    rgba(255, 255, 255, 0) 38%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  opacity: 0.55;
+  mix-blend-mode: soft-light;
+}
+
+.wind-cloud--back .wind-cloud__body {
+  opacity: 0.6;
+  background: radial-gradient(
+    ellipse 90% 75% at 50% 55%,
+    rgba(200, 210, 230, 0.5) 0%,
+    rgba(170, 190, 215, 0.22) 55%,
+    transparent 85%
+  );
+}
+
+.wind-cloud--back .wind-cloud__rim {
+  opacity: 0.25;
+}
+
+.wind-cloud--front .wind-cloud__bloom {
+  opacity: 0.75;
+}
+
+.wind-cloud--front .wind-cloud__body {
+  background: radial-gradient(
+    ellipse 88% 72% at 48% 46%,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(220, 230, 250, 0.6) 38%,
+    rgba(200, 215, 235, 0.28) 70%,
+    transparent 100%
+  );
+  opacity: 0.88;
 }
 
 @keyframes windDrift {
   0% {
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0) scale(1);
   }
   100% {
-    transform: translate3d(150vw, 0, 0);
+    transform: translate3d(140vw, 0, 0) scale(1.02);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .wind-cloud {
-    animation-duration: 240s !important;
+    animation-duration: 320s !important;
+    animation-timing-function: linear;
   }
 }

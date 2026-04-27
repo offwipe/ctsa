@@ -6,10 +6,11 @@ type CardFlipProps = {
   back: React.ReactNode
   flipped?: boolean
   onFlip?: (flipped: boolean) => void
+  className?: string
 }
 
 /** Cloze / flashcard flip layout. UI only; no content. */
-export function CardFlip({ front, back, flipped: controlled, onFlip }: CardFlipProps) {
+export function CardFlip({ front, back, flipped: controlled, onFlip, className = '' }: CardFlipProps) {
   const [internal, setInternal] = useState(false)
   const flipped = controlled ?? internal
   const setFlipped = (v: boolean) => {
@@ -19,7 +20,7 @@ export function CardFlip({ front, back, flipped: controlled, onFlip }: CardFlipP
 
   return (
     <div
-      className={'card-flip' + (flipped ? ' card-flip--flipped' : '')}
+      className={'card-flip' + (flipped ? ' card-flip--flipped' : '') + (className ? ' ' + className : '')}
       onClick={() => setFlipped(!flipped)}
       role="button"
       tabIndex={0}

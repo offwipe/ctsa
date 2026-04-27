@@ -1,7 +1,22 @@
+/* Slightly wider main column when on Flashcards (parent is .app-main-inner) */
+.app-main-inner:has(.flashcards-page) {
+  max-width: min(1180px, 96vw);
+}
+
+.flashcards-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  width: 100%;
+}
+
+/* ── Setup / summary: breathable grid ── */
+
 .flashcards-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+  grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
   gap: var(--space-6);
+  align-items: start;
 }
 
 .flashcards-setup-grid,
@@ -25,13 +40,37 @@
   padding: var(--space-2) 0;
 }
 
+/* ── Study: fill vertical space, stage + rail ── */
+
+.flashcards-study {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: min(calc(100dvh - 6.5rem), 920px);
+  gap: var(--space-4);
+}
+
 .flashcards-study-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: var(--space-5);
   flex-wrap: wrap;
-  margin-bottom: var(--space-5);
+  flex-shrink: 0;
+}
+
+.flashcards-study-header .screen-description {
+  max-width: 56ch;
+  margin-bottom: 0;
+}
+
+.flashcards-study-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
+  gap: var(--space-6);
+  flex: 1;
+  min-height: 0;
+  align-items: stretch;
 }
 
 .flashcards-study-meta {
@@ -54,7 +93,30 @@
 .flashcards-summary-surface {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: var(--space-5);
+  min-width: 0;
+}
+
+.flashcards-card-wrap {
+  flex: 1;
+  min-height: 0;
+  justify-content: center;
+}
+
+.flashcards-study .flashcards-card-flip,
+.flashcards-study .flashcards-card-flip .card-flip-inner {
+  min-height: clamp(18rem, 52vh, 36rem);
+}
+
+.flashcards-study .flashcards-card-face {
+  min-height: 0;
+  max-height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: clamp(var(--space-4), 2vw, var(--space-6));
+  gap: var(--space-4);
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .flashcards-card-face {
@@ -79,10 +141,13 @@
 .flashcards-card-copy {
   margin: 0;
   color: var(--text-primary);
-  font-size: clamp(1.15rem, 1.6vw, 1.35rem);
+  font-size: clamp(1.2rem, 1.1rem + 0.6vw, 1.45rem);
   line-height: 1.7;
   text-align: left;
-  letter-spacing: -0.005em;
+  letter-spacing: -0.01em;
+  max-width: 52ch;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .flashcards-card-hint {
@@ -92,6 +157,15 @@
   width: 100%;
   font-style: italic;
   color: var(--text-secondary);
+}
+
+.flashcards-deck-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--space-2);
+  padding-top: var(--space-2);
 }
 
 .flashcards-star,
@@ -132,7 +206,7 @@
 }
 
 .flashcards-rating {
-  min-height: 52px;
+  min-height: 48px;
   padding: 0 var(--space-4);
   cursor: pointer;
   font-weight: var(--font-medium);
@@ -171,9 +245,14 @@
   box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.4) inset;
 }
 
-@media (max-width: 1120px) {
-  .flashcards-grid {
+@media (max-width: 1100px) {
+  .flashcards-grid,
+  .flashcards-study-body {
     grid-template-columns: 1fr;
+  }
+
+  .flashcards-study {
+    min-height: 0;
   }
 }
 

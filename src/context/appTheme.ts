@@ -55,11 +55,17 @@ export type CustomizationState = {
   rainFallSpeed: number
   rainDropSize: number
   rainAngle: number
+  /** 0–45 mph; drives horizontal wind component (replaces static angle in UI). */
+  rainWindMph: number
+  /** 0–100; gust strength and turbulence on horizontal velocity. */
+  rainTurbulence: number
   rainColor: string
   rainGlow: boolean
   windCloudDensity: number
   windDriftSpeed: number
   windCloudOpacity: number
+  /** 0–100; subtle looped chimes under wind audio (separate from master volume). */
+  windChimeLevel: number
   windTone: number
   windHowlIntensity: number
 }
@@ -86,7 +92,7 @@ export const defaultSettings: CustomizationState = {
   ambienceIntensity: 50,
   ambienceSpread: 50,
   ambienceSoftness: 50,
-  ambientFrameEnabled: true,
+  ambientFrameEnabled: false,
   ambientBorderThickness: 6,
   ambientBorderStrength: 32,
   ambientMultiColor: true,
@@ -112,11 +118,14 @@ export const defaultSettings: CustomizationState = {
   rainFallSpeed: 50,
   rainDropSize: 30,
   rainAngle: 12,
+  rainWindMph: 8,
+  rainTurbulence: 36,
   rainColor: '#a8c4e8',
   rainGlow: true,
   windCloudDensity: 36,
-  windDriftSpeed: 40,
+  windDriftSpeed: 14,
   windCloudOpacity: 32,
+  windChimeLevel: 28,
   windTone: 40,
   windHowlIntensity: 35,
 }
@@ -400,6 +409,19 @@ function migrateSettings(raw: Partial<CustomizationState> & Record<string, unkno
   }
   if (raw.winterFrameEnabled && merged.atmosphereMode === 'off') {
     merged.atmosphereMode = 'snow'
+  }
+  const rawPartial = raw as Partial<CustomizationState> & { rainWindMph?: number; rainTurbulence?: number; windChimeLevel?: number }
+  if (typeof rawPartial.rainWindMph !== 'number' || Number.isNaN(rawPartial.rainWindMph)) {
+    const a = Number(raw.rainAngle)
+    merged.rainWindMph = Number.isFinite(a)
+      ? Math.min(45, Math.max(0, Math.round(6 + (Math.abs(a) / 30) * 32)))
+      : defaultSettings.rainWindMph
+  }
+  if (typeof rawPartial.rainTurbulence !== 'number' || Number.isNaN(rawPartial.rainTurbulence)) {
+    merged.rainTurbulence = defaultSettings.rainTurbulence
+  }
+  if (typeof rawPartial.windChimeLevel !== 'number' || Number.isNaN(rawPartial.windChimeLevel)) {
+    merged.windChimeLevel = defaultSettings.windChimeLevel
   }
   return merged
 }

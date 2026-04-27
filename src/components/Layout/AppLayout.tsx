@@ -106,6 +106,7 @@ export function AppLayout() {
     enabled: s.atmosphereAudioEnabled,
     mode: s.atmosphereMode,
     volume: s.atmosphereVolume,
+    windChimeLevel: s.windChimeLevel,
   })
 
   const sidebarRight = s.sidebarPosition === 'right'
@@ -156,6 +157,8 @@ export function AppLayout() {
           fallSpeed={s.rainFallSpeed}
           dropSize={s.rainDropSize}
           angle={s.rainAngle}
+          windMph={s.rainWindMph}
+          turbulence={s.rainTurbulence}
           rainColor={s.rainColor}
           glow={s.rainGlow}
         />

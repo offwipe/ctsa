@@ -10,7 +10,8 @@
  *     procedural synth built from filtered noise. Always-on, completely free,
  *     and gives a believable rain / wind bed.
  *
- * Mode swaps crossfade over 600ms to avoid hard cuts.
+ * Mode swaps use asymmetric crossfades (faster duck-out, slower fade-in).
+ * Optional `/audio/wind-chime.ogg` layers under wind with slow gain breathing.
  */
 
 import type { AtmosphereMode } from '../context/appTheme'
@@ -22,7 +23,10 @@ const ASSET_URLS: Record<ActiveMode, string> = {
   wind: '/audio/wind-loop.ogg',
 }
 
-const FADE_SECONDS = 0.6
+const CHIME_URL = '/audio/wind-chime.ogg'
+
+const FADE_OUT = 0.95
+const FADE_IN = 1.25
 
 type ModeNodes = {
   output: GainNode
@@ -35,6 +39,9 @@ class AtmosphereEngine {
   private currentMode: ActiveMode | null = null
   private currentNodes: ModeNodes | null = null
   private bufferCache: Partial<Record<ActiveMode, AudioBuffer | null>> = {}
+  private chimeBuffer: AudioBuffer | null = null
+  private chimeLoadAttempted = false
+  private chimeGain: GainNode | null = null
   private targetVolume = 0
   private enabled = true
 
@@ -104,14 +111,14 @@ class AtmosphereEngine {
     const now = ctx.currentTime
     nodes.output.gain.cancelScheduledValues(now)
     nodes.output.gain.setValueAtTime(0, now)
-    nodes.output.gain.linearRampToValueAtTime(1, now + FADE_SECONDS)
+    nodes.output.gain.linearRampToValueAtTime(1, now + FADE_IN)
 
     if (previous) {
       const t = ctx.currentTime
       previous.output.gain.cancelScheduledValues(t)
       previous.output.gain.setValueAtTime(previous.output.gain.value, t)
-      previous.output.gain.linearRampToValueAtTime(0, t + FADE_SECONDS)
-      window.setTimeout(() => previous.cleanup(), (FADE_SECONDS + 0.2) * 1000)
+      previous.output.gain.linearRampToValueAtTime(0, t + FADE_OUT)
+      window.setTimeout(() => previous.cleanup(), (FADE_OUT + 0.25) * 1000)
     }
   }
 
@@ -121,9 +128,18 @@ class AtmosphereEngine {
     const t = this.ctx.currentTime
     previous.output.gain.cancelScheduledValues(t)
     previous.output.gain.setValueAtTime(previous.output.gain.value, t)
-    previous.output.gain.linearRampToValueAtTime(0, t + FADE_SECONDS)
-    window.setTimeout(() => previous.cleanup(), (FADE_SECONDS + 0.2) * 1000)
+    previous.output.gain.linearRampToValueAtTime(0, t + FADE_OUT)
+    window.setTimeout(() => previous.cleanup(), (FADE_OUT + 0.25) * 1000)
     this.currentNodes = null
+  }
+
+  /** 0–1 mix for wind chime layer (only while wind mode is active). */
+  setWindChimeLevel(level: number) {
+    const g = Math.max(0, Math.min(1, level)) * 0.42
+    if (!this.chimeGain || !this.ctx) return
+    const now = this.ctx.currentTime
+    this.chimeGain.gain.cancelScheduledValues(now)
+    this.chimeGain.gain.setTargetAtTime(g, now, 0.12)
   }
 
   private async createNodesFor(mode: ActiveMode): Promise<ModeNodes> {
@@ -131,6 +147,10 @@ class AtmosphereEngine {
     const output = ctx.createGain()
     output.gain.value = 0
     if (this.master) output.connect(this.master)
+
+    if (mode === 'wind') {
+      return this.createWindModeNodes(ctx, output)
+    }
 
     const buffer = await this.loadBuffer(mode)
     if (buffer) {
@@ -153,7 +173,87 @@ class AtmosphereEngine {
       }
     }
 
-    return mode === 'rain' ? createRainSynth(ctx, output) : createWindSynth(ctx, output)
+    return createRainSynth(ctx, output)
+  }
+
+  private async createWindModeNodes(ctx: AudioContext, output: GainNode): Promise<ModeNodes> {
+    const buffer = await this.loadBuffer('wind')
+    if (buffer) {
+      const source = ctx.createBufferSource()
+      source.buffer = buffer
+      source.loop = true
+      source.connect(output)
+      source.start()
+      const chimeCleanup = await this.attachWindChime(ctx, output)
+      return {
+        output,
+        cleanup: () => {
+          try {
+            source.stop()
+          } catch {
+            // ignore
+          }
+          source.disconnect()
+          chimeCleanup?.()
+          this.chimeGain = null
+          output.disconnect()
+        },
+      }
+    }
+
+    const wind = createWindSynth(ctx, output)
+    const chimeCleanup = await this.attachWindChime(ctx, output)
+    return {
+      output: wind.output,
+      cleanup: () => {
+        wind.cleanup()
+        chimeCleanup?.()
+        this.chimeGain = null
+      },
+    }
+  }
+
+  private async attachWindChime(ctx: AudioContext, bus: GainNode): Promise<(() => void) | null> {
+    const buf = await this.loadChimeBuffer()
+    if (!buf) return null
+
+    const source = ctx.createBufferSource()
+    source.buffer = buf
+    source.loop = true
+    const cg = ctx.createGain()
+    cg.gain.value = 0
+    this.chimeGain = cg
+
+    source.connect(cg).connect(bus)
+    source.start()
+
+    return () => {
+      try {
+        source.stop()
+      } catch {
+        // ignore
+      }
+      source.disconnect()
+      cg.disconnect()
+      this.chimeGain = null
+    }
+  }
+
+  private async loadChimeBuffer(): Promise<AudioBuffer | null> {
+    if (this.chimeBuffer) return this.chimeBuffer
+    if (this.chimeLoadAttempted) return null
+    this.chimeLoadAttempted = true
+    const ctx = this.ensureContext()
+    try {
+      const response = await fetch(CHIME_URL)
+      if (!response.ok) return null
+      const data = await response.arrayBuffer()
+      const buffer = await ctx.decodeAudioData(data)
+      this.chimeBuffer = buffer
+      return buffer
+    } catch {
+      return null
+    }
   }
 
   private async loadBuffer(mode: ActiveMode): Promise<AudioBuffer | null> {
@@ -182,7 +282,7 @@ class AtmosphereEngine {
       const ctx = this.ctx
       window.setTimeout(() => {
         ctx.close().catch(() => undefined)
-      }, (FADE_SECONDS + 0.4) * 1000)
+      }, (FADE_IN + 0.5) * 1000)
     }
     this.ctx = null
     this.master = null

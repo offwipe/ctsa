@@ -160,7 +160,7 @@ export function FlashcardsScreen() {
 
   if (state.phase === 'setup') {
     return (
-      <>
+      <div className="flashcards-page">
         <div className="screen-kicker">Recall Loop</div>
         <h1 className="screen-title">Flashcards</h1>
         <p className="screen-description">
@@ -229,13 +229,13 @@ export function FlashcardsScreen() {
             </div>
           </div>
         </div>
-      </>
+      </div>
     )
   }
 
   if (state.phase === 'summary') {
     return (
-      <>
+      <div className="flashcards-page">
         <div className="screen-kicker">Deck Summary</div>
         <h1 className="screen-title">Flashcards</h1>
         <p className="screen-description">Review the deck outcome, then replay weak cards or start a fresh run.</p>
@@ -251,12 +251,13 @@ export function FlashcardsScreen() {
             </div>
           </div>
         </div>
-      </>
+      </div>
     )
   }
 
   return (
-    <>
+    <div className="flashcards-page">
+      <div className="flashcards-study">
       <div className="screen-kicker">Study Deck</div>
       <div className="flashcards-study-header">
         <div>
@@ -271,9 +272,10 @@ export function FlashcardsScreen() {
         </div>
       </div>
 
-      <div className="flashcards-grid">
+      <div className="flashcards-study-body">
         <div className="flashcards-card-wrap">
           <CardFlip
+            className="flashcards-card-flip"
             flipped={state.flipped}
             onFlip={(flipped) => setState((previous) => ({ ...previous, flipped }))}
             front={
@@ -293,20 +295,21 @@ export function FlashcardsScreen() {
           />
         </div>
 
-        <div className="flashcards-side-stack">
-          <Section title="Self Rating" badge="Persisted" description="Use simple mastery labels for v1 and keep progress locally between launches.">
+        <aside className="flashcards-side-stack">
+          <Section title="Self rating" badge="Persisted" description="Mastery tags stay on this device between sessions.">
             <div className="flashcards-rating-grid">
               <button type="button" className="flashcards-rating flashcards-rating--again" onClick={() => rateCard('again')}>Again</button>
               <button type="button" className="flashcards-rating flashcards-rating--reviewing" onClick={() => rateCard('reviewing')}>Reviewing</button>
               <button type="button" className="flashcards-rating flashcards-rating--known" onClick={() => rateCard('known')}>Known</button>
             </div>
-            <div className="exam-review-actions">
+            <div className="flashcards-deck-nav">
               <button type="button" className="exam-nav-button" onClick={previousCard} disabled={state.current === 0}>Previous</button>
               <button type="button" className="exam-nav-button exam-nav-button--primary" onClick={nextCard}>Next</button>
             </div>
           </Section>
-        </div>
+        </aside>
       </div>
-    </>
+      </div>
+    </div>
   )
 }

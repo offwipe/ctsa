@@ -258,7 +258,7 @@ export function SettingsScreen() {
         title="Ambient Frame"
         badge="Edge Light"
         badgeVariant="accent"
-        description="A soft inset halo around the shell. Designed to feel like a luminous edge, not a thick frame."
+        description="A soft inset halo around the shell. Off by default — turn on only when you want a visible edge. Presets do not change this; it stays your choice."
       >
         <SettingsRow label="Enable Ambient Frame">
           <Toggle
@@ -267,6 +267,8 @@ export function SettingsScreen() {
             aria-label="Enable Ambient Frame"
           />
         </SettingsRow>
+        {s.ambientFrameEnabled && (
+        <>
         <SettingsRow label="Style" description="How the edge light moves over time.">
           <Dropdown
             value={s.ambientBorderStyle}
@@ -322,6 +324,8 @@ export function SettingsScreen() {
           <SettingsRow label="Frame color">
             <ColorPicker value={s.ambientFrameColor} onChange={(v) => updateSetting('ambientFrameColor', v)} />
           </SettingsRow>
+        )}
+        </>
         )}
         <ResetButton label="Reset ambient defaults" onClick={resetAmbientFrame} />
       </Section>
@@ -425,11 +429,18 @@ export function SettingsScreen() {
                 valueLabel={`${s.rainDropSize}%`}
               />
             </SettingsRow>
-            <SettingsRow label="Angle" description="How tilted the rain falls. 0 is straight down.">
+            <SettingsRow label="Wind (mph)" description="Horizontal push on drops (0 = vertical fall).">
               <Slider
-                value={s.rainAngle} min={-30} max={30}
-                onChange={(v) => updateSetting('rainAngle', v)}
-                valueLabel={`${s.rainAngle}°`}
+                value={s.rainWindMph} min={0} max={45}
+                onChange={(v) => updateSetting('rainWindMph', v)}
+                valueLabel={`${s.rainWindMph} mph`}
+              />
+            </SettingsRow>
+            <SettingsRow label="Turbulence" description="Gusts and random shear — higher feels windier.">
+              <Slider
+                value={s.rainTurbulence} min={0} max={100}
+                onChange={(v) => updateSetting('rainTurbulence', v)}
+                valueLabel={`${s.rainTurbulence}%`}
               />
             </SettingsRow>
             <SettingsRow label="Drop glow">
@@ -454,11 +465,19 @@ export function SettingsScreen() {
                 valueLabel={`${s.windCloudDensity}%`}
               />
             </SettingsRow>
-            <SettingsRow label="Drift speed" description="How fast the clouds glide across.">
+            <SettingsRow label="Drift speed" description="How fast layers glide. Default is slow and calm.">
               <Slider
                 value={s.windDriftSpeed} min={0} max={100}
                 onChange={(v) => updateSetting('windDriftSpeed', v)}
                 valueLabel={`${s.windDriftSpeed}%`}
+              />
+            </SettingsRow>
+            <SettingsRow label="Chime bed" description="Subtle chimes under wind (add wind-chime.ogg in public/audio).">
+              <Slider
+                value={s.windChimeLevel} min={0} max={100}
+                onChange={(v) => updateSetting('windChimeLevel', v)}
+                valueLabel={`${s.windChimeLevel}%`}
+                disabled={!s.atmosphereAudioEnabled}
               />
             </SettingsRow>
             <SettingsRow label="Cloud opacity" description="How visible the clouds are.">
