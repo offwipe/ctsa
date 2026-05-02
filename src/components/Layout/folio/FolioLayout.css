@@ -98,6 +98,9 @@
 
 .folio-stage__inner {
   max-width: 760px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 @media (max-width: 900px) {

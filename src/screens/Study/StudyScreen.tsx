@@ -65,6 +65,12 @@ function pickPool(certification: CertificationId, deck: string | 'all'): Flashca
   return cards.filter((card) => card.deck === deck)
 }
 
+/** Whole seconds remaining for the Blitz HUD (synced with wall-clock timer bar) */
+function blitzDisplaySeconds(remainingMs: number): number {
+  if (remainingMs <= 0) return 0
+  return Math.max(0, Math.floor((remainingMs - 1) / 1000) + 1)
+}
+
 export function StudyScreen() {
   const [phase, setPhase] = useState<Phase>('setup')
   const [certification, setCertification] = useState<CertificationId>('a-plus')
@@ -79,11 +85,13 @@ export function StudyScreen() {
   const [mastered, setMastered] = useState(0)
   const [missed, setMissed] = useState(0)
   const [results, setResults] = useState<RoundResult[]>([])
-  const [secondsLeft, setSecondsLeft] = useState(0)
+  /** Remaining time for the current card (wall-clock), when Blitz timer is active */
+  const [timerMsLeft, setTimerMsLeft] = useState(0)
   const [startTime, setStartTime] = useState(0)
   const [roundEndTime, setRoundEndTime] = useState(0)
 
-  const tickRef = useRef<number | null>(null)
+  const tickRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const timerDeadlineRef = useRef(0)
   const pack = useMemo(() => getCertificationPack(certification), [certification])
   const decks = pack.flashcards.decks
   const availablePool = useMemo(() => pickPool(certification, deck), [certification, deck])
@@ -98,18 +106,17 @@ export function StudyScreen() {
   const startTimer = useCallback(() => {
     stopTimer()
     if (timerSeconds <= 0) return
-    setSecondsLeft(timerSeconds)
+    const totalMs = timerSeconds * 1000
+    timerDeadlineRef.current = Date.now() + totalMs
+    setTimerMsLeft(totalMs)
     tickRef.current = window.setInterval(() => {
-      setSecondsLeft((prev) => {
-        if (prev <= 1) {
-          window.clearInterval(tickRef.current!)
-          tickRef.current = null
-          setRevealed(true)
-          return 0
-        }
-        return prev - 1
-      })
-    }, 1000)
+      const ms = Math.max(0, timerDeadlineRef.current - Date.now())
+      setTimerMsLeft(ms)
+      if (ms <= 0) {
+        stopTimer()
+        setRevealed(true)
+      }
+    }, 50)
   }, [stopTimer, timerSeconds])
 
   useEffect(() => () => stopTimer(), [stopTimer])
@@ -302,7 +309,8 @@ export function StudyScreen() {
     const progress = total === 0 ? 0 : (results.filter((r) => r.hit).length / total) * 100
     const card = cardEntry.card
     const timerActive = timerSeconds > 0 && !revealed
-    const timerRatio = timerSeconds > 0 ? secondsLeft / timerSeconds : 0
+    const timerRatio = timerSeconds > 0 ? timerMsLeft / (timerSeconds * 1000) : 0
+    const displaySeconds = blitzDisplaySeconds(timerMsLeft)
 
     return (
       <>
@@ -341,9 +349,9 @@ export function StudyScreen() {
           <div className="blitz-timer-line" aria-hidden>
             <div
               className="blitz-timer-fill"
-              style={{ transform: `scaleX(${Math.max(0, Math.min(1, timerRatio))})` }}
+              style={{ width: `${Math.max(0, Math.min(1, timerRatio)) * 100}%` }}
             />
-            <span className="blitz-timer-label">{secondsLeft}s</span>
+            <span className="blitz-timer-label">{displaySeconds}s</span>
           </div>
         )}
 

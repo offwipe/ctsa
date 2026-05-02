@@ -229,43 +229,67 @@ export function PBQScreen() {
 
   if (state.phase === 'review') {
     return (
-      <>
-        <div className="screen-kicker">Scenario Review</div>
-        <h1 className="screen-title">PBQ Practice</h1>
-        <p className="screen-description">Check the placement results, read the explanation, and retry the scenario if needed.</p>
+      <div className="pbq-review-page">
+        <header className="pbq-review-header">
+          <div className="screen-kicker">Scenario Review</div>
+          <h1 className="screen-title">PBQ Practice</h1>
+          <p className="screen-description pbq-review-lede">
+            Review each placement against the solution. Scenario prompt and explanation are below for full context.
+          </p>
+        </header>
 
-        <div className="pbq-grid">
-          <div className="screen-preview-card pbq-review-score">
+        <section className="pbq-review-score-band" aria-labelledby="pbq-review-score-heading">
+          <div id="pbq-review-score-heading" className="pbq-review-score-card screen-preview-card">
             <div className="exam-score-number">{score}/{scenario.items.length}</div>
             <div className="exam-score-caption">Correct placements</div>
-            <div className="exam-score-meta">{scenario.topic} • {scenario.type}</div>
-            <div className="exam-review-actions">
+            <div className="exam-score-meta">{scenario.topic} · {scenario.type}</div>
+            <div className="pbq-review-actions">
               <PrimaryButton onClick={retryScenario}>Retry Scenario</PrimaryButton>
               <button type="button" className="exam-nav-button" onClick={backToSetup}>Back to setup</button>
             </div>
           </div>
+        </section>
 
-          <Section title="Scenario Explanation" badge="Reviewed" description={scenario.prompt}>
-            <p className="pbq-explanation">{scenario.explanation}</p>
-            <div className="pbq-review-grid">
-              {scenario.items.map((item) => {
-                const expected = String(scenario.solution[item.id])
-                const actual = state.placements[item.id]
-                const correct = expected === actual
-                const targetLabel = scenario.targets.find((target) => target.id === actual)?.label ?? 'Unplaced'
-                const expectedLabel = scenario.targets.find((target) => target.id === expected)?.label ?? expected
-                return (
-                  <div key={item.id} className={'pbq-review-card' + (correct ? ' pbq-review-card--correct' : ' pbq-review-card--wrong')}>
-                    <p className="pbq-review-title">{item.label}</p>
-                    <p className="pbq-review-copy">Placed: {targetLabel}</p>
-                    {!correct && <p className="pbq-review-copy">Expected: {expectedLabel}</p>}
+        <section className="pbq-review-section pbq-review-section--prompt">
+          <h2 className="pbq-review-heading">Scenario</h2>
+          <p className="pbq-review-prose">{scenario.prompt}</p>
+        </section>
+
+        <section className="pbq-review-section">
+          <h2 className="pbq-review-heading">Explanation</h2>
+          <p className="pbq-review-explanation">{scenario.explanation}</p>
+        </section>
+
+        <section className="pbq-review-section">
+          <h2 className="pbq-review-heading">Placement breakdown</h2>
+          <ul className="pbq-review-item-list">
+            {scenario.items.map((item) => {
+              const expected = String(scenario.solution[item.id])
+              const actual = state.placements[item.id]
+              const correct = expected === actual
+              const targetLabel = scenario.targets.find((target) => target.id === actual)?.label ?? 'Unplaced'
+              const expectedLabel = scenario.targets.find((target) => target.id === expected)?.label ?? expected
+              return (
+                <li
+                  key={item.id}
+                  className={'pbq-review-item-row' + (correct ? ' pbq-review-item-row--correct' : ' pbq-review-item-row--wrong')}
+                >
+                  <div className="pbq-review-item-label">{item.label}</div>
+                  <div className="pbq-review-item-meta">
+                    <span className="pbq-review-item-kicker">{correct ? 'Correct' : 'Review'}</span>
+                    <div className="pbq-review-item-lines">
+                      <p><span className="pbq-review-muted">Your placement:</span> {targetLabel}</p>
+                      {!correct && (
+                        <p><span className="pbq-review-muted">Expected:</span> {expectedLabel}</p>
+                      )}
+                    </div>
                   </div>
-                )
-              })}
-            </div>
-          </Section>
-        </div>
-      </>
+                </li>
+              )
+            })}
+          </ul>
+        </section>
+      </div>
     )
   }
 

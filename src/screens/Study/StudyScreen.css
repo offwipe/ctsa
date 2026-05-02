@@ -232,10 +232,12 @@
 
 .blitz-timer-fill {
   position: absolute;
-  inset: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  height: 100%;
   background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 60%, white 40%), var(--accent));
   transform-origin: left center;
-  transition: transform 1000ms linear;
   border-radius: var(--radius-full);
   box-shadow: 0 0 12px var(--btn-glow, transparent);
 }

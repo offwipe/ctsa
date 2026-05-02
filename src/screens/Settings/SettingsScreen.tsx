@@ -147,7 +147,10 @@ export function SettingsScreen() {
             aria-label="Dark mode"
           />
         </SettingsRow>
-        <SettingsRow label="Accent color">
+        <SettingsRow
+          label="Accent color"
+          description="Theme tint for focus rings, progress and meter fills, section badges, links, and subtle highlights. Primary click targets use “Button color” below."
+        >
           <ColorPicker value={s.accentColor} onChange={(v) => updateSetting('accentColor', v)} />
         </SettingsRow>
         <SettingsRow label="Accent intensity" description="Strength of accent color in UI elements.">

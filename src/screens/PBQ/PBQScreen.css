@@ -6,14 +6,12 @@
 
 .pbq-setup-grid,
 .pbq-mode-grid,
-.pbq-target-grid,
-.pbq-review-grid {
+.pbq-target-grid {
   display: grid;
   gap: var(--space-4);
 }
 
-.pbq-mode-grid,
-.pbq-review-grid {
+.pbq-mode-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
@@ -25,7 +23,157 @@
 }
 
 .pbq-meta,
-.pbq-explanation,
+.pbq-explanation {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+}
+
+/* ─── Scenario Review (full-width, readable on every layout preset) ─── */
+.pbq-review-page {
+  width: 100%;
+  max-width: 52rem;
+  margin: 0 auto;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.pbq-review-header {
+  margin-bottom: var(--space-5);
+}
+
+.pbq-review-lede {
+  max-width: 42rem;
+}
+
+.pbq-review-score-band {
+  margin-bottom: var(--space-6);
+}
+
+.pbq-review-score-card.pbq-review-score-card {
+  align-items: stretch;
+  text-align: center;
+}
+
+.pbq-review-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  justify-content: center;
+  margin-top: var(--space-2);
+}
+
+.pbq-review-section {
+  margin-bottom: var(--space-6);
+  min-width: 0;
+}
+
+.pbq-review-heading {
+  margin: 0 0 var(--space-3);
+  font-size: 0.72rem;
+  font-weight: var(--font-bold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.pbq-review-prose,
+.pbq-review-explanation {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--text-primary);
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+.pbq-review-explanation {
+  padding: var(--space-4) var(--space-5);
+  border-radius: calc(var(--radius-lg) + 2px);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+}
+
+.pbq-review-item-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.pbq-review-item-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  border-radius: calc(var(--radius-lg) + 2px);
+  border: 1px solid var(--border);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)),
+    var(--bg-card);
+  min-width: 0;
+}
+
+@media (min-width: 640px) {
+  .pbq-review-item-row {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr);
+    align-items: start;
+  }
+}
+
+.pbq-review-item-row--correct {
+  box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.15) inset;
+}
+
+.pbq-review-item-row--wrong {
+  box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.15) inset;
+}
+
+.pbq-review-item-label {
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.pbq-review-item-meta {
+  min-width: 0;
+}
+
+.pbq-review-item-kicker {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: var(--font-bold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: var(--space-2);
+}
+
+.pbq-review-item-lines {
+  font-size: var(--text-sm);
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+.pbq-review-item-lines p {
+  margin: 0 0 var(--space-2);
+}
+
+.pbq-review-item-lines p:last-child {
+  margin-bottom: 0;
+}
+
+.pbq-review-muted {
+  color: var(--text-muted);
+  font-weight: var(--font-medium);
+}
+
 .pbq-review-copy {
   color: var(--text-secondary);
   font-size: var(--text-sm);
@@ -188,8 +336,7 @@
   border-color: var(--accent);
 }
 
-.pbq-target-label,
-.pbq-review-title {
+.pbq-target-label {
   margin: 0;
   color: var(--text-primary);
   font-size: var(--text-sm);
@@ -207,30 +354,6 @@
   color: var(--text-muted);
   font-size: var(--text-sm);
   pointer-events: none;
-}
-
-.pbq-review-score {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: var(--space-3);
-}
-
-.pbq-review-card {
-  padding: var(--space-4);
-  border-radius: calc(var(--radius-lg) + 2px);
-  border: 1px solid var(--border);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)),
-    var(--bg-card);
-}
-
-.pbq-review-card--correct {
-  box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.18) inset;
-}
-
-.pbq-review-card--wrong {
-  box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.18) inset;
 }
 
 .pbq-drag-ghost {
@@ -270,8 +393,7 @@ body.pbq-dragging-cursor * {
 }
 
 @media (max-width: 720px) {
-  .pbq-mode-grid,
-  .pbq-review-grid {
+  .pbq-mode-grid {
     grid-template-columns: 1fr;
   }
 }
