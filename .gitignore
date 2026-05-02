@@ -33,5 +33,7 @@ latest.json
 # Generated distribution bundle (see scripts/sync-windows-bundle.mjs)
 bundle/
 
-# Local reference / scratch exports
-.ref/
+# Local UI reference screenshots / mockups (optional; not needed for builds)
+*-ui.png
+*-final.png
+

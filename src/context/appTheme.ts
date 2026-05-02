@@ -45,7 +45,6 @@ export type CustomizationState = {
   glowIntensity: number
   borderOpacity: number
   cornerRoundness: number
-  liveModeTransitions: boolean
   animationIntensity: number
   shadowSoftness: number
   hoverLift: number
@@ -109,7 +108,6 @@ export const defaultSettings: CustomizationState = {
   glowIntensity: 46,
   borderOpacity: 18,
   cornerRoundness: 26,
-  liveModeTransitions: true,
   animationIntensity: 42,
   shadowSoftness: 66,
   hoverLift: 28,
@@ -429,7 +427,9 @@ const LEGACY_AMBIENT_STYLE_MAP: Record<string, AmbientBorderStyle> = {
 }
 
 function migrateSettings(raw: Partial<CustomizationState> & Record<string, unknown>): CustomizationState {
-  const merged: CustomizationState = { ...defaultSettings, ...(raw as CustomizationState) }
+  const rawClean = { ...raw }
+  delete (rawClean as Record<string, unknown>).liveModeTransitions
+  const merged: CustomizationState = { ...defaultSettings, ...(rawClean as Partial<CustomizationState>) }
   const incomingStyle = (raw.ambientBorderStyle ?? merged.ambientBorderStyle) as string
   if (LEGACY_AMBIENT_STYLE_MAP[incomingStyle]) {
     merged.ambientBorderStyle = LEGACY_AMBIENT_STYLE_MAP[incomingStyle]

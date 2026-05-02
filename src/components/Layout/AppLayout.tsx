@@ -105,7 +105,7 @@ export function AppLayout() {
       '--ambience-intensity': `${s.ambienceIntensity / 100}`,
       '--ambience-spread': `${Math.round(spreadPct)}%`,
       '--ambience-softness': `${(0.6 + softBase * 0.4).toFixed(2)}`,
-      transitionDuration: s.liveModeTransitions ? '220ms' : '0ms',
+      transitionDuration: '0ms',
     } as React.CSSProperties
   }, [s])
 

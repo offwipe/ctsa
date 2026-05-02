@@ -67,3 +67,5 @@ Configure signing, publish installers to GitHub Releases, and attach the updater
 
 - **`src/`** — React front end (routes, screens, layout, UI components, study data)
 - **`src-tauri/`** — Tauri v2 shell (Rust), updater, windowing
+
+Optional screenshot-style PNGs in the project root (`*-ui.png`, `*-final.png`) are listed in `.gitignore` so they can stay on your machine without being part of the repository. They are not used by builds.

@@ -1,7 +1,12 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Section } from './ui/Section'
 import { PrimaryButton } from './ui/PrimaryButton'
+import { GITHUB_RELEASES_LATEST_API } from '../config/githubRelease'
 import './UpdaterSection.css'
+
+function normalizeReleaseTag(tag: string): string {
+  return tag.trim().replace(/^v/i, '')
+}
 
 export function UpdaterSection() {
   const [status, setStatus] = useState<'idle' | 'checking' | 'update-available' | 'downloading' | 'ready' | 'no-update' | 'error'>('idle')
@@ -11,6 +16,67 @@ export function UpdaterSection() {
   const [updateDate, setUpdateDate] = useState<string>('')
   const [errorMessage, setErrorMessage] = useState<string>('')
   const [downloadProgress, setDownloadProgress] = useState<number>(0)
+  const [latestTag, setLatestTag] = useState<string>('')
+  const [latestName, setLatestName] = useState<string>('')
+  const [latestDate, setLatestDate] = useState<string>('')
+  const [latestUrl, setLatestUrl] = useState<string>('')
+  const [latestLoadFailed, setLatestLoadFailed] = useState(false)
+
+  const appVersion = import.meta.env.VITE_APP_VERSION
+  const displayVersion = currentVersion || appVersion
+
+  const inTauri = typeof window !== 'undefined' && !!(window as unknown as { __TAURI_INTERNALS__?: unknown }).__TAURI_INTERNALS__
+
+  useEffect(() => {
+    if (!inTauri) return
+    let cancelled = false
+    ;(async () => {
+      try {
+        const { getVersion } = await import('@tauri-apps/api/app')
+        const v = await getVersion()
+        if (!cancelled) setCurrentVersion(v)
+      } catch {
+        if (!cancelled) setCurrentVersion(appVersion)
+      }
+    })()
+    return () => {
+      cancelled = true
+    }
+  }, [inTauri, appVersion])
+
+  useEffect(() => {
+    let cancelled = false
+    fetch(GITHUB_RELEASES_LATEST_API, {
+      headers: {
+        Accept: 'application/vnd.github+json',
+        'X-GitHub-Api-Version': '2022-11-28',
+      },
+    })
+      .then((res) => {
+        if (!res.ok) throw new Error(String(res.status))
+        return res.json() as Promise<{ tag_name?: string; name?: string; published_at?: string; html_url?: string }>
+      })
+      .then((data) => {
+        if (cancelled || !data.tag_name) return
+        setLatestTag(data.tag_name)
+        setLatestName(data.name?.trim() ? data.name : data.tag_name)
+        setLatestUrl(data.html_url ?? '')
+        if (data.published_at) {
+          const d = new Date(data.published_at)
+          setLatestDate(Number.isNaN(d.getTime()) ? '' : d.toLocaleDateString(undefined, { dateStyle: 'medium' }))
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setLatestLoadFailed(true)
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  const matchesLatestPublished =
+    Boolean(latestTag && displayVersion) &&
+    normalizeReleaseTag(latestTag) === normalizeReleaseTag(displayVersion)
 
   const checkForUpdates = async () => {
     if (typeof window === 'undefined' || !(window as unknown as { __TAURI_INTERNALS__?: unknown }).__TAURI_INTERNALS__) {
@@ -82,25 +148,34 @@ export function UpdaterSection() {
     }
   }
 
-  const loadVersion = async () => {
-    try {
-      const { getVersion } = await import('@tauri-apps/api/app')
-      setCurrentVersion(await getVersion())
-    } catch {
-      setCurrentVersion('0.1.5')
-    }
-  }
-
-  if (typeof window !== 'undefined' && currentVersion === '' && (window as unknown as { __TAURI_INTERNALS__?: unknown }).__TAURI_INTERNALS__) {
-    loadVersion()
-  }
-
-  const inTauri = typeof window !== 'undefined' && !!(window as unknown as { __TAURI_INTERNALS__?: unknown }).__TAURI_INTERNALS__
-
   if (!inTauri && status === 'idle') {
     return (
       <Section title="Updates" description="When running as the desktop app, you can check for updates and install them here.">
-        <p className="updater-browser-hint">Open the installed .exe to use in-app updates.</p>
+        <div className="updater-release-meta">
+          <span className="updater-label">This build</span>
+          <span className="updater-version">{appVersion}</span>
+        </div>
+        {!latestLoadFailed && latestTag ? (
+          <p className="updater-github-note">
+            Latest release on GitHub:{' '}
+            {latestUrl ? (
+              <a href={latestUrl} target="_blank" rel="noreferrer" className="updater-release-link">
+                {latestTag}
+              </a>
+            ) : (
+              <strong>{latestTag}</strong>
+            )}
+            {latestDate ? ` · ${latestDate}` : ''}
+            {matchesLatestPublished ? (
+              <span className="updater-match">Same version as this web build.</span>
+            ) : null}
+          </p>
+        ) : latestLoadFailed ? (
+          <p className="updater-browser-hint">Could not load latest release from GitHub.</p>
+        ) : (
+          <p className="updater-browser-hint">Loading release info…</p>
+        )}
+        <p className="updater-browser-hint">Open the installed desktop app to use in-app updates.</p>
       </Section>
     )
   }
@@ -110,12 +185,35 @@ export function UpdaterSection() {
       title="Updates"
       description="Keep the app up to date. Updates are verified with a signature before installation."
     >
-      {currentVersion && (
-        <div className="updater-current">
-          <span className="updater-label">Current version</span>
-          <span className="updater-version">{currentVersion}</span>
+      <div className="updater-current">
+        <span className="updater-label">This app</span>
+        <span className="updater-version">{displayVersion}</span>
+      </div>
+
+      {!latestLoadFailed && latestTag ? (
+        <div className="updater-github-latest">
+          <span className="updater-label">Latest release</span>
+          <span className="updater-github-row">
+            {latestUrl ? (
+              <a href={latestUrl} target="_blank" rel="noreferrer" className="updater-release-link">
+                {latestTag}
+              </a>
+            ) : (
+              <strong>{latestTag}</strong>
+            )}
+            {latestName && latestName !== latestTag ? <span className="updater-release-name">{latestName}</span> : null}
+            {latestDate ? <span className="updater-release-date">{latestDate}</span> : null}
+          </span>
+          {matchesLatestPublished ? (
+            <span className="updater-match installer">This build matches the latest published release.</span>
+          ) : null}
         </div>
+      ) : latestLoadFailed ? (
+        <p className="updater-browser-hint">Could not load latest release from GitHub (offline or rate limit).</p>
+      ) : (
+        <p className="updater-browser-hint">Loading latest release…</p>
       )}
+
       <div className="updater-actions">
         {status === 'idle' && (
           <PrimaryButton onClick={checkForUpdates}>Check for updates</PrimaryButton>

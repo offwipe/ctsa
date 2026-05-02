@@ -138,7 +138,7 @@ export function SettingsScreen() {
         title="Theme"
         badge="Live"
         badgeVariant="accent"
-        description="Light/dark mode, accent color, glow, border, and transition controls."
+        description="Light/dark mode, accent color, glow, border, and related controls."
       >
         <SettingsRow label="Dark mode" description="Toggle between dark and light theme.">
           <Toggle
@@ -179,13 +179,6 @@ export function SettingsScreen() {
             value={s.cornerRoundness} min={0} max={38}
             onChange={(v) => updateSetting('cornerRoundness', v)}
             valueLabel={`${s.cornerRoundness}px`}
-          />
-        </SettingsRow>
-        <SettingsRow label="Mode transitions" description="Animate between light and dark mode.">
-          <Toggle
-            checked={s.liveModeTransitions}
-            onChange={(v) => updateSetting('liveModeTransitions', v)}
-            aria-label="Mode transitions"
           />
         </SettingsRow>
       </Section>

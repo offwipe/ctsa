@@ -1,11 +1,20 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { readFileSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
+import { dirname, join } from 'node:path'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
+const packageJson = JSON.parse(readFileSync(join(__dirname, 'package.json'), 'utf8')) as { version: string }
 
 const host = process.env.TAURI_DEV_HOST
 
 export default defineConfig({
   plugins: [react()],
   clearScreen: false,
+  define: {
+    'import.meta.env.VITE_APP_VERSION': JSON.stringify(packageJson.version),
+  },
   server: {
     port: 5173,
     strictPort: true,

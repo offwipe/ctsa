@@ -152,24 +152,45 @@ export function PomodoroScreen() {
     }
   }, [stopwatchRunning])
 
-  const handlePhaseComplete = () => {
+  const completeWorkPhase = (focusCreditSeconds: number | null) => {
     setRunning(false)
     playRinger(settings.ringer, settings.volume / 100)
+    if (focusCreditSeconds !== null && focusCreditSeconds > 0) {
+      setStats((prev) => recordSession(prev, focusCreditSeconds))
+    }
+    const newCount = completedWorkCycles + 1
+    setCompletedWorkCycles(newCount)
+    const nextPhase: Phase =
+      newCount % settings.cyclesBeforeLongBreak === 0 ? 'long-break' : 'short-break'
+    setPhase(nextPhase)
+    setSecondsLeft(phaseDuration(nextPhase, settings))
+    if (settings.autoCycle) setRunning(true)
+  }
 
+  const completeBreakPhase = () => {
+    setRunning(false)
+    playRinger(settings.ringer, settings.volume / 100)
+    setPhase('work')
+    setSecondsLeft(phaseDuration('work', settings))
+    if (settings.autoCycle) setRunning(true)
+  }
+
+  const handlePhaseComplete = () => {
     if (phase === 'work') {
-      const focusSeconds = settings.workMinutes * 60
-      setStats((prev) => recordSession(prev, focusSeconds))
-      const newCount = completedWorkCycles + 1
-      setCompletedWorkCycles(newCount)
-      const nextPhase: Phase =
-        newCount % settings.cyclesBeforeLongBreak === 0 ? 'long-break' : 'short-break'
-      setPhase(nextPhase)
-      setSecondsLeft(phaseDuration(nextPhase, settings))
-      if (settings.autoCycle) setRunning(true)
+      completeWorkPhase(settings.workMinutes * 60)
     } else {
-      setPhase('work')
-      setSecondsLeft(phaseDuration('work', settings))
-      if (settings.autoCycle) setRunning(true)
+      completeBreakPhase()
+    }
+  }
+
+  const skip = () => {
+    if (phase === 'work') {
+      const total = phaseDuration('work', settings)
+      const inFinalTenPercent = secondsLeft <= total * 0.1
+      const creditSeconds = inFinalTenPercent ? settings.workMinutes * 60 : null
+      completeWorkPhase(creditSeconds)
+    } else {
+      completeBreakPhase()
     }
   }
 
@@ -182,7 +203,6 @@ export function PomodoroScreen() {
     setRunning(false)
     setSecondsLeft(phaseDuration(phase, settings))
   }
-  const skip = () => handlePhaseComplete()
 
   const startPauseSW = () => setStopwatchRunning((r) => !r)
   const resetSW = () => { setStopwatchRunning(false); setStopwatchSeconds(0) }

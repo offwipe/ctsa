@@ -56,6 +56,7 @@ export function recordSession(
   prev: PomodoroStats,
   focusSeconds: number,
 ): PomodoroStats {
+  if (focusSeconds <= 0) return prev
   const today = todayKey()
   const isNewDay = prev.todayDate !== today
 
