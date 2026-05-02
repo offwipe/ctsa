@@ -1,0 +1,104 @@
+/* Lumin — ultra-thin icon rail (dashboard / analytics density) */
+
+.lumin-shell {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: row;
+  background: var(--lumin-bg, var(--bg-main));
+}
+
+.lumin-shell--rail-right {
+  flex-direction: row-reverse;
+}
+
+.lumin-rail {
+  width: 56px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 6px;
+  border-right: 1px solid var(--lumin-border, var(--border));
+  background: var(--lumin-rail-bg, var(--bg-panel));
+}
+
+.lumin-shell--rail-right .lumin-rail {
+  border-right: none;
+  border-left: 1px solid var(--lumin-border, var(--border));
+}
+
+.lumin-rail__btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  color: var(--text-secondary);
+  border: 1px solid transparent;
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  cursor: pointer;
+}
+
+.lumin-rail__btn:hover {
+  color: var(--text-primary);
+  background: var(--bg-hover);
+}
+
+.lumin-rail__btn--active {
+  color: var(--accent);
+  background: var(--accent-subtle);
+  border-color: var(--accent-border, transparent);
+}
+
+.lumin-rail__tip {
+  position: absolute;
+  left: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 5;
+  box-shadow: var(--shadow-card);
+}
+
+.lumin-shell--rail-right .lumin-rail__tip {
+  left: auto;
+  right: calc(100% + 10px);
+}
+
+@media (hover: hover) {
+  .lumin-rail__btn:hover .lumin-rail__tip {
+    opacity: 1;
+  }
+}
+
+.lumin-main {
+  flex: 1;
+  min-width: 0;
+  overflow: auto;
+  padding: clamp(1rem, 2.5vw, 2rem);
+}
+
+.lumin-main__inner {
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+@media (max-width: 640px) {
+  .lumin-rail__tip {
+    display: none;
+  }
+}

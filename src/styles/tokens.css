@@ -37,6 +37,33 @@
   --window-shadow-1: rgba(0, 0, 0, 0.4);
   --window-shadow-2: rgba(0, 0, 0, 0.25);
 
+  /* ScreenShell chrome (Classic defaults; presets override via layoutPresetContent + skins) */
+  --screen-card-shine-top: rgba(255, 255, 255, 0.05);
+  --screen-card-shine-bottom: rgba(255, 255, 255, 0.015);
+  --screen-card-inset-top: rgba(255, 255, 255, 0.05);
+  --screen-card-shadow-outer: 0 22px 42px rgba(0, 0, 0, 0.22);
+  --screen-card-gradient-corner: linear-gradient(135deg, rgba(255, 255, 255, 0.05), transparent 42%);
+  --screen-kicker-inset: rgba(255, 255, 255, 0.03);
+  --screen-kicker-shadow: 0 16px 32px rgba(0, 0, 0, 0.16);
+  --screen-pill-bg: rgba(255, 255, 255, 0.03);
+  --screen-list-divider: rgba(255, 255, 255, 0.06);
+  --screen-preview-stage-border: rgba(255, 255, 255, 0.06);
+  --screen-preview-stage-bg: rgba(4, 6, 12, 0.6);
+  --screen-preview-stage-radial: rgba(255, 255, 255, 0.08);
+  --screen-preview-tile-border: rgba(255, 255, 255, 0.07);
+  --screen-preview-tile-bg: rgba(255, 255, 255, 0.04);
+  --screen-preview-pill-bg: rgba(255, 255, 255, 0.08);
+  --screen-subtle-divider: rgba(255, 255, 255, 0.08);
+  --screen-queue-border: rgba(255, 255, 255, 0.06);
+  --screen-queue-bg: rgba(255, 255, 255, 0.03);
+  --screen-queue-badge-border: rgba(255, 255, 255, 0.06);
+  --screen-queue-badge-bg: rgba(255, 255, 255, 0.04);
+  --screen-flash-border: rgba(255, 255, 255, 0.08);
+  --screen-flash-bg: rgba(9, 11, 18, 0.82);
+  --screen-flash-shadow: 0 28px 40px rgba(0, 0, 0, 0.18);
+  --cert-hover-border: rgba(255, 255, 255, 0.12);
+  --cert-hover-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+
   color-scheme: dark;
 }
 
@@ -77,6 +104,32 @@
   --shadow-card: 0 1px 4px rgba(0, 0, 0, 0.08);
   --window-shadow-1: rgba(0, 0, 0, 0.18);
   --window-shadow-2: rgba(0, 0, 0, 0.1);
+
+  --screen-card-shine-top: rgba(255, 255, 255, 0.85);
+  --screen-card-shine-bottom: rgba(255, 255, 255, 0.5);
+  --screen-card-inset-top: rgba(255, 255, 255, 0.55);
+  --screen-card-shadow-outer: 0 18px 36px rgba(15, 23, 42, 0.08);
+  --screen-card-gradient-corner: linear-gradient(135deg, rgba(255, 255, 255, 0.45), transparent 42%);
+  --screen-kicker-inset: rgba(15, 23, 42, 0.04);
+  --screen-kicker-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+  --screen-pill-bg: rgba(15, 23, 42, 0.04);
+  --screen-list-divider: rgba(15, 23, 42, 0.1);
+  --screen-preview-stage-border: rgba(15, 23, 42, 0.12);
+  --screen-preview-stage-bg: rgba(248, 250, 252, 0.95);
+  --screen-preview-stage-radial: rgba(255, 255, 255, 0.6);
+  --screen-preview-tile-border: rgba(15, 23, 42, 0.1);
+  --screen-preview-tile-bg: rgba(255, 255, 255, 0.85);
+  --screen-preview-pill-bg: rgba(15, 23, 42, 0.08);
+  --screen-subtle-divider: rgba(15, 23, 42, 0.12);
+  --screen-queue-border: rgba(15, 23, 42, 0.1);
+  --screen-queue-bg: rgba(255, 255, 255, 0.72);
+  --screen-queue-badge-border: rgba(15, 23, 42, 0.1);
+  --screen-queue-badge-bg: rgba(248, 250, 252, 0.95);
+  --screen-flash-border: rgba(15, 23, 42, 0.12);
+  --screen-flash-bg: rgba(255, 255, 255, 0.94);
+  --screen-flash-shadow: 0 24px 36px rgba(15, 23, 42, 0.1);
+  --cert-hover-border: rgba(15, 23, 42, 0.18);
+  --cert-hover-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
 
   color-scheme: light;
 }

@@ -1,0 +1,969 @@
+AC
+Alternating Current
+The delivery of electricity (as from a wall outlet) in which the flow of electrons reverses periodically and has alternating positive and negative values.
+
+
+AC adapter
+A type of power supply that converts AC power to voltages needed for a device. Generally used for portable PC systems and other devices. (They are also commonly called "wall warts" because of their lumpy shape.)
+
+
+AGP
+Accelerated Graphics Port
+A local bus designed for video only, it provides a direct link between the processor and the video card, giving the video card direct access to main memory.
+
+
+Accelerometer
+In a smartphone or tablet, a built-in component that measures tilt and acceleration of the device.
+
+
+Acceptable-Use Policy
+A security policy that defines what actions can be taken on data and computing resources, including—but not limited to—storing, accessing, deleting, disseminating, and sharing of that data through computers and networks. Such policy must comply with all applicable laws as well as the policies and rules of the organization.
+
+
+ACE
+Access Control Entry
+In an access control list, a record containing just one user or group account name and the permissions assigned to that account.
+
+
+ACL
+Access Control List
+A table on each file and folder in the NTFS file system that contains one or more access control entries.
+
+
+ACK
+Acknowledgment
+A message sent by the TCP protocol after it successfully reassembles a received message.
+
+
+Action Center
+A Windows 7 and Windows 8 Control Panel applet that reports security and maintenance status, plus includes links to troubleshooting and recovery tools.
+
+
+Activation
+A method used by several software manufacturers to combat software piracy.
+
+
+AD
+Active Directory
+A collection of workstations and servers under single administrative control. The security accounts database is much more sophisticated than that on local Windows computers and resides on at least one special Windows Server computer called a domain controller. The security database, or directory, is replicated across all domain controllers in the domain, allowing for more efficient access to the domain controllers from many locations.
+
+
+Active Matrix Display
+An LCD technology based on thin-film transistor (TFT) technology. An ________ display has a transistor at every pixel, which enables much quicker display changes than passive matrix displays, and produces a display quality comparable to a CRT.
+
+
+AMOLED
+Active Matrix Organic Light Emitting Diode
+An organic __________________ display panel that uses a thin-film transistor (TFT) backing to turn each pixel on or off.
+
+
+Active Partition
+A primary partition that is marked for use by the system during startup. You can only boot Windows operating systems from an _________.
+
+
+ASPM
+Active State Power Management
+A standard for PCI Express that allows incremental reduction of power to individual PCIe serial links (paths). Windows enables or disables a link based on several parameters, including the system power plan, PCIe capabilities, and more.
+
+
+ACT
+Activity
+In reference to a NIC or other network device, a light, usually an LED, that blinks to indicate network activity.
+
+
+Ad Hoc Mode
+In a Wi-Fi network, the networking mode that allows peer-to-peer communications without the use of a centralized wireless hub, called a wireless access point (WAP).
+
+
+Add-On
+A small program that you add to your Web browser to bring enhanced content, such as animation, to you. Such plug-ins include JavaScript, CSS3, QuickTime, Adobe Flash Player, and others.
+
+
+ARP
+Address Resolution Protocol
+A protocol used to resolve an IP address to a MAC address.
+
+
+Administrator
+The most powerful user in a Windows local accounts database. You cannot rename or delete this account.
+
+
+Administrative Tools
+An optional Start menu item that provides shortcuts to administrative and troubleshooting tools.
+
+
+ACPI
+Advanced Configuration and Power Interface
+A power management standard that includes all the power states of APM, plus two more. It also supports soft power.
+
+
+AES
+Advanced Encryption Standard
+An encryption standard used by WPA2.
+
+
+AMD
+Advanced Micro Devices
+___ manufactures CPUs and other products, and its chief rival is Intel Corporation.
+
+
+APM
+Advanced Power Management
+A power management standard, introduced by Intel in 1992, that defines four power-usage operating levels.
+
+
+ATA
+Advanced Technology Attachment
+A very old standard for the mass storage device interface in PCs.
+
+
+ATX
+Advanced Technology eXtended
+A type of motherboard and its variants most commonly used in recent PC systems.
+
+
+Adware
+Software installed on a computer without permission that collects information about a user in order to display targeted advertisements in the form of either inline banners or pop-ups. Inline banners are advertisements that run within the context of the current page, taking up screen real estate.
+
+
+Aero
+An enhancement to the desktop that Microsoft introduced in Windows Vista and continues in Windows 7 and in Windows 8 Explorer view. These versions of Windows support Aero in all editions except Home Basic, and it requires a compatible graphics adapter.
+
+
+Airplane Mode
+A mode in smartphones and tablets that disables all wireless communications in order to comply with regulations when traveling via commercial airliner, but which allows you to use the other features of your device.
+
+
+All-in-One Computer
+A computer that contains all components except mouse and keyboard within the display case.
+
+
+All-in-One Printer
+A device that combines several different functions, commonly printer, copier, scanner, and fax.
+
+
+ALU
+Arithmetic Logic Unit
+A component of a CPU that is responsible for all logical and mathematical operations in the system.
+
+
+AMD-V
+Advanced Micro Devices - Virtualization
+AMD's-name for their technologies that support virtualization.
+
+
+ANSI
+American National Standards Institute
+A technical standards organization.
+
+
+A or Amp
+Ampere
+A measurement of the volume of electrons; also called current. It is calculated with the formula amps = watts / volts.
+
+
+AMR
+Audio Modem Riser
+A small expansion card introduced in the late 1990s that plugs into a special slot on a motherboard and uses the CPU to perform modem functions and sound functions. It is not plug and play compatible.
+
+
+Analog Display
+Any display that accepts analog signals.
+
+
+Analog LCD Display
+An LCD display that uses a DB-15 connector, which means that it accepts analog signals that it converts to digital.
+
+
+Analog Modem
+A modulator/demodulator device that allows computers to communicate with one another over existing phone lines.
+
+
+Analog Signal
+A signal that is continuously variable.
+
+
+Android
+The open source mobile OS from Google that runs on most non-Apple mobile devices.
+
+
+Antiglare Filter
+A screen filter that reduces the glare created by light coming from the display backlight.
+
+
+Antireflective Filter
+A screen filter that blocks ambient light that would bounce off the screen.
+
+
+Answer File
+A file used during an unattended installation of Windows. It provides a script of responses to the questions Setup asks so the user does not have to answer them manually.
+
+
+Apache HTTP Server
+Open source Web server software that runs on a wide range of operating systems, including Windows and several versions each of Linux and UNIX.
+
+
+APIPA
+Automatic Private IP Address
+An address that a DHCP client will assign to itself after requesting an address and failing to receive one from a DHCP server. The address it will assign is in the 169.254 /16 network, which is the range of addresses from 169.254.0.1 to 169.254.255.254.
+
+
+Application Virtualization
+A type of virtualization in which an application runs in a virtualized application environment.
+
+
+Archive Attribute
+A file attribute set by the OS when a file is created or modified. Backup software often removes this attribute when backing up a file in order to mark it as a backed-up file.
+
+
+ARPANET
+Advanced Research Projects Agency Network
+An early packet switching network and the first network to implement the protocol suite TCP/IP.
+
+
+Aspect Ratio
+The proportion between an image's width and height. Traditional CRT monitors have an _________ of 4:3. Widescreen displays have an ___________ of 16:9.
+
+
+ASR
+Automated System Recovery
+An option available in the Windows XP Backup program for recovering from damage that prevents the operating system from starting. It replaced the Emergency Repair Disk (ERD) process in earlier versions of Windows.
+
+
+ADSL
+Asymmetrical Digital Subscriber Line
+A type of digital subscriber line service in which the download speed is higher than the upload speed.
+
+
+ATM
+Asynchronous Transfer Mode
+A type of switched network used by phone companies.
+
+
+ATAPI
+ATA Packet Interface
+The protocol for connecting optical drives and tape drives to an ATA channel.
+
+
+Attended Installation
+A nonautomated installation of Windows in which the user is required to be present to initiate it and to respond to the prompts from the Setup program. Also called a manual installation.
+
+
+ATX12V
+A standard for power supplies that adds a 4-pin power connector that, together with a 20-pin connector, provides power to the motherboard.
+
+
+Authentication
+Validation of a user account and password that occurs before the security components of Windows will give the user access to the computer.
+
+
+Authentication Factor
+Something you know, something you have, or something you are. Involves one or more of these for validation
+
+
+Authorization
+The process that authenticates a user and verifies the user account's level of access to a resource.
+
+
+Auto-Switching Power Supply
+A power supply that detects the incoming voltage and switches to accept either 120 or 240 VAC.
+
+
+ASR
+Automated System Recovery
+An option available in the Windows XP Backup program for recovering from damage that prevents the operating system from starting. It replaced the Emergency Repair Disk (ERD) process in earlier versions of Windows.
+
+
+AutoPlay
+A feature that enables Windows to automatically find and run the content on removable media when it connects to a computer.
+
+
+AUX Power Connector
+A six-pin connector used to supply power to some AMD dual-processor motherboards.
+
+
+Avatar
+An animated computer-generated human or other character used to represent a user in a virtual world.
+
+
+Backbone
+In a network, a central transmission line to which computers and network devices connect.
+
+
+Back Belt
+A thick fabric belt worn snugly about the lower back, presumably to provide lumbar support while lifting.
+
+
+Backdoor
+Program code that provides a way for someone to gain access to a computer while bypassing security. Only a person who knows how the ________ works can use it, but once in, that individual has the same access as the host program to all the internal operating system code.
+
+
+Background Process
+A process that runs "behind the scenes" with a low priority, does not require input, and rarely creates output.
+
+
+BTX
+Balanced Technology eXtended
+A motherboard form factor introduced in 2003 by Intel as the successor to ATX.
+
+
+Bandwidth
+The amount of data that can travel over a network at a given time.
+
+
+Bar Code
+A small rectangular image with a unique pattern of black bars and white space that computer software can optically scan and interpret.
+
+
+Bar-Code Reader
+A specialized type of optical scanner that reads patterns of bars of varying widths printed on labels or directly on items. The bar pattern is converted into a numeric code that is transmitted to a computer as data.
+
+
+BSS
+Basic Service Set
+The wireless nodes (including the WAP) communicating together in infrastructure mode.
+
+
+Basic Storage
+A storage type in Windows that uses the partition table in the master boot record (MBR) to define disk partitions.
+
+
+BIOS
+Basic Input/Output System
+A type of computer firmware that is responsible for informing the CPU of the installed devices and how to communicate with them and where to look for an Operating System and how to start one up.
+
+
+BD-R (Single Layer)
+Write-once Blu-ray Disc or drive. Holds 25GB of data.
+
+
+BD-RE (Single Layer)
+Rewritable Blu-ray Disc or drive. Holds 25 GB of data.
+
+
+BD-ROM
+Read-only format Blu-ray Disc or drive.
+
+
+BDD Workbench
+Business Desktop Deployment Workbench
+A tool used to create and manage a distribution share and various installation images.
+
+
+Beam-on-Blade Connector
+The type of connector used in the ExpressCard interface.
+
+
+Biometric
+A measurement of a body part, such as a fingerprint or retina scan.
+
+
+BitLocker Drive Encryption
+A drive encryption technology introduced in Windows Vista Enterprise and Ultimate editions and continues to be improved upon in new versions of Windows, although only available in certain editions.
+
+
+Bit
+Binary Digit
+A binary digit that can represent two states: on or off, one or zero, and so forth.
+
+
+Blackout
+A complete loss of power. The duration of which depends on the cause and the ability of responsible parties, such as electrical utilities, to correct the problem.
+
+
+BD
+Blu-ray Disc
+The high-definition optical disc formatting standard developed by the _________ Association whose members include Sony, 20th Century Fox, Dell, Hewlett-Packard, and many other industry leaders.
+
+
+BSOD
+Blue Screen of Death
+A blue error screen, more conventionally called the stop screen, which appears when the Windows operating system detects a critical error and stops the system so that the error doesn't cause loss of data (or further loss of data).
+
+
+Bluesnarfing
+The act of covertly obtaining information broadcast from Bluetooth wireless devices.
+
+
+Bluetooth
+A wireless standard for using radio waves to communicate between devices. Class 3 ________ devices (the most common) communicate at distances up to one meter.
+
+
+BNC
+Bayonet-Neill-Concelman
+British Naval Connector
+A connector used to attach coaxial cables to computers and network equipment.
+
+
+BOOT.INI
+A simple text file that holds important information used by NTLDR (NT Loader) to locate the operating system and, in the case of a dual-boot configuration, to display the OS Selection menu. Settings in the ________ file indicate where the operating system is located. (10)
+
+
+BootP
+Bootstrap Protocol
+A protocol used by a DHCP client to request an IP address from a DHCP server, which in turn replies via the same protocol.
+
+
+BootRec
+A command-line tool that runs with the Windows RE Command Prompt to repair a system partition. The Ultimate Repair Tool For Boot Problems. No matter whether you use Windows 7 or Windows 8.1, if your operating system has trouble booting and Startup Repair can't fix the problem, it's worth trying the Bootrec.exe tool.
+
+
+Boot Record
+The first physical sector on a floppy disk or the first sector on a hard drive partition. The _________ contains information about the OS. The _________ on a primary active partition is used to start the operating system. Do not confuse this with the master _________.
+
+
+BootMgr
+Windows Boot Sequence Manager
+The boot loader for Windows Vista, Windows 7, and Windows 8.
+
+
+Bridge
+A network connection device that passes traffic between two networks, using the physical address (MAC address) of the destination device.
+
+
+Broadband WAN
+Broadband Wide Area Network
+A wide area network connection that allows transmission of a large amount of data. ___________ include cellular, ISDN, DSL, cable, T-carrier, satellite, and fiber.
+
+
+Brownout
+A period during which heavy demand or other problems cause a reduced flow of power.
+
+
+Browser Hijacker
+Malware that infects an Internet browser and changes the home page.
+
+
+Bus
+In a computer, pathways in which power, data, and control signals travel from one component to another within the system. (3) In a network using the ___ topology, the central transmission line to which all computers connect.
+
+
+Bus Topology
+A network in which all computers connect to a central transmission line with the appropriate type of connector.
+
+
+Byte
+A group of binary digits. An eight-bit ____ is common, but _____ can be other sizes, usually divisible by eight.
+
+
+Cable Select
+An EIDE (Enhanced Integrated Drive Electronics) drive setting that has the system select the drive's role (master or slave) based on the drive's position on the cable. If the drive is on the end of the cable, it is the master drive, and if it is in the middle of the cable, it is the slave drive.
+
+
+Cable Tester
+A tool for testing if a cable can connect properly end to end and to determine if a cable has a short. These tools are available for a variety of cable types.
+
+
+Cable Stripper
+A tool that is a cross between a pair of pliers and a scissors, designed to strip the insulation from around the wires in a cable.
+
+
+Cache Controller
+A CPU component that manages the CPU cache.
+
+
+Cache Memory
+A relatively small amount of expensive, very fast memory used to compensate for speed differences between two components such as between the CPU and main memory.
+
+
+Calibration
+The adjustment of the color on a device, such as a video display or an inkjet printer, to ensure the accuracy of the colors. You ________ a printer to match colors on a display.
+Making sure a touch screen on a mobile device accurately senses a touch.
+
+
+Capacitive Screens
+A touch screen that senses capacitance from your body when you touch it.
+
+
+CAPTCHA
+Completely Automated Public Turing test to tell Computers and Humans Apart
+A test that only a human can pass. A ________ usually consists of an image of one or two hard-to-read words, or at least a string of characters. To pass the test, you must enter the characters you see into a text box.
+
+
+CardBus
+The PCMCIA (Personal Computer Memory Card International Association) standard that succeeds the PC Card.
+
+
+Card Services
+A service on a laptop that configures a card after socket services recognizes it.
+
+
+Carriage
+The mechanism in an inkjet or bubblejet printer that holds the ink cartridge and moves it back and forth over the paper. The _______ is driven by a ________ belt.
+
+
+Carriage Belt
+The belt that drives a cartridge carriage mechanism and moves the print head over the paper in an inkjet printer.
+
+
+Case
+The box that houses the main computer system.
+
+
+Case Fan
+A cooling fan mounted directly on the case, as opposed to a power supply fan, which is inside the power supply.
+
+
+Category View
+A look and organization for Control Panel, first introduced in Windows Vista.
+
+
+CRT
+Cathode Ray Tube Monitor
+A display device that contains a ___________ and uses an electron gun to activate phosphors behind the screen at the front of the tube.
+
+
+CD
+Compact Disk
+An optical disc created and read by a mechanism using a laser.
+
+
+CD-R
+Compact Disk - Record
+A drive that can write once to a compatible CD-R disc.
+
+
+CD-RW
+Compact Disk - Rewritable
+A drive that can write either to CD-R discs or to specially designed CD-RW discs. In the case of the CD-RW discs, the drive can write more than once to the same portion of disc, overwriting old data.
+
+
+CD-ROM
+Compact Disk - Read Only Memory
+Laser discs sold at retail stores that contain music (audio CDs) or software (data CDs).
+
+
+CD-ROM Drive
+Compact Disk - Read Only Memory Drive
+A drive on a computer that can play music CDs and read data CDs, but cannot write to CDs.
+
+
+Cellular WAN
+Cellular Wide Area Network
+Data communications over the cellular telecommunications networks.
+
+
+Censorship
+The act of defining prohibited content, as well as restricting access to that content.
+
+
+CPU
+Central Processing Unit
+The primary control device for a computer system. The ____ is a chip containing a set of components that manages all the activities.
+
+
+Centronics
+A 36-pin connector mounted to a device's parallel interface.
+
+
+Channel
+A communication pathway.
+
+
+CSU
+Channel Service Unit
+A device required at both ends of a T-carrier system connection.
+
+
+Charging
+In the laser printing imaging process, the stage in which the printer's high-voltage power supply (HVPS) conducts electricity to the primary corona wire so it can pass the voltage on to the printer's electro-photosensitive drum.
+
+
+Chat
+Text messaging over a TCP/IP internetwork in real time.
+
+
+Chipset
+One or more chips designed to work closely with the CPU. Two parts of this _______ are the Northbridge and the Southbridge.
+
+
+Chrominance
+The signal in a television transmission that contains the color of the image.
+
+
+Class ID
+In IPv4, a grouping of IP addresses into A, B, C, D, and E classes.
+
+
+Classic View
+The look of the Control Panel in Windows previous to Windows Vista, in which all the icons for the dozens of Control Panel applets were displayed at once.
+
+
+Cleaning
+In the laser printing imaging process, the stage in which the image is removed from the photosensitive drum so it can accept the next image.
+
+
+Cleaning Blade
+In a laser printer, a blade that removes residual toner from the drum.
+
+
+Client
+Software that connects over a network to related server software, such as a file and print ______ that accesses a file and print server for saving, retrieving, and printing files.
+
+
+Client/Server-Based Network
+A network in which dedicated computers called servers store data and provide print services or other capabilities to computers running the appropriate client service or services.
+
+
+Client-Side Virtualization
+Any virtualization that happens on the client side of a client-server relationship.
+
+
+Clock Speed
+In a CPU, the speed at which it can potentially execute instructions, measured in millions of cycles per second—megahertz (MHz)—or billions of cycles per second—gigahertz (GHz).
+
+
+Closed Source
+Program code not made available in its source-code form, and so therefore cannot be modified by anyone other than the publisher.
+
+
+Cluster
+The minimum disk space that a file can use, allocated in the file system.
+
+
+CMOS
+Complementary Metal-Oxide Semiconductor
+A type of semiconductor used in firmware such as the BIOS program that retains settings, such as the time, keyboard settings, and boot sequence.
+
+
+CNR
+Communications Network Riser
+An expansion slot that accepts multifunction adapter cards that include networking and communications functions.
+
+
+Coaxial Cable
+Cabling that contains a single copper wire surrounded by several layers of insulating plastic and a woven wire sheath that provides protection.
+
+
+CDMA
+Code Division Multiple Access
+The cellular network standards used by Verizon and Sprint-Nextel.
+
+
+Code Signing
+A practice in Windows in which all of the operating system code is digitally signed to show that it has not been tampered with.
+
+
+CCFL
+Cold Cathode Fluorescent Lamp
+A type of lamp that provides a bright light, but is energy efficient and long lasting.
+
+
+Collating
+A feature in some printers that outputs printed documents in page order.
+
+
+Color Depth
+The number of colors used by a display.
+
+
+CDFS
+Compact Disk File System
+A file system used by operating systems for organizing, reading, and writing optical discs.
+
+
+CF
+Compact Flash
+A type of solid-state storage commonly used in a variety of devices, such as digital cameras.
+
+
+Compatibility Mode
+A feature of Windows XP, Windows Vista, and Windows 7 that allows each of these versions to appear to be an older version of Windows temporarily for an application that requires an older version in order to run properly.
+
+
+COM
+Component Object Model
+A method by which programs can work together cooperatively.
+
+
+COM+
+Component Object Model Plus
+A more complex app that comes in two types: server and client. One component (the server) provides a service to another component (the client).
+
+
+Component Video
+A video-signaling method that transmits analog video information as two or more discrete signals. Two general types of component video are RGB Video and S-Video.
+
+
+Composite Video
+The traditional transmission system for television video signals, which combines the color and brightness information with the synchronization data into one signal. The TV circuitry then separates the two signals from the _________ signal.
+
+
+CAD
+Computer Aided Design
+Software used by architects and engineers to design a wide variety of objects from simple machine parts to extremely complex products such as aircraft, cars, or boats.
+
+
+CAM
+Computer Aided Manufacturing
+Software used by engineers to control the machines used to manufacture an object.
+
+
+Computer Architecture
+The basic design of a computer, describing the data pathways and the methods the computer's CPU uses to access other components within the computer. The main components of the architecture are the CPU, BIOS, and chipset.
+
+
+COM Port
+Communication Port
+In the Windows operating system, a type of logical serial device with an assigned I/O address range and an interrupt request line (IRQ) as well as a reserved name, such as ___1, ___ 2, ___3, or ___4. ___x is a generic reference to one of these ports, in which the x represents the port number. A physical serial device complying with the old standard assigned to RS232C, and analog modem devices used these ports.
+
+
+Connector
+The plug at the end of a cable or the port or connection point on a computer or device.
+
+
+Consent Prompt
+The UAC dialog box that pops up when an administrator is logged on and a program attempts to run that requires administrative privileges.
+
+
+CRIMM
+Continuity Rambus In-line Memory Module
+A special terminating stick that must be inserted into the open Rambus In-line Memory Module sockets.
+
+
+Continuous Form Paper
+Paper used with a tractor-feed mechanism for moving paper through a printer.
+
+
+Contrast Ratio
+The difference in value between a display's brightest white and darkest black. Modern LCD displays have a contrast ratio of 500:1 or greater.
+
+
+Control Panel
+A Windows folder that contains numerous applets you can use to adjust the configuration of many different aspects of the OS.
+
+
+Control Unit
+In a CPU, the component that is primarily responsible for directing all the activities of the computer and the interactions of its components.
+
+
+Controller
+A chip that manages communications for a type of device or bus.
+
+
+Cookies
+Small text files a Web browser saves on the local hard drive at the request of a Website. Cookies can contain information to use the next time the user connects to the Website.
+
+
+Copy
+A file operation in which the file or folder remains in the source location and a duplicate is created in the target (destination) location.
+
+
+Core
+In reference to CPUs, a complete CPU with its own cache, controller, and other CPU components.
+
+
+Counter
+In Performance Monitor, a characteristic of an object that can be monitored.
+
+
+CPE
+Customer Premises Equipment
+A T-1 multiplexer or a special LAN bridge that connects to the telephone company's channel service unit (CSU), which encodes data for transmission over a T-carrier circuit.
+
+
+CPU Fan
+A cooling fan located on a CPU.
+
+
+CPU Socket
+A connection on a motherboard for a CPU.
+
+
+Creator Owner
+A Windows special group whose membership consists of the user who created a file or folder.
+
+
+Credential Manager
+A Control Panel applet, added in Windows 7, that allows you to manage your credentials to log in to various servers and Websites for a single sign-on (SSO) experience.
+
+
+Credentials Prompt
+The UAC dialog box that pops up when a standard user is logged on and a program attempts to run that requires administrative privileges. The user must enter the credentials for an administrator account.
+
+
+Crimper
+A tool that resembles a pair of pliers, used to terminate a multi-stranded cable into a connector, clamping each wire in place in the connector so that the wires line up with the wires in the connector.
+
+
+CrossFire
+A multi-GPU solution originally developed by ATI. Superseded by AMD CrossFireX.
+
+
+Current
+The flow of electrons.
+
+
+Data Migration
+The moving of data from one storage device to another.
+
+
+DBMS
+Database Management System
+A program that manages the creation, storage, retrieval, and modification of data on a computer.
+
+
+Datagram
+The chunks into which the TCP protocol packages data. In addition to the data, each datagram contains information, stored in a header, which the TCP protocol uses on the receiving end to reassemble the chunks of data into the original message.
+
+
+Daughter Card
+A type of riser card that connects directly into a motherboard and adds no functionality of its own, but extends the expansion bus and allows adding expansion cards in a different physical orientation.
+
+
+DB-9
+A nine-pin D-shell connector.
+
+
+DB-25
+A twenty-five-pin D-shell connector.
+
+
+DC Controller
+A device found in laptops that monitors and regulates power usage. The features vary by manufacturer, but typically, they provide short-circuit protection, give "low battery" warnings, and can be configured to shut down the computer automatically when the power is low.
+
+
+DC Jack
+The connector on a laptop to which an AC adapter connects.
+
+
+DDoS Attack
+Distributed Denial of Service Attack
+This attack occurs when a massive number (up to hundreds of thousands) of computers send ___ attacks to a server, making it unavailable.
+
+
+DDR SDRAM
+Double-Data-Rate Synchronous Dynamic Random Access Memory
+RAM that doubles the rate of speed at which a standard SDRAM can process data. Also called DDR RAM or DDR1 SDRAM. A stick of DDR1 SDRAM has 184 pins.
+
+
+DDR2 SDRAM
+Double-Data-Rate Two Synchronous Dynamic Random Access Memory
+A RAM standard that replaces the original DDR with faster clock rates, beginning at 400 MHz, using dual-channel architecture. Using far less power than DDR1, a stick of DDR2 SDRAM has 240 pins.
+
+
+DDR3 SDRAM
+Double-Data-Rate Three Synchronous Dynamic Random Access Memory
+A RAM standard that use far less power than the previous SDRAM chips—1.5 V versus DDR2's 1.8 V—while providing almost twice the bandwidth. As with DDR2, the DDR3 DIMMs have 240 pins and they are the same size, but electrically incompatible and with a different key notch.
+
+
+Double-Sided Module
+In reference to RAM modules, a circuit card with both sides populated with RAM chips.
+
+
+Drive-By Download
+A program downloaded to a computer without the user's consent. The user unwittingly initiates the download by some simple act, such as browsing to a Website or opening an e-mail message written in HTML. Or a user may initiate a ______________ by installing an application.
+
+
+Drive Image
+An exact duplicate of an entire hard drive's contents, including the OS and all installed software.
+
+
+Drive Lock Password
+A password that locks your hard drive and is often stored in a TPM chip.
+
+
+Drive Path
+When a mount point exists between a partition or volume to a folder on another volume, the ____ ____ is the path (including a _____ letter) to that partition or volume. (10)
+
+
+Driver Signing
+The practice of applying a digital signature to device driver code.
+
+
+DSL
+Digital Subscriber Line
+A WAN connection that uses existing copper telephone wire for the communication circuit. To accomplish this, a ___ modem splits the existing phone line into two bands; voice transmission uses the frequencies below 4000 Hz, whereas data transmission uses everything else.
+
+
+Dead Pixel
+A dark spot on an LCD screen caused when a transistor is permanently off.
+
+
+Debugging Mode
+A Windows Advanced Options menu choice used to send debugging information about the Windows startup over a serial cable to another computer running a special program called a debugger.
+
+
+dbA
+Decibel
+A commonly used measurement of sound.
+
+
+Default Gateway
+In an IP configuration, the address of the local router that acts as a gateway from the local network to other IP networks.
+
+
+Degaussing
+[1] A method for erasing data on magnetic media. Passing a strong magnetic field across magnetic tape or disks causes the magnetized areas that represent the data to randomize, thus erasing the media. [2] The process of using an oscillating magnetic field to reduce and randomize the magnetic field that builds up on the shadow mask of a CRT monitor.
+
+
+Delete
+A file operation that moves files from a hard drive or SSD volume into the Recycle Bin.
+
+
+DMZ
+Demilitarized Zone
+In computer networking, a network located between a private network and the Internet with a firewall on both sides. A ___ contains servers offering services to users on the Internet and inside the protected private network.
+
+
+Desktop Virtualization
+An on-screen simulation of a complete computer running a desktop OS.
+
+
+Developing
+In the laser printing process, this is the step in which the cover on the printer's toner cartridge opens and the toner particles are attracted to the relatively less negatively charged areas of the drum.
+
+
+Device Driver
+Program code that allows an operating system to control the use of a physical device.
+
+
+Device Manager
+A Windows GUI utility that allows an administrator to view the status of devices and install, remove, and update device drivers.
+
+
+DHCP
+Dynamic Host Configuration Protocol
+The protocol used by ____ servers and clients. A ____ server allocates IP addresses within the scope of addresses configured on the server by an administrator. ____ clients request IP addresses and other IP configuration settings from ____ servers.
+
+
+Dial-Up
+A WAN connection that uses an analog modem rather than a network card and uses standard phone cables rather than network cables.
+
+
+Dialer
+A program that surreptitiously causes a modem to dial phone numbers.
+
+
+Digital Camera
+A camera type that has taken the world by storm, replacing film-based cameras for amateur photographers, as well as for many professional photographers.
+
+
+Digital LCD Display
+An LCD display that accepts a digital signal. Early LCD displays accepted an analog signal and converted it to digital internally.
+
+
+DLP
+Digital Light Processing
+An optical semiconductor used in small projectors and in rear-projection televisions.
+
+
+DLT
+Digital Linear Tape
+A technology developed in the 1980s for storing data. Variations of this format are in use today.
+
+
+DRM
+Digital Rights Management
+The protection of digital rights, such as features that prevent copying of DVD movies.
+
+
+Digital Signal
+A signal composed of discrete on-off signals or pulses representing digits.
+
+
+TCP/IP
+Transmission Control Protocol/Internet Protocol
+- Originally developed for ARPANET
+- TCP handles getting the data between computers
+- IP handles the addressing scheme that gives us something more powerful and flexible than MAC addresses

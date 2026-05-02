@@ -142,7 +142,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const applyPreset = useCallback((preset: PresetRecord) => {
-    setSettings({ ...defaultSettings, ...preset.settings, ambientFrameEnabled: false })
+    setSettings((prev) => ({
+      ...defaultSettings,
+      ...preset.settings,
+      ambientFrameEnabled: false,
+      layoutPreset: prev.layoutPreset,
+    }))
   }, [])
 
   const saveCurrentAsPreset = useCallback((name: string) => {

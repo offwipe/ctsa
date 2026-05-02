@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { AppProvider } from './context/AppContext'
+import { LayoutPresetProvider } from './context/LayoutPresetContext'
 import { AppLayout } from './components/Layout/AppLayout'
 import { HomeScreen } from './screens/Home/HomeScreen'
 import { StudyScreen } from './screens/Study/StudyScreen'
@@ -13,6 +14,7 @@ import { SettingsScreen } from './screens/Settings/SettingsScreen'
 function App() {
   return (
     <AppProvider>
+      <LayoutPresetProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<AppLayout />}>
@@ -28,6 +30,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+      </LayoutPresetProvider>
     </AppProvider>
   )
 }

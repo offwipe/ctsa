@@ -4,11 +4,11 @@
   border: 1px solid var(--border);
   border-radius: calc(var(--radius-xl) + 2px);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015)),
+    linear-gradient(180deg, var(--screen-card-shine-top), var(--screen-card-shine-bottom)),
     var(--bg-card);
   box-shadow:
-    0 1px 0 rgba(255, 255, 255, 0.05) inset,
-    0 20px 40px rgba(0, 0, 0, 0.18);
+    0 1px 0 var(--screen-card-inset-top) inset,
+    var(--screen-card-shadow-outer);
 }
 
 .section:last-child {

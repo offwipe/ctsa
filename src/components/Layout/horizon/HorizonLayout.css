@@ -1,0 +1,92 @@
+/* Horizon — mobile-first bottom tab shell (thumb reach, clear hierarchy) */
+
+.horizon-shell {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--horizon-bg, var(--bg-main));
+}
+
+.horizon-stage {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: clamp(0.75rem, 2vw, 1.25rem) clamp(0.75rem, 3vw, 1.5rem) 0.5rem;
+}
+
+.horizon-stage__inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding-bottom: var(--space-6);
+}
+
+.horizon-tabbar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-around;
+  gap: 2px;
+  padding: 6px 8px calc(6px + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--horizon-border, var(--border));
+  background: var(--horizon-bar-bg, var(--bg-panel));
+}
+
+.horizon-shell--tabs-reverse .horizon-tabbar {
+  flex-direction: row-reverse;
+}
+
+.horizon-tab {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 6px 4px;
+  border-radius: 12px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: background 0.15s ease, color 0.15s ease;
+  cursor: pointer;
+}
+
+.horizon-tab:hover {
+  color: var(--text-secondary);
+  background: var(--bg-hover);
+}
+
+.horizon-tab--active {
+  color: var(--accent);
+  background: var(--accent-subtle);
+  border-color: var(--accent-border, transparent);
+}
+
+.horizon-tab__label {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+}
+
+@media (min-width: 900px) {
+  .horizon-tabbar {
+    justify-content: center;
+    gap: 8px;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .horizon-tab {
+    flex: 0 1 auto;
+    min-width: 72px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}

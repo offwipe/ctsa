@@ -29,3 +29,9 @@ latest.json
 *.njsproj
 *.sln
 *.sw?
+
+# Generated distribution bundle (see scripts/sync-windows-bundle.mjs)
+bundle/
+
+# Local reference / scratch exports
+.ref/

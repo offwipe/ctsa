@@ -1,0 +1,15 @@
+/* Fluid Glass (clarity deck) — solid panels, no haze; content stays legible */
+
+html[data-theme='dark'] .app-shell[data-layout-preset='fluid-glass'] {
+  --screen-card-shine-top: rgba(255, 255, 255, 0.04);
+  --screen-card-shine-bottom: rgba(15, 23, 42, 0.2);
+  --screen-card-shadow-outer: 0 12px 32px rgba(0, 0, 0, 0.28);
+}
+
+html[data-theme='light'] .app-shell[data-layout-preset='fluid-glass'] {
+  --screen-card-shadow-outer: 0 8px 22px rgba(15, 23, 42, 0.06);
+}
+
+.app-shell[data-layout-preset='fluid-glass'] .screen-title {
+  letter-spacing: -0.03em;
+}

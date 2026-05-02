@@ -1,0 +1,9 @@
+/* Horizon — thumb-zone friendly */
+
+.app-shell[data-layout-preset='horizon'] .screen-description {
+  max-width: 48ch;
+}
+
+.app-shell[data-layout-preset='horizon'] .flashcards-study-body {
+  padding-bottom: var(--space-4);
+}

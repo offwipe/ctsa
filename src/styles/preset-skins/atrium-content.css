@@ -1,0 +1,6 @@
+/* Atrium — contained studio sheet */
+
+.app-shell[data-layout-preset='atrium'] .screen-title {
+  font-weight: 650;
+  letter-spacing: -0.025em;
+}

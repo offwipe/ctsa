@@ -1,0 +1,10 @@
+/* Lumin — data-dense rails */
+
+.app-shell[data-layout-preset='lumin'] .screen-title {
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+.app-shell[data-layout-preset='lumin'] .cert-card {
+  border-radius: var(--radius-md);
+}

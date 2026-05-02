@@ -1,0 +1,66 @@
+/* HighLighter — technical notebook: sharp geometry, amber signal, monospace cadence */
+
+html[data-theme='dark'] .app-shell[data-layout-preset='highlighter'] {
+  --screen-card-shine-top: rgba(250, 204, 21, 0.06);
+  --screen-card-shine-bottom: rgba(24, 24, 27, 0.4);
+  --screen-card-inset-top: rgba(250, 204, 21, 0.06);
+  --screen-card-shadow-outer: 0 2px 0 rgba(24, 24, 27, 0.9), 0 22px 48px rgba(0, 0, 0, 0.55);
+  --screen-card-gradient-corner: linear-gradient(135deg, rgba(250, 204, 21, 0.07), transparent 42%);
+  --screen-kicker-shadow: 0 14px 28px rgba(0, 0, 0, 0.35);
+  --screen-list-divider: rgba(63, 63, 70, 0.75);
+  --screen-preview-stage-bg: rgba(24, 24, 27, 0.85);
+  --cert-hover-border: rgba(250, 204, 21, 0.35);
+  --cert-hover-shadow: 0 6px 28px rgba(250, 204, 21, 0.12);
+}
+
+html[data-theme='light'] .app-shell[data-layout-preset='highlighter'] {
+  --screen-card-shine-top: rgba(254, 240, 138, 0.55);
+  --screen-card-shine-bottom: rgba(244, 244, 245, 0.9);
+  --screen-card-inset-top: rgba(234, 179, 8, 0.15);
+  --screen-card-shadow-outer: 0 1px 0 rgba(24, 24, 27, 0.08), 0 18px 40px rgba(24, 24, 27, 0.08);
+  --screen-card-gradient-corner: linear-gradient(135deg, rgba(234, 179, 8, 0.12), transparent 42%);
+  --cert-hover-border: rgba(234, 179, 8, 0.45);
+  --cert-hover-shadow: 0 8px 24px rgba(234, 179, 8, 0.15);
+}
+
+.app-shell[data-layout-preset='highlighter'] .screen-title {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  letter-spacing: -0.04em;
+  text-transform: none;
+}
+
+.app-shell[data-layout-preset='highlighter'] .screen-description {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.875rem;
+  opacity: 0.92;
+}
+
+.app-shell[data-layout-preset='highlighter'] .cert-card {
+  border-radius: var(--radius-md);
+  box-shadow: 0 1px 0 rgba(63, 63, 70, 0.5);
+}
+
+.app-shell[data-layout-preset='highlighter'] .section {
+  border-radius: var(--radius-md);
+  border-left: 3px solid hsl(var(--hl-ll-yellow));
+}
+
+.app-shell[data-layout-preset='highlighter'] .section-title {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  letter-spacing: -0.03em;
+}
+
+.app-shell[data-layout-preset='highlighter'] .blitz-hud-card,
+.app-shell[data-layout-preset='highlighter'] .blitz-pill,
+.app-shell[data-layout-preset='highlighter'] .exam-answer-card,
+.app-shell[data-layout-preset='highlighter'] .subnet-answer-card {
+  border-radius: var(--radius-sm);
+}
+
+.app-shell[data-layout-preset='highlighter'] .settings-row {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+.app-shell[data-layout-preset='highlighter'] .settings-row-label {
+  font-size: 0.8125rem;
+}

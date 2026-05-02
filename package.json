@@ -1,14 +1,17 @@
 {
   "name": "comptia-study-app",
   "private": true,
-  "version": "0.1.5",
+  "version": "0.2.3",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "tauri:build": "tauri build",
+    "bundle:win": "node scripts/tauri-bundle-win.mjs",
+    "gen:glossary": "node scripts/generate-a-plus-glossary.mjs"
   },
   "dependencies": {
     "@tauri-apps/api": "^2",

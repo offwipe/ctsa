@@ -1,6 +1,5 @@
 import { useMemo, useDeferredValue, useEffect, useState } from 'react'
-import { Outlet, useLocation } from 'react-router-dom'
-import { Sidebar } from './Sidebar'
+import { useLocation } from 'react-router-dom'
 import { Titlebar } from './Titlebar'
 import { rgba, lightenHex } from '../../context/appTheme'
 import { useAppContext } from '../../context/useAppContext'
@@ -8,9 +7,13 @@ import { AmbientFrame } from '../effects/AmbientFrame'
 import { WinterFrame } from '../effects/WinterFrame'
 import { RainFrame } from '../effects/RainFrame'
 import { WindFrame } from '../effects/WindFrame'
+import { LofiChillFrame } from '../effects/LofiChillFrame'
+import { ZenCalmFrame } from '../effects/ZenCalmFrame'
 import { useAtmosphereAudio } from '../../hooks/useAtmosphereAudio'
 import { NotebookOverlay } from '../overlays/NotebookOverlay'
 import { SevenSecondOverlay } from '../overlays/SevenSecondOverlay'
+import { LayoutPresetRouter } from './LayoutPresetRouter'
+import '../../styles/layoutPresetVars.css'
 import './AppLayout.css'
 
 export function AppLayout() {
@@ -36,7 +39,7 @@ export function AppLayout() {
         unlistenResize = await win.onResized(sync)
         unlistenScale = await win.onScaleChanged(sync)
       } catch {
-        // browser fallback: nothing to track
+        // browser fallback
       }
     })()
     return () => {
@@ -49,6 +52,10 @@ export function AppLayout() {
   useEffect(() => {
     document.documentElement.setAttribute('data-maximized', maximized ? 'true' : 'false')
   }, [maximized])
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-layout-preset', s.layoutPreset)
+  }, [s.layoutPreset])
 
   const shellStyle = useMemo(() => {
     const isDark = s.mode === 'dark'
@@ -109,14 +116,15 @@ export function AppLayout() {
     windChimeLevel: s.windChimeLevel,
   })
 
-  const sidebarRight = s.sidebarPosition === 'right'
-  const showSnow = s.atmosphereMode === 'snow' || s.winterFrameEnabled
-  const showRain = s.atmosphereMode === 'rain'
-  const showWind = s.atmosphereMode === 'wind'
+  const mode = s.atmosphereMode
+  const showSnow = mode === 'snow' || s.winterFrameEnabled
+  const rainActive = mode === 'rain' || mode === 'stormy-focus'
+  const windActive = mode === 'wind' || mode === 'stormy-focus'
+  const stormy = mode === 'stormy-focus'
 
   return (
     <div className="app-window-frame" style={shellStyle}>
-      <div className="app-shell">
+      <div className="app-shell" data-layout-preset={s.layoutPreset}>
         <div className="app-noise" />
         <div className="app-ambient" />
         <AmbientFrame
@@ -133,41 +141,52 @@ export function AppLayout() {
           speed={s.ambientBorderSpeed}
         />
         <Titlebar />
-        <div className={'app-layout' + (sidebarRight ? ' app-layout--sidebar-right' : '')}>
-          <Sidebar />
-          <main className="app-main">
-            <div key={location.pathname} className="app-main-inner page-transition">
-              <Outlet />
-            </div>
-          </main>
+        <div className="layout-preset-mount">
+          <LayoutPresetRouter preset={s.layoutPreset} locationKey={location.pathname} />
         </div>
-        <WinterFrame
-          enabled={showSnow}
-          intensity={s.winterIntensity}
-          fallSpeed={s.winterFallSpeed}
-          snowflakeSize={s.winterSnowflakeSize}
-          borderZone={s.winterBorderZone}
-          glowEffect={s.winterGlowEffect}
-          windDrift={s.winterWindDrift}
-          snowColor={s.winterSnowColor}
-        />
-        <RainFrame
-          enabled={showRain}
-          intensity={s.rainIntensity}
-          fallSpeed={s.rainFallSpeed}
-          dropSize={s.rainDropSize}
-          angle={s.rainAngle}
-          windMph={s.rainWindMph}
-          turbulence={s.rainTurbulence}
-          rainColor={s.rainColor}
-          glow={s.rainGlow}
-        />
-        <WindFrame
-          enabled={showWind}
-          cloudDensity={s.windCloudDensity}
-          driftSpeed={s.windDriftSpeed}
-          cloudOpacity={s.windCloudOpacity}
-        />
+
+        <div className="atm-stack" data-atmosphere={mode} aria-hidden>
+          <div className={'atm-layer atm-layer--snow' + (showSnow ? ' atm-layer--on' : '')}>
+            <WinterFrame
+              enabled={showSnow}
+              intensity={s.winterIntensity}
+              fallSpeed={s.winterFallSpeed}
+              snowflakeSize={s.winterSnowflakeSize}
+              borderZone={s.winterBorderZone}
+              glowEffect={s.winterGlowEffect}
+              windDrift={s.winterWindDrift}
+              snowColor={s.winterSnowColor}
+            />
+          </div>
+          <div className={'atm-layer atm-layer--rain' + (rainActive ? ' atm-layer--on' : '')}>
+            <RainFrame
+              enabled={rainActive}
+              intensity={stormy ? Math.round(s.rainIntensity * 0.88) : s.rainIntensity}
+              fallSpeed={s.rainFallSpeed}
+              dropSize={s.rainDropSize}
+              angle={s.rainAngle}
+              windMph={stormy ? Math.min(45, s.rainWindMph + 4) : s.rainWindMph}
+              turbulence={stormy ? Math.min(100, s.rainTurbulence + 12) : s.rainTurbulence}
+              rainColor={s.rainColor}
+              glow={s.rainGlow}
+            />
+          </div>
+          <div className={'atm-layer atm-layer--wind' + (windActive ? ' atm-layer--on' : '')}>
+            <WindFrame
+              enabled={windActive}
+              cloudDensity={stormy ? Math.round(s.windCloudDensity * 1.08) : s.windCloudDensity}
+              driftSpeed={stormy ? Math.round(s.windDriftSpeed * 1.12) : s.windDriftSpeed}
+              cloudOpacity={stormy ? Math.min(100, s.windCloudOpacity + 14) : s.windCloudOpacity}
+            />
+          </div>
+          <div className={'atm-layer atm-layer--lofi' + (mode === 'lofi-chill' ? ' atm-layer--on' : '')}>
+            <LofiChillFrame enabled={mode === 'lofi-chill'} />
+          </div>
+          <div className={'atm-layer atm-layer--zen' + (mode === 'zen-calm' ? ' atm-layer--on' : '')}>
+            <ZenCalmFrame enabled={mode === 'zen-calm'} />
+          </div>
+        </div>
+
         <NotebookOverlay />
         <SevenSecondOverlay />
       </div>

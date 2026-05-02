@@ -1,4 +1,5 @@
 import { intermediateQuestions } from './questions'
+import { aPlusGlossaryFlashcards, aPlusGlossaryMatchScenarios } from './aPlusGlossaryGenerated'
 
 export type CertificationId = 'a-plus' | 'network-plus' | 'security-plus'
 export type DifficultyLevel = 'easy' | 'intermediate' | 'advanced'
@@ -203,7 +204,7 @@ const securityPlusQuestions: ExamQuestion[] = [
   },
 ]
 
-const sharedFlashcards: FlashcardItem[] = [
+const seedFlashcards: FlashcardItem[] = [
   {
     id: 'flash-osi',
     certification: 'a-plus',
@@ -260,7 +261,12 @@ const sharedFlashcards: FlashcardItem[] = [
   },
 ]
 
-const sharedPBQ: PBQScenario[] = [
+const sharedFlashcards: FlashcardItem[] = [
+  ...(aPlusGlossaryFlashcards as unknown as FlashcardItem[]),
+  ...seedFlashcards,
+]
+
+const seedPBQ: PBQScenario[] = [
   {
     id: 'pbq-match-cables',
     certification: 'a-plus',
@@ -674,6 +680,11 @@ const sharedPBQ: PBQScenario[] = [
     },
     explanation: 'Preventive controls stop incidents (firewall, MFA). Detective controls find them (IDS, SIEM). Corrective controls fix the impact (AV cleanup, backup restore).',
   },
+]
+
+const sharedPBQ: PBQScenario[] = [
+  ...(aPlusGlossaryMatchScenarios as unknown as PBQScenario[]),
+  ...seedPBQ,
 ]
 
 const subnetWeakZones: SubnettingWeakZoneCategory[] = [

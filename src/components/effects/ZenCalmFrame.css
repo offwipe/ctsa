@@ -1,0 +1,59 @@
+.zen-frame {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.zen-frame__breathe {
+  position: absolute;
+  inset: -15%;
+  background: conic-gradient(
+    from 220deg at 50% 50%,
+    rgba(125, 211, 252, 0.07),
+    rgba(167, 139, 250, 0.06),
+    rgba(52, 211, 153, 0.05),
+    rgba(125, 211, 252, 0.07)
+  );
+  animation: zen-rotate 96s linear infinite;
+  filter: blur(42px);
+  opacity: 0.55;
+}
+
+.zen-frame__mist {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(closest-side at 40% 35%, rgba(255, 255, 255, 0.04), transparent 72%),
+    radial-gradient(closest-side at 72% 62%, rgba(125, 211, 252, 0.05), transparent 70%);
+  animation: zen-pulse 14s ease-in-out infinite alternate;
+}
+
+@keyframes zen-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes zen-pulse {
+  0% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0.55;
+    transform: scale(1.02);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zen-frame__breathe,
+  .zen-frame__mist {
+    animation: none !important;
+  }
+
+  .zen-frame__breathe {
+    opacity: 0.38;
+  }
+}

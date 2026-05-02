@@ -1,6 +1,6 @@
 {
   "productName": "CompTIA Study",
-  "version": "0.1.5",
+  "version": "0.2.3",
   "identifier": "com.comptia.study",
   "build": {
     "beforeDevCommand": "npm run dev",

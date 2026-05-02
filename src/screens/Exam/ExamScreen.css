@@ -3,7 +3,7 @@
 .exam-live-shell {
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
-  gap: var(--space-5);
+  gap: var(--space-6);
 }
 
 .exam-shell-stack,
@@ -264,8 +264,10 @@
 }
 
 .exam-review-grid {
-  margin-top: var(--space-3);
-  align-items: stretch;
+  margin-top: var(--space-5);
+  margin-bottom: var(--space-8);
+  align-items: start;
+  gap: var(--space-8);
 }
 
 .exam-review-grid > .screen-preview-card,
@@ -273,9 +275,21 @@
   min-width: 0;
 }
 
-.exam-review-grid > .screen-preview-card.exam-score-surface,
-.exam-review-grid > .exam-shell-stack > .screen-panel {
-  max-height: 240px;
+.exam-review-grid > .exam-shell-stack > .section {
+  max-height: min(280px, 42vh);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.exam-review-grid > .exam-shell-stack > .section .section-body {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+
+.exam-review-grid > .screen-preview-card.exam-score-surface {
+  max-height: min(260px, 42vh);
 }
 
 .exam-review-grid .exam-review-actions {

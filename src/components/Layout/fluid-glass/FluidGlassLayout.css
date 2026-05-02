@@ -1,0 +1,83 @@
+/* Clarity deck (layout id: fluid-glass) — legible panels, subtle depth only */
+
+.fluid-clear {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: clamp(10px, 2vw, 18px);
+  background: var(--fluid-clear-bg, var(--bg-main));
+}
+
+.fluid-clear__links {
+  flex-shrink: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 0.75rem;
+  margin-bottom: 0.65rem;
+  border-radius: 12px;
+  border: 1px solid var(--fluid-clear-border, var(--border));
+  background: var(--fluid-clear-bar, var(--bg-panel));
+}
+
+.fluid-clear--rail-end .fluid-clear__links {
+  justify-content: flex-end;
+}
+
+.fluid-clear__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.65rem;
+  border-radius: 10px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  cursor: pointer;
+}
+
+.fluid-clear__link:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.fluid-clear__link--active {
+  color: var(--text-primary);
+  background: var(--bg-card);
+  border-color: var(--border);
+}
+
+.fluid-clear__stage {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  border-radius: 14px;
+  border: 1px solid var(--fluid-clear-border, var(--border));
+  background: var(--fluid-clear-sheet, var(--bg-card));
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
+}
+
+.fluid-clear__scroll {
+  flex: 1;
+  overflow: auto;
+  padding: clamp(1rem, 2.5vw, 2rem);
+  min-height: 0;
+}
+
+@media (max-width: 720px) {
+  .fluid-clear__link > span {
+    display: none;
+  }
+
+  .fluid-clear__link {
+    padding: 0.45rem;
+    border-radius: 11px;
+  }
+}

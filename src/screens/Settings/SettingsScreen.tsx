@@ -11,7 +11,7 @@ import { SettingsRow } from '../../components/ui/SettingsRow'
 import { PrimaryButton } from '../../components/ui/PrimaryButton'
 import { UpdaterSection } from '../../components/UpdaterSection'
 import { useAppContext } from '../../context/useAppContext'
-import type { AmbientBorderStyle, AtmosphereMode } from '../../context/appTheme'
+import type { AmbientBorderStyle, AtmosphereMode, LayoutPresetId } from '../../context/appTheme'
 
 const SIDEBAR_OPTIONS = [
   { value: 'left', label: 'Left' },
@@ -30,6 +30,31 @@ const ATMOSPHERE_MODE_OPTIONS = [
   { value: 'snow', label: 'Snowfall' },
   { value: 'rain', label: 'Light rain' },
   { value: 'wind', label: 'Wind & clouds' },
+  { value: 'stormy-focus', label: 'Stormy focus' },
+  { value: 'lofi-chill', label: 'Lo-Fi chill' },
+  { value: 'zen-calm', label: 'Zen calm' },
+  { value: 'ambient-cloudy-mountain', label: 'Sound — Cloudy mountain' },
+  { value: 'ambient-thunderstorm', label: 'Sound — Thunderstorm' },
+  { value: 'ambient-alpine-meadow', label: 'Sound — Alpine meadow' },
+  { value: 'ambient-rain-window', label: 'Sound — Rain on window' },
+  { value: 'ambient-fireplace', label: 'Sound — Crackling fireplace' },
+  { value: 'ambient-ocean', label: 'Sound — Ocean waves' },
+  { value: 'ambient-forest', label: 'Sound — Forest' },
+  { value: 'ambient-rain-soft', label: 'Sound — Soft rain' },
+]
+
+const LAYOUT_PRESET_OPTIONS: { value: LayoutPresetId; label: string }[] = [
+  { value: 'classic-base', label: 'Classic Base' },
+  { value: 'highlighter', label: 'HighLighter' },
+  { value: 'vault', label: 'The Vault' },
+  { value: 'command-center', label: 'Command Center' },
+  { value: 'deep-focus', label: 'Deep Focus' },
+  { value: 'fluid-glass', label: 'Fluid Glass (Clarity)' },
+  { value: 'meridian', label: 'Meridian Rail' },
+  { value: 'lumin', label: 'Lumin Beacon' },
+  { value: 'folio', label: 'Folio Spine' },
+  { value: 'horizon', label: 'Horizon Tabs' },
+  { value: 'atrium', label: 'Atrium Studio' },
 ]
 
 export function SettingsScreen() {
@@ -333,7 +358,7 @@ export function SettingsScreen() {
       <Section
         title="Background Atmosphere"
         badge="Atmospheric"
-        description="Choose the ambience that fills the space behind the UI: snowfall, light rain, or drifting clouds with wind."
+        description="Scene effects behind the chrome — snowfall, precipitation, layered wind, storm composites, synthetic Lo-Fi/Zen beds, plus dedicated audio-only atmospheres (Sound — …) with smooth crossfades."
       >
         <SettingsRow label="Atmosphere" description="One mode at a time — switching swaps in the matching settings below.">
           <Dropdown
@@ -406,7 +431,7 @@ export function SettingsScreen() {
           </>
         )}
 
-        {s.atmosphereMode === 'rain' && (
+        {(s.atmosphereMode === 'rain' || s.atmosphereMode === 'stormy-focus') && (
           <>
             <SettingsRow label="Intensity" description="Density of falling raindrops.">
               <Slider
@@ -456,7 +481,7 @@ export function SettingsScreen() {
           </>
         )}
 
-        {s.atmosphereMode === 'wind' && (
+        {(s.atmosphereMode === 'wind' || s.atmosphereMode === 'stormy-focus') && (
           <>
             <SettingsRow label="Cloud density" description="How many drifting cloud layers.">
               <Slider
@@ -472,19 +497,24 @@ export function SettingsScreen() {
                 valueLabel={`${s.windDriftSpeed}%`}
               />
             </SettingsRow>
+            <SettingsRow label="Cloud opacity" description="How visible the clouds are.">
+              <Slider
+                value={s.windCloudOpacity} min={0} max={100}
+                onChange={(v) => updateSetting('windCloudOpacity', v)}
+                valueLabel={`${s.windCloudOpacity}%`}
+              />
+            </SettingsRow>
+          </>
+        )}
+
+        {s.atmosphereMode === 'wind' && (
+          <>
             <SettingsRow label="Chime bed" description="Subtle chimes under wind (add wind-chime.ogg in public/audio).">
               <Slider
                 value={s.windChimeLevel} min={0} max={100}
                 onChange={(v) => updateSetting('windChimeLevel', v)}
                 valueLabel={`${s.windChimeLevel}%`}
                 disabled={!s.atmosphereAudioEnabled}
-              />
-            </SettingsRow>
-            <SettingsRow label="Cloud opacity" description="How visible the clouds are.">
-              <Slider
-                value={s.windCloudOpacity} min={0} max={100}
-                onChange={(v) => updateSetting('windCloudOpacity', v)}
-                valueLabel={`${s.windCloudOpacity}%`}
               />
             </SettingsRow>
             <SettingsRow label="Howl tone" description="Pitch of the wind soundscape.">
@@ -511,9 +541,19 @@ export function SettingsScreen() {
 
       <Section
         title="Layout"
-        description="Sidebar position and UI layout."
+        description="Structural shells (navigation paradigm and spacing). Independent of theme presets — applying a theme preset keeps your layout choice."
       >
-        <SettingsRow label="Sidebar position" description="Which side the navigation appears on.">
+        <SettingsRow
+          label="Layout preset"
+          description="Classic Base preserves the original UI. Other presets rearrange navigation and panels without touching your saved colors or atmosphere sliders."
+        >
+          <Dropdown
+            value={s.layoutPreset}
+            options={LAYOUT_PRESET_OPTIONS}
+            onChange={(v) => updateSetting('layoutPreset', v as LayoutPresetId)}
+          />
+        </SettingsRow>
+        <SettingsRow label="Sidebar position" description="Which side the navigation appears on (Classic Base shell).">
           <Dropdown
             value={s.sidebarPosition}
             options={SIDEBAR_OPTIONS}
@@ -625,12 +665,14 @@ export function SettingsScreen() {
         badgeVariant="secondary"
         description="Reset controls for the entire customization system."
       >
-        <ResetButton label="Reset entire system" onClick={resetAll} />
-        <ResetButton label="Reset buttons only" onClick={resetButtons} />
-        <ResetButton label="Reset ambience only" onClick={resetAmbience} />
-        <ResetButton label="Reset ambient frame only" onClick={resetAmbientFrame} />
-        <ResetButton label="Reset atmosphere only" onClick={resetAtmosphere} />
-        <ResetButton label="Reset legacy snow only" onClick={resetWinterFrame} />
+        <div className="system-actions-stack">
+          <ResetButton label="Reset entire system" onClick={resetAll} />
+          <ResetButton label="Reset buttons only" onClick={resetButtons} />
+          <ResetButton label="Reset ambience only" onClick={resetAmbience} />
+          <ResetButton label="Reset ambient frame only" onClick={resetAmbientFrame} />
+          <ResetButton label="Reset atmosphere only" onClick={resetAtmosphere} />
+          <ResetButton label="Reset legacy snow only" onClick={resetWinterFrame} />
+        </div>
       </Section>
     </>
   )

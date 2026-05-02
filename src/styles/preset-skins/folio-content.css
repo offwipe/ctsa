@@ -1,0 +1,9 @@
+/* Folio — editorial (inherits serif from layoutPresetContent) */
+
+.app-shell[data-layout-preset='folio'] .screen-title {
+  font-weight: 700;
+}
+
+.app-shell[data-layout-preset='folio'] .section-title {
+  font-family: inherit;
+}

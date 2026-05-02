@@ -1,0 +1,64 @@
+/* Semantic tokens injected per layout preset (child shells reference these vars). */
+
+.app-shell[data-layout-preset='highlighter'] {
+  --hl-background: 0 0% 4%;
+  --hl-foreground: 0 0% 98%;
+  --hl-border: 0 0% 14%;
+  --hl-muted-foreground: 0 0% 60%;
+  --hl-sidebar: 0 0% 5%;
+  --hl-sidebar-foreground: 0 0% 90%;
+  --hl-sidebar-border: 0 0% 12%;
+  --hl-sidebar-accent: 0 0% 13%;
+  --hl-sidebar-accent-foreground: 0 0% 98%;
+  --hl-ll-yellow: 54 89% 60%;
+  --hl-ll-purple: 264 70% 65%;
+}
+
+.app-shell[data-layout-preset='vault'] {
+  --vault-sidebar-bg: rgba(15, 17, 28, 0.92);
+  --vault-pane-bg: rgba(12, 14, 22, 0.55);
+  --vault-border: rgba(148, 163, 184, 0.14);
+  --vault-muted: rgba(148, 163, 184, 0.85);
+}
+
+.app-shell[data-layout-preset='command-center'] {
+  --cc-bg: #070b12;
+  --cc-panel: rgba(15, 23, 42, 0.65);
+  --cc-border: rgba(56, 189, 248, 0.22);
+  --cc-grid: rgba(148, 163, 184, 0.08);
+}
+
+.app-shell[data-layout-preset='deep-focus'] {
+  --df-edge: rgba(15, 23, 42, 0.55);
+}
+
+.app-shell[data-layout-preset='fluid-glass'] {
+  --fluid-clear-bar: rgba(255, 255, 255, 0.05);
+  --fluid-clear-sheet: rgba(255, 255, 255, 0.06);
+  --fluid-clear-border: rgba(255, 255, 255, 0.12);
+}
+
+.app-shell[data-layout-preset='meridian'] {
+  --meridian-header-bg: rgba(255, 255, 255, 0.03);
+  --meridian-border: rgba(255, 255, 255, 0.08);
+}
+
+.app-shell[data-layout-preset='lumin'] {
+  --lumin-rail-bg: rgba(15, 23, 42, 0.55);
+  --lumin-border: rgba(148, 163, 184, 0.14);
+}
+
+.app-shell[data-layout-preset='folio'] {
+  --folio-spine-bg: rgba(255, 255, 255, 0.02);
+  --folio-border: rgba(148, 163, 184, 0.12);
+}
+
+.app-shell[data-layout-preset='horizon'] {
+  --horizon-bar-bg: rgba(15, 23, 42, 0.88);
+  --horizon-border: rgba(148, 163, 184, 0.15);
+}
+
+.app-shell[data-layout-preset='atrium'] {
+  --atrium-sheet-bg: rgba(255, 255, 255, 0.04);
+  --atrium-sheet-border: rgba(255, 255, 255, 0.08);
+}

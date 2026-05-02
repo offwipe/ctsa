@@ -1,11 +1,41 @@
 export type ThemeMode = 'dark' | 'light'
 export type SidebarPos = 'left' | 'right'
+
+/** Structural shell preset — orthogonal to theme/color presets; preserved when applying theme presets. */
+export type LayoutPresetId =
+  | 'classic-base'
+  | 'highlighter'
+  | 'vault'
+  | 'command-center'
+  | 'deep-focus'
+  | 'fluid-glass'
+  | 'meridian'
+  | 'lumin'
+  | 'folio'
+  | 'horizon'
+  | 'atrium'
 export type AmbientBorderStyle =
   | 'steady'
   | 'drift'
   | 'breathe'
   | 'pulse'
-export type AtmosphereMode = 'off' | 'snow' | 'rain' | 'wind'
+export type AtmosphereMode =
+  | 'off'
+  | 'snow'
+  | 'rain'
+  | 'wind'
+  | 'stormy-focus'
+  | 'lofi-chill'
+  | 'zen-calm'
+  /** Audio-only beds (bundled loops under public/audio/atmosphere/) */
+  | 'ambient-cloudy-mountain'
+  | 'ambient-thunderstorm'
+  | 'ambient-alpine-meadow'
+  | 'ambient-rain-window'
+  | 'ambient-fireplace'
+  | 'ambient-ocean'
+  | 'ambient-forest'
+  | 'ambient-rain-soft'
 
 export type CustomizationState = {
   mode: ThemeMode
@@ -68,6 +98,7 @@ export type CustomizationState = {
   windChimeLevel: number
   windTone: number
   windHowlIntensity: number
+  layoutPreset: LayoutPresetId
 }
 
 export const defaultSettings: CustomizationState = {
@@ -128,6 +159,7 @@ export const defaultSettings: CustomizationState = {
   windChimeLevel: 28,
   windTone: 40,
   windHowlIntensity: 35,
+  layoutPreset: 'classic-base',
 }
 
 export type PresetRecord = {
@@ -422,6 +454,44 @@ function migrateSettings(raw: Partial<CustomizationState> & Record<string, unkno
   }
   if (typeof rawPartial.windChimeLevel !== 'number' || Number.isNaN(rawPartial.windChimeLevel)) {
     merged.windChimeLevel = defaultSettings.windChimeLevel
+  }
+  const layoutIds: LayoutPresetId[] = [
+    'classic-base',
+    'highlighter',
+    'vault',
+    'command-center',
+    'deep-focus',
+    'fluid-glass',
+    'meridian',
+    'lumin',
+    'folio',
+    'horizon',
+    'atrium',
+  ]
+  const lp = raw.layoutPreset as LayoutPresetId | undefined
+  if (!lp || !layoutIds.includes(lp)) {
+    merged.layoutPreset = defaultSettings.layoutPreset
+  }
+  const validAtmo: AtmosphereMode[] = [
+    'off',
+    'snow',
+    'rain',
+    'wind',
+    'stormy-focus',
+    'lofi-chill',
+    'zen-calm',
+    'ambient-cloudy-mountain',
+    'ambient-thunderstorm',
+    'ambient-alpine-meadow',
+    'ambient-rain-window',
+    'ambient-fireplace',
+    'ambient-ocean',
+    'ambient-forest',
+    'ambient-rain-soft',
+  ]
+  const am = raw.atmosphereMode as string | undefined
+  if (!am || !validAtmo.includes(am as AtmosphereMode)) {
+    merged.atmosphereMode = defaultSettings.atmosphereMode
   }
   return merged
 }

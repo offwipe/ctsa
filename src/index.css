@@ -1,4 +1,11 @@
 @import './styles/tokens.css';
+@import './styles/layoutPresetContent.css';
+@import './styles/preset-skins/index.css';
+
+/* Preset-specific --font-sans on .app-shell cascades to all tab content */
+.app-shell {
+  font-family: var(--font-sans);
+}
 
 *,
 *::before,
@@ -37,6 +44,18 @@ a {
 
 button {
   font-family: inherit;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 :focus-visible {
