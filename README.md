@@ -1,60 +1,69 @@
 # CompTIA Study App
 
-Desktop study app for CompTIA certifications (Network+, A+, and more). Foundation phase: app shell, dark UI (inspired by [Raycast/ray-so](https://github.com/raycast/ray-so)), settings, and screen placeholders. Question content and generators come in a later phase.
+A Windows desktop app for studying CompTIA exams. You open it like any other program, pick what you want to work on, and your progress and settings stay on your machine.
 
-## Run in development
+## Download and install
+
+1. Go to the **[Releases](https://github.com/offwipe/comptia-study-app/releases)** page for this repository.
+2. Download the latest **installer** (`.exe`) for Windows.
+3. Run the installer, then launch **CompTIA Study** from the Start menu or a shortcut.
+
+If there is no release yet, you need to build the app from source (see **For developers** below).
+
+**Updates:** After you install, open the app and use **Settings → Updates** to look for newer versions when they are published.
+
+## What it has
+
+- **Home** — Choose a certification track (some tracks are still “coming soon”).
+- **Study (Blitz)** — Quick rounds that mix timed recall and spaced repetition.
+- **Exam prep** — Practice exams with scoring.
+- **Subnetting** — Drill questions on subnet math.
+- **PBQ practice** — Hands-on scenarios you solve by placing items in the right spots.
+- **Flashcards** — Flip cards for terms and cloze-style prompts.
+- **Pomodoro** — Timer and stopwatch for focus sessions.
+- **Settings** — Dark or light theme, colors, layout presets, optional sound and scene effects.
+
+Study material grows over time; not every certification has the same amount of content yet.
+
+## How it works
+
+The app is a normal **desktop program** for Windows. It shows a single window with a sidebar and a main area. Your preferences (theme, layout, timers, and similar options) are **saved on your computer** so they come back the next time you open the app.
+
+Optional **in-app updates** use the project’s GitHub Releases page: when a new version is published there, the app can download and install it from **Settings → Updates**. Maintainers who ship builds should follow the signing and release steps in `docs/UPDATES.md` and `docs/RELEASING.md`.
+
+---
+
+## For developers
+
+### Run in development
 
 ```bash
 npm install
 npm run dev
 ```
 
-Then open http://localhost:5173 in a browser, or run the Tauri desktop window (requires Rust):
+Then open `http://localhost:5173`, or run the desktop shell (needs Rust):
 
 ```bash
 npm run tauri dev
 ```
 
-## Build executable (.exe on Windows)
+### Build the Windows app
 
-You need **Node.js**, **Rust** ([rustup.rs](https://rustup.rs/)), and (on Windows) the **C++ build tools** if the Rust installer asks for them. Then:
+You need **Node.js**, **Rust** ([rustup](https://rustup.rs/)), and on Windows the **C++ build tools** if the installer asks for them.
 
 ```bash
 npm install
 npm run tauri build
 ```
 
-Output: `src-tauri/target/release/CompTIA Study.exe` and an installer under `src-tauri/target/release/bundle/nsis/`.
+Built installers and binaries end up under `src-tauri/target/release/` and `bundle/`. Step-by-step: **[docs/BUILD_EXE.md](docs/BUILD_EXE.md)**
 
-**Step-by-step:** **[docs/BUILD_EXE.md](docs/BUILD_EXE.md)**
+### Ship updates
 
-## In-app updates
+Configure signing, publish installers to GitHub Releases, and attach the updater manifest. Details: **[docs/UPDATES.md](docs/UPDATES.md)**, **[docs/RELEASING.md](docs/RELEASING.md)**
 
-The app can update itself after install. In **Settings → Updates** users can check for updates, download, and restart. To publish updates you must:
+### Repository layout
 
-1. Generate a signing keypair and add the public key to `src-tauri/tauri.conf.json`
-2. Set the `endpoints` URL (e.g. a GitHub Releases `latest.json` link)
-3. Build with `TAURI_SIGNING_PRIVATE_KEY` set and publish the installer plus a manifest
-
-Full steps: **[docs/UPDATES.md](docs/UPDATES.md)**
-
-## Project structure
-
-- **src/** — React app: router, design tokens, layout (sidebar + main), UI controls, screens
-- **src/components/** — Sidebar, Layout, UI (Toggle, Slider, Dropdown, ColorPicker, PreviewBox, ResetButton, Section, PrimaryButton, SettingsRow), DragDropContainer, CardFlip
-- **src/screens/** — Home, Study, Exam Prep, Subnetting, PBQ, Flashcards, Settings
-- **src/data/** — Stub (question bank later)
-- **src/generators/** — Stub (subnetting / PBQ later)
-- **src-tauri/** — Tauri v2 backend
-
-## Current scope
-
-- Dark theme, two-panel layout (sidebar + main content)
-- All UI controls: toggle, slider with value, dropdown, color picker, preview box, reset button, section chrome, primary CTA
-- Settings page using every control type
-- Screen shells for Study, Exam Prep, Subnetting, PBQ, Flashcards (placeholders; no questions yet)
-- No question bank or generators yet
-
-## Recreating UI from another app
-
-To match the look of another desktop app (e.g. a .exe) without copying its code, see **[docs/REVERSE_ENGINEER_UI.md](docs/REVERSE_ENGINEER_UI.md)** for a step-by-step workflow (DevTools, screenshots, color picker, design tokens).
+- **`src/`** — React front end (routes, screens, layout, UI components, study data)
+- **`src-tauri/`** — Tauri v2 shell (Rust), updater, windowing
