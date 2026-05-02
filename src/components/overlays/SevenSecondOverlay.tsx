@@ -88,6 +88,7 @@ export function SevenSecondOverlay() {
             <span className="seven-overlay-cell seven-overlay-cell--mask">{row.mask}</span>
             <span className="seven-overlay-cell seven-overlay-cell--mask">{row.networkMask}</span>
             <span className="seven-overlay-cell seven-overlay-cell--mask">{row.addressMask}</span>
+            <span className="seven-overlay-cell seven-overlay-cell--mask">{row.hostMask}</span>
             <span className="seven-overlay-cell seven-overlay-cell--octet">{row.octet}</span>
             <span className="seven-overlay-cell">{row.networks}</span>
             <span className="seven-overlay-cell">{row.addresses}</span>

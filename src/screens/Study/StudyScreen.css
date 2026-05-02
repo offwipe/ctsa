@@ -238,8 +238,10 @@
   height: 100%;
   background: linear-gradient(90deg, color-mix(in srgb, var(--accent) 60%, white 40%), var(--accent));
   transform-origin: left center;
+  width: 100%;
   border-radius: var(--radius-full);
   box-shadow: 0 0 12px var(--btn-glow, transparent);
+  will-change: transform;
 }
 
 .blitz-timer-label {

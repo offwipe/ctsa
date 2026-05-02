@@ -7,8 +7,6 @@ import { AmbientFrame } from '../effects/AmbientFrame'
 import { WinterFrame } from '../effects/WinterFrame'
 import { RainFrame } from '../effects/RainFrame'
 import { WindFrame } from '../effects/WindFrame'
-import { LofiChillFrame } from '../effects/LofiChillFrame'
-import { ZenCalmFrame } from '../effects/ZenCalmFrame'
 import { useAtmosphereAudio } from '../../hooks/useAtmosphereAudio'
 import { NotebookOverlay } from '../overlays/NotebookOverlay'
 import { SevenSecondOverlay } from '../overlays/SevenSecondOverlay'
@@ -111,7 +109,7 @@ export function AppLayout() {
 
   useAtmosphereAudio({
     enabled: s.atmosphereAudioEnabled,
-    mode: s.atmosphereMode,
+    mode: s.backgroundSoundMode,
     volume: s.atmosphereVolume,
     windChimeLevel: s.windChimeLevel,
   })
@@ -178,12 +176,6 @@ export function AppLayout() {
               driftSpeed={stormy ? Math.round(s.windDriftSpeed * 1.12) : s.windDriftSpeed}
               cloudOpacity={stormy ? Math.min(100, s.windCloudOpacity + 14) : s.windCloudOpacity}
             />
-          </div>
-          <div className={'atm-layer atm-layer--lofi' + (mode === 'lofi-chill' ? ' atm-layer--on' : '')}>
-            <LofiChillFrame enabled={mode === 'lofi-chill'} />
-          </div>
-          <div className={'atm-layer atm-layer--zen' + (mode === 'zen-calm' ? ' atm-layer--on' : '')}>
-            <ZenCalmFrame enabled={mode === 'zen-calm'} />
           </div>
         </div>
 

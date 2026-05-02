@@ -1,6 +1,6 @@
 {
-  "productName": "CompTIA Study",
-  "version": "0.2.4",
+  "productName": "ctsa",
+  "version": "0.2.6",
   "identifier": "com.comptia.study",
   "build": {
     "beforeDevCommand": "npm run dev",
@@ -18,15 +18,15 @@
       "digestAlgorithm": "sha256",
       "timestampUrl": ""
     },
-    "longDescription": "Study app for CompTIA certifications (Network+, A+, and more).",
-    "shortDescription": "CompTIA Study App",
+    "longDescription": "ctsa study app for CompTIA certifications (Network+, A+, and more).",
+    "shortDescription": "ctsa",
     "category": "Education",
     "copyright": ""
   },
   "app": {
     "windows": [
       {
-        "title": "CompTIA Study",
+        "title": "ctsa",
         "width": 1200,
         "height": 800,
         "minWidth": 900,
@@ -48,9 +48,9 @@
   },
   "plugins": {
     "updater": {
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDRBNjFEMUNCMEY3OUEzREYKUldUZm8za1B5OUZoU2kwZW5VNG14b2pLSmJiRmhxRlJYbG9GdGptQVd3WGd1SVlLN2VmVTIzVmIK",
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEFDOUU4Njg5RTUzNTEwNEYKUldSUEVEWGxpWWFlck5sQ05wOFdwZmRmNk1pN052b3BkOWFWWmZOQ1RyNGEzQjN0dzJ1SWY5cW0K",
       "endpoints": [
-        "https://github.com/offwipe/comptia-study-app/releases/latest/download/latest.json"
+        "https://github.com/offwipe/ctsa/releases/latest/download/latest.json"
       ],
       "windows": {
         "installMode": "passive"

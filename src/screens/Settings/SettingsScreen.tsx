@@ -11,7 +11,7 @@ import { SettingsRow } from '../../components/ui/SettingsRow'
 import { PrimaryButton } from '../../components/ui/PrimaryButton'
 import { UpdaterSection } from '../../components/UpdaterSection'
 import { useAppContext } from '../../context/useAppContext'
-import type { AmbientBorderStyle, AtmosphereMode, LayoutPresetId } from '../../context/appTheme'
+import type { AmbientBorderStyle, AtmosphereMode, BackgroundSoundMode, LayoutPresetId, TitlebarStyle } from '../../context/appTheme'
 
 const SIDEBAR_OPTIONS = [
   { value: 'left', label: 'Left' },
@@ -31,16 +31,31 @@ const ATMOSPHERE_MODE_OPTIONS = [
   { value: 'rain', label: 'Light rain' },
   { value: 'wind', label: 'Wind & clouds' },
   { value: 'stormy-focus', label: 'Stormy focus' },
+]
+
+const BACKGROUND_SOUND_OPTIONS = [
+  { value: 'off', label: 'Off' },
+  { value: 'rain', label: 'Light rain' },
+  { value: 'wind', label: 'Wind bed' },
+  { value: 'stormy-focus', label: 'Stormy focus' },
   { value: 'lofi-chill', label: 'Lo-Fi chill' },
   { value: 'zen-calm', label: 'Zen calm' },
-  { value: 'ambient-cloudy-mountain', label: 'Sound — Cloudy mountain' },
-  { value: 'ambient-thunderstorm', label: 'Sound — Thunderstorm' },
-  { value: 'ambient-alpine-meadow', label: 'Sound — Alpine meadow' },
-  { value: 'ambient-rain-window', label: 'Sound — Rain on window' },
-  { value: 'ambient-fireplace', label: 'Sound — Crackling fireplace' },
-  { value: 'ambient-ocean', label: 'Sound — Ocean waves' },
-  { value: 'ambient-forest', label: 'Sound — Forest' },
-  { value: 'ambient-rain-soft', label: 'Sound — Soft rain' },
+  { value: 'ambient-cloudy-mountain', label: 'Cloudy mountain' },
+  { value: 'ambient-thunderstorm', label: 'Thunderstorm' },
+  { value: 'ambient-alpine-meadow', label: 'Alpine meadow' },
+  { value: 'ambient-rain-window', label: 'Rain on window' },
+  { value: 'ambient-fireplace', label: 'Crackling fireplace' },
+  { value: 'ambient-ocean', label: 'Ocean waves' },
+  { value: 'ambient-forest', label: 'Forest ambiance' },
+  { value: 'ambient-rain-soft', label: 'Soft rain' },
+]
+
+const TITLEBAR_STYLE_OPTIONS: { value: TitlebarStyle; label: string }[] = [
+  { value: 'auto', label: 'Auto — blend with preset' },
+  { value: 'transparent', label: 'Transparent' },
+  { value: 'glass', label: 'Glass strip' },
+  { value: 'solid', label: 'Solid panel' },
+  { value: 'accent', label: 'Accent rail' },
 ]
 
 const LAYOUT_PRESET_OPTIONS: { value: LayoutPresetId; label: string }[] = [
@@ -354,9 +369,9 @@ export function SettingsScreen() {
       <Section
         title="Background Atmosphere"
         badge="Atmospheric"
-        description="Scene effects behind the chrome — snowfall, precipitation, layered wind, storm composites, synthetic Lo-Fi/Zen beds, plus dedicated audio-only atmospheres (Sound — …) with smooth crossfades."
+        description="Scene effects behind the chrome. Background Sound below controls audio separately, so you can pair any visual atmosphere with any sound bed."
       >
-        <SettingsRow label="Atmosphere" description="One mode at a time — switching swaps in the matching settings below.">
+        <SettingsRow label="Atmosphere" description="Visual scene effect only. Use Background Sound for audio.">
           <Dropdown
             value={s.atmosphereMode}
             options={ATMOSPHERE_MODE_OPTIONS}
@@ -364,7 +379,15 @@ export function SettingsScreen() {
           />
         </SettingsRow>
 
-        {s.atmosphereMode !== 'off' && (
+        <SettingsRow label="Background Sound" description="Looped audio bed with immediate crossfade when switching sounds.">
+          <Dropdown
+            value={s.backgroundSoundMode}
+            options={BACKGROUND_SOUND_OPTIONS}
+            onChange={(v) => updateSetting('backgroundSoundMode', v as BackgroundSoundMode)}
+          />
+        </SettingsRow>
+
+        {s.backgroundSoundMode !== 'off' && (
           <>
             <SettingsRow label="Audio enabled" description="Mute or unmute the ambient soundscape.">
               <Toggle
@@ -533,6 +556,48 @@ export function SettingsScreen() {
         )}
 
         <ResetButton label="Reset atmosphere defaults" onClick={resetAtmosphere} />
+      </Section>
+
+      <Section
+        title="Top Handlebar"
+        badge="Window"
+        description="Customize the draggable top handlebar, app label, pop-out buttons, and window controls."
+      >
+        <SettingsRow label="Design" description="Auto blends with the current layout preset; manual styles let you force a specific treatment.">
+          <Dropdown
+            value={s.titlebarStyle}
+            options={TITLEBAR_STYLE_OPTIONS}
+            onChange={(v) => updateSetting('titlebarStyle', v as TitlebarStyle)}
+          />
+        </SettingsRow>
+        <SettingsRow label="Blend with layout preset" description="Tints the handlebar using the active layout, accent, and surface tokens.">
+          <Toggle
+            checked={s.titlebarBlendWithPreset}
+            onChange={(v) => updateSetting('titlebarBlendWithPreset', v)}
+            aria-label="Blend top handlebar with layout preset"
+          />
+        </SettingsRow>
+        <SettingsRow label="Handlebar opacity" description="Lower opacity makes the strip recede into the current layout.">
+          <Slider
+            value={s.titlebarOpacity} min={20} max={100}
+            onChange={(v) => updateSetting('titlebarOpacity', v)}
+            valueLabel={`${s.titlebarOpacity}%`}
+          />
+        </SettingsRow>
+        <SettingsRow label="Show app title">
+          <Toggle
+            checked={s.titlebarShowTitle}
+            onChange={(v) => updateSetting('titlebarShowTitle', v)}
+            aria-label="Show app title in handlebar"
+          />
+        </SettingsRow>
+        <SettingsRow label="Compact controls" description="Shrinks the pop-out and window buttons for denser layouts.">
+          <Toggle
+            checked={s.titlebarCompact}
+            onChange={(v) => updateSetting('titlebarCompact', v)}
+            aria-label="Compact top handlebar controls"
+          />
+        </SettingsRow>
       </Section>
 
       <Section

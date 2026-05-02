@@ -89,12 +89,12 @@ export function generateSubnettingPrompt(cidrs: number[], weakZone?: SubnettingW
 }
 
 export const sevenSecondRows = [
-  { mask: '/1', networkMask: '/9', addressMask: '/17', octet: '128', networks: '2', addresses: '128' },
-  { mask: '/2', networkMask: '/10', addressMask: '/18', octet: '192', networks: '4', addresses: '64' },
-  { mask: '/3', networkMask: '/11', addressMask: '/19', octet: '224', networks: '8', addresses: '32' },
-  { mask: '/4', networkMask: '/12', addressMask: '/20', octet: '240', networks: '16', addresses: '16' },
-  { mask: '/5', networkMask: '/13', addressMask: '/21', octet: '248', networks: '32', addresses: '8' },
-  { mask: '/6', networkMask: '/14', addressMask: '/22', octet: '252', networks: '64', addresses: '4' },
-  { mask: '/7', networkMask: '/15', addressMask: '/23', octet: '254', networks: '128', addresses: '2' },
-  { mask: '/8', networkMask: '/16', addressMask: '/24', octet: '255', networks: '256', addresses: '1' },
+  { mask: '/1', networkMask: '/9', addressMask: '/17', hostMask: '/25', octet: '128', networks: '2', addresses: '128' },
+  { mask: '/2', networkMask: '/10', addressMask: '/18', hostMask: '/26', octet: '192', networks: '4', addresses: '64' },
+  { mask: '/3', networkMask: '/11', addressMask: '/19', hostMask: '/27', octet: '224', networks: '8', addresses: '32' },
+  { mask: '/4', networkMask: '/12', addressMask: '/20', hostMask: '/28', octet: '240', networks: '16', addresses: '16' },
+  { mask: '/5', networkMask: '/13', addressMask: '/21', hostMask: '/29', octet: '248', networks: '32', addresses: '8' },
+  { mask: '/6', networkMask: '/14', addressMask: '/22', hostMask: '/30', octet: '252', networks: '64', addresses: '4' },
+  { mask: '/7', networkMask: '/15', addressMask: '/23', hostMask: '/31', octet: '254', networks: '128', addresses: '2' },
+  { mask: '/8', networkMask: '/16', addressMask: '/24', hostMask: '/32', octet: '255', networks: '256', addresses: '1' },
 ]

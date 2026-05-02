@@ -1,8 +1,7 @@
 import { useMemo } from 'react'
 import '../ScreenShell.css'
 import './SubnettingScreen.css'
-import { certificationPacks, getCertificationPack } from '../../data/certificationPacks'
-import type { CertificationId, SubnettingWeakZoneCategory } from '../../data/certificationPacks'
+import type { SubnettingWeakZoneCategory } from '../../data/certificationPacks'
 import { useLocalStorageState } from '../../hooks/useLocalStorageState'
 import { Section } from '../../components/ui/Section'
 import { PrimaryButton } from '../../components/ui/PrimaryButton'
@@ -18,7 +17,6 @@ type SubnetStats = {
 }
 
 type SubnetState = {
-  certification: CertificationId
   mode: SubnetMode
   selectedFields: AnswerField[]
   weakZone: SubnettingWeakZoneCategory
@@ -31,7 +29,6 @@ type SubnetState = {
 const STORAGE_KEY = 'study-app-subnetting'
 
 const DEFAULT_STATE: SubnetState = {
-  certification: 'network-plus',
   mode: 'full-drill',
   selectedFields: ['networkId', 'broadcastAddress', 'blockSize'],
   weakZone: 'third-octet-focus',
@@ -49,6 +46,8 @@ const fieldOptions: Array<{ value: AnswerField; label: string }> = [
   { value: 'usableHosts', label: 'Usable Hosts' },
   { value: 'usableRange', label: 'Usable Range' },
 ]
+
+const defaultSubnetCidrs = [16, 20, 22, 24, 25, 26, 27, 28, 29, 30]
 
 const weakZoneOptions: Array<{ value: SubnettingWeakZoneCategory; label: string }> = [
   { value: 'third-octet-focus', label: 'xxx.xxx.43.xx style third octet focus' },
@@ -93,11 +92,10 @@ function answerFieldsForMode(state: SubnetState): AnswerField[] {
 
 export function SubnettingScreen() {
   const [state, setState] = useLocalStorageState<SubnetState>(STORAGE_KEY, DEFAULT_STATE)
-  const pack = getCertificationPack(state.certification)
   const activeFields = answerFieldsForMode(state)
 
   const generatePrompt = () => {
-    const prompt = generateSubnettingPrompt(pack.subnetting.defaultCidrs, state.mode === 'scratching-surface' ? state.weakZone : undefined)
+    const prompt = generateSubnettingPrompt(defaultSubnetCidrs, state.mode === 'scratching-surface' ? state.weakZone : undefined)
     setState((previous) => ({ ...previous, prompt, answers: {}, feedback: {} }))
   }
 
@@ -171,12 +169,6 @@ export function SubnettingScreen() {
             description="Every prompt is generated live and scored locally by mode or weak category."
           >
             <div className="subnet-setup-grid">
-              <Dropdown
-                label="Certification"
-                value={state.certification}
-                options={certificationPacks.map((option) => ({ value: option.id, label: `${option.label} • ${option.examCode}` }))}
-                onChange={(value) => setState((previous) => ({ ...previous, certification: value as CertificationId }))}
-              />
               <Dropdown
                 label="Mode"
                 value={state.mode}

@@ -1,7 +1,7 @@
 [package]
-name = "comptia-study-app"
-version = "0.2.4"
-description = "CompTIA Study App"
+name = "ctsa"
+version = "0.2.6"
+description = "ctsa"
 authors = ["you"]
 license = ""
 repository = ""

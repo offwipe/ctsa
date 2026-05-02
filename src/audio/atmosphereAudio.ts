@@ -14,10 +14,10 @@
  * Optional `/audio/wind-chime.ogg` layers under wind with slow gain breathing.
  */
 
-import type { AtmosphereMode } from '../context/appTheme'
+import type { BackgroundSoundMode } from '../context/appTheme'
 
 /** Bundled looping beds (no matching canvas effects — audio only). */
-export const ATMOSPHERE_SAMPLE_URLS: Partial<Record<AtmosphereMode, string>> = {
+export const ATMOSPHERE_SAMPLE_URLS: Partial<Record<BackgroundSoundMode, string>> = {
   'ambient-cloudy-mountain': '/audio/atmosphere/cloudy-mountain.m4a',
   'ambient-thunderstorm': '/audio/atmosphere/thunderstorm.m4a',
   'ambient-alpine-meadow': '/audio/atmosphere/alpine-meadow.m4a',
@@ -31,7 +31,7 @@ export const ATMOSPHERE_SAMPLE_URLS: Partial<Record<AtmosphereMode, string>> = {
 /** Internal audio bed — composite storm + synthetic chill/zen layers. */
 type BedMode = 'rain' | 'wind' | 'stormy' | 'lofi' | 'zen'
 
-function mapAtmosphereToBed(mode: AtmosphereMode): BedMode | null {
+function mapAtmosphereToBed(mode: BackgroundSoundMode): BedMode | null {
   switch (mode) {
     case 'rain':
       return 'rain'
@@ -71,7 +71,6 @@ class AtmosphereEngine {
   /** When playing a bundled atmosphere sample, avoids redundant reloads. */
   private activeSampleUrl: string | null = null
   private bufferCache: Partial<Record<'rain' | 'wind', AudioBuffer | null>> = {}
-  private sampleBufferCache: Record<string, AudioBuffer | null | undefined> = {}
   private chimeBuffer: AudioBuffer | null = null
   private chimeLoadAttempted = false
   private chimeGain: GainNode | null = null
@@ -112,7 +111,7 @@ class AtmosphereEngine {
     this.setVolume(this.targetVolume)
   }
 
-  async setMode(mode: AtmosphereMode) {
+  async setMode(mode: BackgroundSoundMode) {
     const sampleUrl = ATMOSPHERE_SAMPLE_URLS[mode]
 
     if (!sampleUrl) {
@@ -137,34 +136,24 @@ class AtmosphereEngine {
         }
       }
 
-      const buffer = await this.loadSampleBuffer(sampleUrl)
-      if (!buffer) {
-        this.fadeOutCurrent()
-        this.currentNodes = null
-        this.currentBed = null
-        this.activeSampleUrl = null
-        return
-      }
-
       const previous = this.currentNodes
       const output = ctx.createGain()
       output.gain.value = 0
       if (this.master) output.connect(this.master)
 
-      const source = ctx.createBufferSource()
-      source.buffer = buffer
-      source.loop = true
+      const audio = new Audio(sampleUrl)
+      audio.loop = true
+      audio.preload = 'auto'
+      audio.crossOrigin = 'anonymous'
+      const source = ctx.createMediaElementSource(audio)
       source.connect(output)
-      source.start()
 
       const nodes: ModeNodes = {
         output,
         cleanup: () => {
-          try {
-            source.stop()
-          } catch {
-            // ignore
-          }
+          audio.pause()
+          audio.removeAttribute('src')
+          audio.load()
           source.disconnect()
           output.disconnect()
         },
@@ -186,6 +175,7 @@ class AtmosphereEngine {
         previous.output.gain.linearRampToValueAtTime(0, t + FADE_OUT)
         window.setTimeout(() => previous.cleanup(), (FADE_OUT + 0.25) * 1000)
       }
+      void audio.play().catch(() => undefined)
       return
     }
 
@@ -467,27 +457,6 @@ class AtmosphereEngine {
       return buffer
     } catch {
       this.bufferCache[mode] = null
-      return null
-    }
-  }
-
-  private async loadSampleBuffer(url: string): Promise<AudioBuffer | null> {
-    if (Object.prototype.hasOwnProperty.call(this.sampleBufferCache, url)) {
-      return this.sampleBufferCache[url] ?? null
-    }
-    const ctx = this.ensureContext()
-    try {
-      const response = await fetch(url)
-      if (!response.ok) {
-        this.sampleBufferCache[url] = null
-        return null
-      }
-      const data = await response.arrayBuffer()
-      const buffer = await ctx.decodeAudioData(data)
-      this.sampleBufferCache[url] = buffer
-      return buffer
-    } catch {
-      this.sampleBufferCache[url] = null
       return null
     }
   }

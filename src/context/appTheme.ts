@@ -25,9 +25,14 @@ export type AtmosphereMode =
   | 'rain'
   | 'wind'
   | 'stormy-focus'
+
+export type BackgroundSoundMode =
+  | 'off'
+  | 'rain'
+  | 'wind'
+  | 'stormy-focus'
   | 'lofi-chill'
   | 'zen-calm'
-  /** Audio-only beds (bundled loops under public/audio/atmosphere/) */
   | 'ambient-cloudy-mountain'
   | 'ambient-thunderstorm'
   | 'ambient-alpine-meadow'
@@ -36,6 +41,8 @@ export type AtmosphereMode =
   | 'ambient-ocean'
   | 'ambient-forest'
   | 'ambient-rain-soft'
+
+export type TitlebarStyle = 'auto' | 'transparent' | 'glass' | 'solid' | 'accent'
 
 export type CustomizationState = {
   mode: ThemeMode
@@ -70,6 +77,7 @@ export type CustomizationState = {
   ambientBorderStyle: AmbientBorderStyle
   ambientBorderSpeed: number
   atmosphereMode: AtmosphereMode
+  backgroundSoundMode: BackgroundSoundMode
   atmosphereVolume: number
   atmosphereAudioEnabled: boolean
   winterFrameEnabled: boolean
@@ -97,6 +105,11 @@ export type CustomizationState = {
   windChimeLevel: number
   windTone: number
   windHowlIntensity: number
+  titlebarStyle: TitlebarStyle
+  titlebarBlendWithPreset: boolean
+  titlebarOpacity: number
+  titlebarShowTitle: boolean
+  titlebarCompact: boolean
   layoutPreset: LayoutPresetId
 }
 
@@ -133,6 +146,7 @@ export const defaultSettings: CustomizationState = {
   ambientBorderStyle: 'breathe',
   ambientBorderSpeed: 30,
   atmosphereMode: 'off',
+  backgroundSoundMode: 'off',
   atmosphereVolume: 35,
   atmosphereAudioEnabled: true,
   winterFrameEnabled: false,
@@ -157,6 +171,11 @@ export const defaultSettings: CustomizationState = {
   windChimeLevel: 28,
   windTone: 40,
   windHowlIntensity: 35,
+  titlebarStyle: 'auto',
+  titlebarBlendWithPreset: true,
+  titlebarOpacity: 76,
+  titlebarShowTitle: true,
+  titlebarCompact: false,
   layoutPreset: 'classic-base',
 }
 
@@ -478,6 +497,12 @@ function migrateSettings(raw: Partial<CustomizationState> & Record<string, unkno
     'rain',
     'wind',
     'stormy-focus',
+  ]
+  const validSound: BackgroundSoundMode[] = [
+    'off',
+    'rain',
+    'wind',
+    'stormy-focus',
     'lofi-chill',
     'zen-calm',
     'ambient-cloudy-mountain',
@@ -490,8 +515,26 @@ function migrateSettings(raw: Partial<CustomizationState> & Record<string, unkno
     'ambient-rain-soft',
   ]
   const am = raw.atmosphereMode as string | undefined
-  if (!am || !validAtmo.includes(am as AtmosphereMode)) {
+  if (am && validSound.includes(am as BackgroundSoundMode) && !validAtmo.includes(am as AtmosphereMode)) {
+    merged.atmosphereMode = 'off'
+    merged.backgroundSoundMode = am as BackgroundSoundMode
+  } else if (!am || !validAtmo.includes(am as AtmosphereMode)) {
     merged.atmosphereMode = defaultSettings.atmosphereMode
+  }
+  const sound = raw.backgroundSoundMode as string | undefined
+  if (sound && validSound.includes(sound as BackgroundSoundMode)) {
+    merged.backgroundSoundMode = sound as BackgroundSoundMode
+  } else if (!validSound.includes(merged.backgroundSoundMode)) {
+    merged.backgroundSoundMode = defaultSettings.backgroundSoundMode
+  }
+  const titlebarStyles: TitlebarStyle[] = ['auto', 'transparent', 'glass', 'solid', 'accent']
+  if (!titlebarStyles.includes(merged.titlebarStyle)) {
+    merged.titlebarStyle = defaultSettings.titlebarStyle
+  }
+  if (typeof merged.titlebarOpacity !== 'number' || Number.isNaN(merged.titlebarOpacity)) {
+    merged.titlebarOpacity = defaultSettings.titlebarOpacity
+  } else {
+    merged.titlebarOpacity = Math.min(100, Math.max(20, merged.titlebarOpacity))
   }
   return merged
 }

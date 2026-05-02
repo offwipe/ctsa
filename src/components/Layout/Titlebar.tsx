@@ -1,8 +1,13 @@
 import { useAppContext } from '../../context/useAppContext'
+import type { CSSProperties } from 'react'
 import './Titlebar.css'
 
 export function Titlebar() {
-  const { notebookOpen, toggleNotebook, chartOpen, toggleChart } = useAppContext()
+  const { settings, notebookOpen, toggleNotebook, chartOpen, toggleChart } = useAppContext()
+  const titlebarStyle = settings.titlebarStyle === 'auto' ? settings.layoutPreset : settings.titlebarStyle
+  const titlebarVars = {
+    '--titlebar-opacity': `${settings.titlebarOpacity / 100}`,
+  } as CSSProperties
 
   const minimize = async () => {
     try {
@@ -26,8 +31,14 @@ export function Titlebar() {
   }
 
   return (
-    <div className="titlebar" data-tauri-drag-region>
-      <span className="titlebar-title" data-tauri-drag-region>CompTIA Study</span>
+    <div
+      className={'titlebar' + (settings.titlebarCompact ? ' titlebar--compact' : '')}
+      data-titlebar-style={titlebarStyle}
+      data-titlebar-blend={settings.titlebarBlendWithPreset ? 'true' : 'false'}
+      data-tauri-drag-region
+      style={titlebarVars}
+    >
+      {settings.titlebarShowTitle && <span className="titlebar-title" data-tauri-drag-region>ctsa</span>}
       <div className="titlebar-controls">
         <button
           className={'titlebar-btn titlebar-btn--tool' + (chartOpen ? ' titlebar-btn--active' : '')}

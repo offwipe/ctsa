@@ -93,6 +93,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setSettings(prev => ({
       ...prev,
       atmosphereMode: defaultSettings.atmosphereMode,
+      backgroundSoundMode: defaultSettings.backgroundSoundMode,
       atmosphereVolume: defaultSettings.atmosphereVolume,
       atmosphereAudioEnabled: defaultSettings.atmosphereAudioEnabled,
       winterFrameEnabled: defaultSettings.winterFrameEnabled,

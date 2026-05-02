@@ -90,7 +90,7 @@ export function StudyScreen() {
   const [startTime, setStartTime] = useState(0)
   const [roundEndTime, setRoundEndTime] = useState(0)
 
-  const tickRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const tickRef = useRef<number | null>(null)
   const timerDeadlineRef = useRef(0)
   const pack = useMemo(() => getCertificationPack(certification), [certification])
   const decks = pack.flashcards.decks
@@ -98,7 +98,7 @@ export function StudyScreen() {
 
   const stopTimer = useCallback(() => {
     if (tickRef.current != null) {
-      window.clearInterval(tickRef.current)
+      window.cancelAnimationFrame(tickRef.current)
       tickRef.current = null
     }
   }, [])
@@ -109,14 +109,17 @@ export function StudyScreen() {
     const totalMs = timerSeconds * 1000
     timerDeadlineRef.current = Date.now() + totalMs
     setTimerMsLeft(totalMs)
-    tickRef.current = window.setInterval(() => {
+    const tick = () => {
       const ms = Math.max(0, timerDeadlineRef.current - Date.now())
       setTimerMsLeft(ms)
       if (ms <= 0) {
         stopTimer()
         setRevealed(true)
+        return
       }
-    }, 50)
+      tickRef.current = window.requestAnimationFrame(tick)
+    }
+    tickRef.current = window.requestAnimationFrame(tick)
   }, [stopTimer, timerSeconds])
 
   useEffect(() => () => stopTimer(), [stopTimer])
@@ -349,7 +352,7 @@ export function StudyScreen() {
           <div className="blitz-timer-line" aria-hidden>
             <div
               className="blitz-timer-fill"
-              style={{ width: `${Math.max(0, Math.min(1, timerRatio)) * 100}%` }}
+              style={{ transform: `scaleX(${Math.max(0, Math.min(1, timerRatio))})` }}
             />
             <span className="blitz-timer-label">{displaySeconds}s</span>
           </div>

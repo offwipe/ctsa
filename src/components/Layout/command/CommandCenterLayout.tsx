@@ -35,7 +35,9 @@ export function CommandCenterLayout({ locationKey }: { locationKey: string }) {
           <div className="command-meta__kv">
             Mode: <strong style={{ fontWeight: 600 }}>{settings.atmosphereMode}</strong>
             <br />
-            Audio: {settings.atmosphereAudioEnabled ? `${settings.atmosphereVolume}%` : 'muted'}
+            Sound: <strong style={{ fontWeight: 600 }}>{settings.backgroundSoundMode}</strong>
+            <br />
+            Audio: {settings.atmosphereAudioEnabled && settings.backgroundSoundMode !== 'off' ? `${settings.atmosphereVolume}%` : 'muted'}
           </div>
         </div>
         <div className="command-meta__widgets">

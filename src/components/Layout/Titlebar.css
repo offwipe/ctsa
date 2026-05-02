@@ -5,6 +5,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 10px 0 20px;
+  --titlebar-opacity: 0.76;
   background: transparent;
   user-select: none;
   -webkit-user-select: none;
@@ -12,6 +13,51 @@
   flex-shrink: 0;
   position: relative;
   z-index: 30;
+}
+
+.titlebar[data-titlebar-style="glass"],
+.titlebar[data-titlebar-blend="true"][data-titlebar-style]:not([data-titlebar-style="transparent"]) {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, calc(0.08 * var(--titlebar-opacity))), rgba(255, 255, 255, calc(0.025 * var(--titlebar-opacity)))),
+    color-mix(in srgb, var(--bg-card) calc(78% * var(--titlebar-opacity)), transparent);
+  backdrop-filter: blur(14px);
+}
+
+.titlebar[data-titlebar-style="solid"] {
+  background: color-mix(in srgb, var(--bg-panel, var(--bg-card)) calc(96% * var(--titlebar-opacity)), transparent);
+}
+
+.titlebar[data-titlebar-style="accent"] {
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--btn-solid, var(--accent)) 18%, transparent), transparent 42%),
+    color-mix(in srgb, var(--bg-card) calc(86% * var(--titlebar-opacity)), transparent);
+  border-bottom-color: color-mix(in srgb, var(--btn-solid, var(--accent)) 40%, var(--border-subtle));
+}
+
+.titlebar[data-titlebar-style="highlighter"],
+.titlebar[data-titlebar-style="meridian"],
+.titlebar[data-titlebar-style="atrium"] {
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--btn-solid, var(--accent)) 12%, transparent), transparent 52%),
+    color-mix(in srgb, var(--bg-card) calc(84% * var(--titlebar-opacity)), transparent);
+}
+
+.titlebar[data-titlebar-style="vault"],
+.titlebar[data-titlebar-style="command-center"],
+.titlebar[data-titlebar-style="lumin"] {
+  background: color-mix(in srgb, var(--bg-elevated, var(--bg-card)) calc(94% * var(--titlebar-opacity)), transparent);
+}
+
+.titlebar[data-titlebar-style="deep-focus"],
+.titlebar[data-titlebar-style="horizon"],
+.titlebar[data-titlebar-style="folio"] {
+  background: color-mix(in srgb, var(--bg-main) calc(72% * var(--titlebar-opacity)), transparent);
+}
+
+.titlebar--compact {
+  height: 32px;
+  min-height: 32px;
+  padding-left: 14px;
 }
 
 .titlebar-title {
@@ -52,6 +98,15 @@
   position: relative;
   z-index: 1;
   transition: background var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+.titlebar--compact .titlebar-btn {
+  width: 26px;
+  height: 22px;
+}
+
+.titlebar--compact .titlebar-btn--tool {
+  width: 28px;
 }
 
 .titlebar-btn:hover {

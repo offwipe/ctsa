@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 import { ATMOSPHERE_SAMPLE_URLS, getAtmosphereEngine } from '../audio/atmosphereAudio'
-import type { AtmosphereMode } from '../context/appTheme'
+import type { BackgroundSoundMode } from '../context/appTheme'
 
-const SAMPLE_AUDIO_MODES = Object.keys(ATMOSPHERE_SAMPLE_URLS) as AtmosphereMode[]
+const SAMPLE_AUDIO_MODES = Object.keys(ATMOSPHERE_SAMPLE_URLS) as BackgroundSoundMode[]
 
-const AUDIO_MODES: AtmosphereMode[] = [
+const AUDIO_MODES: BackgroundSoundMode[] = [
   'rain',
   'wind',
   'stormy-focus',
@@ -15,7 +15,7 @@ const AUDIO_MODES: AtmosphereMode[] = [
 
 type UseAtmosphereAudioOptions = {
   enabled: boolean
-  mode: AtmosphereMode
+  mode: BackgroundSoundMode
   volume: number
   windChimeLevel: number
 }
