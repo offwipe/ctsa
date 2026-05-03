@@ -4,6 +4,14 @@ import './HomeScreen.css'
 
 const certifications = [
   {
+    id: 'ccst-it-support',
+    name: 'CCST IT Support',
+    code: 'Cisco CCST',
+    description: 'Entry-level IT support: ticketing, troubleshooting, hardware and OS basics, and networking literacy.',
+    color: '#10b981',
+    ready: true,
+  },
+  {
     id: 'network-plus',
     name: 'Network+',
     code: 'N10-009',

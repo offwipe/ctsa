@@ -28,21 +28,6 @@
   --cc-grid: rgba(148, 163, 184, 0.08);
 }
 
-.app-shell[data-layout-preset='deep-focus'] {
-  --df-edge: rgba(15, 23, 42, 0.55);
-}
-
-.app-shell[data-layout-preset='fluid-glass'] {
-  --fluid-clear-bar: rgba(255, 255, 255, 0.05);
-  --fluid-clear-sheet: rgba(255, 255, 255, 0.06);
-  --fluid-clear-border: rgba(255, 255, 255, 0.12);
-}
-
-.app-shell[data-layout-preset='meridian'] {
-  --meridian-header-bg: rgba(255, 255, 255, 0.03);
-  --meridian-border: rgba(255, 255, 255, 0.08);
-}
-
 .app-shell[data-layout-preset='lumin'] {
   --lumin-rail-bg: rgba(15, 23, 42, 0.55);
   --lumin-border: rgba(148, 163, 184, 0.14);
@@ -51,11 +36,6 @@
 .app-shell[data-layout-preset='folio'] {
   --folio-spine-bg: rgba(255, 255, 255, 0.02);
   --folio-border: rgba(148, 163, 184, 0.12);
-}
-
-.app-shell[data-layout-preset='horizon'] {
-  --horizon-bar-bg: rgba(15, 23, 42, 0.88);
-  --horizon-border: rgba(148, 163, 184, 0.15);
 }
 
 .app-shell[data-layout-preset='atrium'] {

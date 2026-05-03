@@ -138,11 +138,6 @@ export function AppLayout() {
           style={s.ambientBorderStyle}
           speed={s.ambientBorderSpeed}
         />
-        <Titlebar />
-        <div className="layout-preset-mount">
-          <LayoutPresetRouter preset={s.layoutPreset} locationKey={location.pathname} />
-        </div>
-
         <div className="atm-stack" data-atmosphere={mode} aria-hidden>
           <div className={'atm-layer atm-layer--snow' + (showSnow ? ' atm-layer--on' : '')}>
             <WinterFrame
@@ -177,6 +172,10 @@ export function AppLayout() {
               cloudOpacity={stormy ? Math.min(100, s.windCloudOpacity + 14) : s.windCloudOpacity}
             />
           </div>
+        </div>
+        <Titlebar />
+        <div className="layout-preset-mount">
+          <LayoutPresetRouter preset={s.layoutPreset} locationKey={location.pathname} />
         </div>
 
         <NotebookOverlay />

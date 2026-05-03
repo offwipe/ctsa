@@ -63,12 +63,8 @@ const LAYOUT_PRESET_OPTIONS: { value: LayoutPresetId; label: string }[] = [
   { value: 'highlighter', label: 'HighLighter' },
   { value: 'vault', label: 'The Vault' },
   { value: 'command-center', label: 'Command Center' },
-  { value: 'deep-focus', label: 'Deep Focus' },
-  { value: 'fluid-glass', label: 'Fluid Glass (Clarity)' },
-  { value: 'meridian', label: 'Meridian Rail' },
   { value: 'lumin', label: 'Lumin Beacon' },
   { value: 'folio', label: 'Folio Spine' },
-  { value: 'horizon', label: 'Horizon Tabs' },
   { value: 'atrium', label: 'Atrium Studio' },
 ]
 

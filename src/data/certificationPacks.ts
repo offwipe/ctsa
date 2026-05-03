@@ -1,7 +1,7 @@
 import { intermediateQuestions } from './questions'
 import { aPlusGlossaryFlashcards, aPlusGlossaryMatchScenarios } from './aPlusGlossaryGenerated'
 
-export type CertificationId = 'a-plus' | 'network-plus' | 'security-plus'
+export type CertificationId = 'a-plus' | 'network-plus' | 'security-plus' | 'ccst-it-support'
 export type DifficultyLevel = 'easy' | 'intermediate' | 'advanced'
 
 export type ExamQuestion = {
@@ -204,6 +204,990 @@ const securityPlusQuestions: ExamQuestion[] = [
   },
 ]
 
+const ccstItSupportQuestions: ExamQuestion[] = [
+  {
+    id: 'ccst-1',
+    certification: 'ccst-it-support',
+    domain: 'Customer Service',
+    topic: 'Communication',
+    difficulty: 'easy',
+    prompt:
+      'A user is frustrated on the phone. Before troubleshooting, what should a technician prioritize after confirming identity?',
+    options: [
+      { key: 'A', text: 'Immediate remote takeover without consent' },
+      { key: 'B', text: 'Acknowledging the issue and setting expectations for next steps' },
+      { key: 'C', text: 'Transferring the user to another queue without explanation' },
+      { key: 'D', text: 'Suggesting the user search online first' },
+    ],
+    answer: 'B',
+    explanation:
+      'Clear communication and expectation-setting reduce friction and build trust before technical work begins.',
+    tags: ['Soft skills'],
+  },
+  {
+    id: 'ccst-2',
+    certification: 'ccst-it-support',
+    domain: 'Service Management',
+    topic: 'Ticketing',
+    difficulty: 'easy',
+    prompt: 'What is the primary purpose of a trouble ticket in a service desk workflow?',
+    options: [
+      { key: 'A', text: 'To bill the customer automatically' },
+      { key: 'B', text: 'To track, prioritize, and document work from intake through resolution' },
+      { key: 'C', text: 'To replace knowledge base articles' },
+      { key: 'D', text: 'To enforce hardware upgrades' },
+    ],
+    answer: 'B',
+    explanation:
+      'Tickets provide traceability and coordination across teams while preserving context for future incidents.',
+    tags: ['ITSM'],
+  },
+  {
+    id: 'ccst-3',
+    certification: 'ccst-it-support',
+    domain: 'Service Management',
+    topic: 'Prioritization',
+    difficulty: 'intermediate',
+    prompt:
+      'Which factor most directly raises the priority of an incident affecting many users versus a single workstation?',
+    options: [
+      { key: 'A', text: 'The brand of the workstation' },
+      { key: 'B', text: 'Business impact and scope of users or services affected' },
+      { key: 'C', text: 'Whether the ticket arrived by email or portal' },
+      { key: 'D', text: 'The seniority of the person submitting the ticket' },
+    ],
+    answer: 'B',
+    explanation:
+      'Priority balances urgency and impact; broader outages typically warrant faster response than isolated issues.',
+    tags: ['ITSM'],
+  },
+  {
+    id: 'ccst-4',
+    certification: 'ccst-it-support',
+    domain: 'Networking Basics',
+    topic: 'TCP/IP',
+    difficulty: 'easy',
+    prompt: 'Which command on Windows shows IPv4 address, subnet mask, and default gateway for active adapters?',
+    options: [
+      { key: 'A', text: 'netstat -an' },
+      { key: 'B', text: 'ipconfig' },
+      { key: 'C', text: 'tracert 127.0.0.1' },
+      { key: 'D', text: 'defrag /C' },
+    ],
+    answer: 'B',
+    explanation: '`ipconfig` summarizes basic IPv4 settings; `/all` adds DNS and DHCP details.',
+    tags: ['Windows', 'Networking'],
+  },
+  {
+    id: 'ccst-5',
+    certification: 'ccst-it-support',
+    domain: 'Networking Basics',
+    topic: 'Diagnostics',
+    difficulty: 'easy',
+    prompt: 'What does the ping utility primarily test between two hosts?',
+    options: [
+      { key: 'A', text: 'Disk throughput' },
+      { key: 'B', text: 'Reachability and round-trip time using ICMP echo requests' },
+      { key: 'C', text: 'Printer queue depth' },
+      { key: 'D', text: 'GPU temperature' },
+    ],
+    answer: 'B',
+    explanation:
+      'Ping sends ICMP echoes to verify basic connectivity; blocked ICMP can produce false negatives.',
+    tags: ['Networking'],
+  },
+  {
+    id: 'ccst-6',
+    certification: 'ccst-it-support',
+    domain: 'Networking Basics',
+    topic: 'DNS',
+    difficulty: 'easy',
+    prompt: 'Which statement best describes DNS in everyday IT support?',
+    options: [
+      { key: 'A', text: 'It encrypts all web traffic by default' },
+      { key: 'B', text: 'It resolves human-readable hostnames to IP addresses' },
+      { key: 'C', text: 'It assigns IP addresses to clients without a server' },
+      { key: 'D', text: 'It replaces the need for a default gateway' },
+    ],
+    answer: 'B',
+    explanation: 'DNS maps names to addresses; DHCP handles dynamic addressing.',
+    tags: ['Networking'],
+  },
+  {
+    id: 'ccst-7',
+    certification: 'ccst-it-support',
+    domain: 'Hardware',
+    topic: 'Components',
+    difficulty: 'easy',
+    prompt: 'A laptop feels sluggish opening applications after boot. Which upgrade often yields the largest everyday gain?',
+    options: [
+      { key: 'A', text: 'Replacing the webcam' },
+      { key: 'B', text: 'Adding or upgrading to an SSD for the system volume' },
+      { key: 'C', text: 'Installing a second monitor without changing storage' },
+      { key: 'D', text: 'Changing the laptop color finish' },
+    ],
+    answer: 'B',
+    explanation:
+      'SSDs dramatically reduce random I/O latency compared with spinning disks for OS and apps.',
+    tags: ['Hardware'],
+  },
+  {
+    id: 'ccst-8',
+    certification: 'ccst-it-support',
+    domain: 'Operating Systems',
+    topic: 'Windows',
+    difficulty: 'intermediate',
+    prompt: 'A Windows PC stops responding with a spinning cursor. What is the safest first step before forced power-off?',
+    options: [
+      { key: 'A', text: 'Open the case while powered on' },
+      { key: 'B', text: 'Wait briefly, then try Ctrl+Alt+Del or Task Manager if accessible' },
+      { key: 'C', text: 'Immediately cycle power without saving user work' },
+      { key: 'D', text: 'Run diskpart clean on the system drive' },
+    ],
+    answer: 'B',
+    explanation:
+      'Give the OS a chance to recover; forced shutdown risks data loss or filesystem corruption.',
+    tags: ['Windows'],
+  },
+  {
+    id: 'ccst-9',
+    certification: 'ccst-it-support',
+    domain: 'Security Awareness',
+    topic: 'Authentication',
+    difficulty: 'easy',
+    prompt: 'Which example best illustrates multi-factor authentication (MFA)?',
+    options: [
+      { key: 'A', text: 'Password plus a code from an authenticator app' },
+      { key: 'B', text: 'Two different passwords typed back-to-back' },
+      { key: 'C', text: 'Using the same password on two websites' },
+      { key: 'D', text: 'Answering two security questions with facts found online' },
+    ],
+    answer: 'A',
+    explanation:
+      'MFA combines categories such as something you know with something you have or are.',
+    tags: ['Security'],
+  },
+  {
+    id: 'ccst-10',
+    certification: 'ccst-it-support',
+    domain: 'Security Awareness',
+    topic: 'Social Engineering',
+    difficulty: 'easy',
+    prompt: 'A message urges immediate login via a link to avoid account suspension. What should you advise?',
+    options: [
+      { key: 'A', text: 'Click the link quickly to avoid lockout' },
+      { key: 'B', text: 'Verify through official channels or type the known portal URL manually' },
+      { key: 'C', text: 'Share credentials with the sender to prove ownership' },
+      { key: 'D', text: 'Disable antivirus to speed up the browser' },
+    ],
+    answer: 'B',
+    explanation:
+      'Phishing relies on urgency; validate requests using trusted bookmarks or IT-provided guidance.',
+    tags: ['Security'],
+  },
+  {
+    id: 'ccst-11',
+    certification: 'ccst-it-support',
+    domain: 'Troubleshooting',
+    topic: 'Methodology',
+    difficulty: 'intermediate',
+    prompt: 'Which sequence aligns with a practical tier-1 troubleshooting approach?',
+    options: [
+      { key: 'A', text: 'Replace hardware, then ask questions' },
+      { key: 'B', text: 'Establish symptoms, isolate variables, test theories, verify with the user' },
+      { key: 'C', text: 'Reinstall the OS before documenting anything' },
+      { key: 'D', text: 'Assume user error and close the ticket' },
+    ],
+    answer: 'B',
+    explanation:
+      'Structured isolation reduces guesswork and prevents unnecessary disruptive changes.',
+    tags: ['Troubleshooting'],
+  },
+  {
+    id: 'ccst-12',
+    certification: 'ccst-it-support',
+    domain: 'Networking Basics',
+    topic: 'Cabling',
+    difficulty: 'easy',
+    prompt: 'Which twisted-pair category is commonly associated with 1 Gbps Ethernet over structured cabling?',
+    options: [
+      { key: 'A', text: 'Cat 3' },
+      { key: 'B', text: 'Cat 5e or higher for typical Gigabit runs' },
+      { key: 'C', text: 'RG-6 coax for all desktop drops' },
+      { key: 'D', text: 'Fiber patch cables only' },
+    ],
+    answer: 'B',
+    explanation:
+      'Cat 5e is a baseline for Gigabit in many installs; Cat 6/6a adds headroom for longer runs and noise.',
+    tags: ['Cabling'],
+  },
+]
+
+const ccstFlashcards: FlashcardItem[] = [
+  {
+    id: 'ccst-flash-sla',
+    certification: 'ccst-it-support',
+    deck: 'Service fundamentals',
+    topic: 'ITSM',
+    type: 'term',
+    front: 'What is an SLA?',
+    back: 'A Service Level Agreement — documented targets for service quality, often including response and resolution times.',
+    tags: ['ITSM'],
+  },
+  {
+    id: 'ccst-flash-incident',
+    certification: 'ccst-it-support',
+    deck: 'Service fundamentals',
+    topic: 'ITSM',
+    type: 'term',
+    front: 'Incident vs service request',
+    back: 'An incident is an unplanned interruption or quality reduction. A service request is a standard ask such as access or equipment.',
+    tags: ['ITSM'],
+  },
+  {
+    id: 'ccst-flash-escalate',
+    certification: 'ccst-it-support',
+    deck: 'Service fundamentals',
+    topic: 'Workflow',
+    type: 'cloze',
+    front: 'Escalate when impact grows, specialized skills are needed, or ____ limits are exceeded.',
+    back: 'SLA',
+    explanation: 'Escalation paths protect agreements and bring the right expertise.',
+    tags: ['ITSM'],
+  },
+  {
+    id: 'ccst-flash-ipconfig',
+    certification: 'ccst-it-support',
+    deck: 'Windows essentials',
+    topic: 'CLI',
+    type: 'term',
+    front: 'What does ipconfig /release and /renew do?',
+    back: 'Releases and renews DHCP leases on Windows adapters that use DHCP.',
+    tags: ['Windows'],
+  },
+  {
+    id: 'ccst-flash-dns',
+    certification: 'ccst-it-support',
+    deck: 'Networking literacy',
+    topic: 'DNS',
+    type: 'cloze',
+    front: 'DNS resolves ____ names to IP addresses.',
+    back: 'host',
+    tags: ['Networking'],
+  },
+  {
+    id: 'ccst-flash-dhcp',
+    certification: 'ccst-it-support',
+    deck: 'Networking literacy',
+    topic: 'Addressing',
+    type: 'term',
+    front: 'Role of DHCP',
+    back: 'Automatically assigns IP configuration such as address, mask, gateway, and DNS to clients.',
+    tags: ['Networking'],
+  },
+  {
+    id: 'ccst-flash-gateway',
+    certification: 'ccst-it-support',
+    deck: 'Networking literacy',
+    topic: 'Routing',
+    type: 'term',
+    front: 'Default gateway',
+    back: 'The router interface used to reach networks outside the local subnet.',
+    tags: ['Networking'],
+  },
+  {
+    id: 'ccst-flash-vpn',
+    certification: 'ccst-it-support',
+    deck: 'Networking literacy',
+    topic: 'Remote access',
+    type: 'term',
+    front: 'What does a VPN typically provide?',
+    back: 'An encrypted tunnel over another network, often used for secure remote access to corporate resources.',
+    tags: ['Security'],
+  },
+  {
+    id: 'ccst-flash-ssid',
+    certification: 'ccst-it-support',
+    deck: 'Networking literacy',
+    topic: 'Wireless',
+    type: 'term',
+    front: 'SSID',
+    back: 'Service Set Identifier — the broadcast name of a wireless network.',
+    tags: ['Wi-Fi'],
+  },
+  {
+    id: 'ccst-flash-driver',
+    certification: 'ccst-it-support',
+    deck: 'Hardware & OS',
+    topic: 'Drivers',
+    type: 'term',
+    front: 'Device driver',
+    back: 'Software that lets the operating system communicate with hardware.',
+    tags: ['Windows'],
+  },
+  {
+    id: 'ccst-flash-bsod',
+    certification: 'ccst-it-support',
+    deck: 'Hardware & OS',
+    topic: 'Stability',
+    type: 'cloze',
+    front: 'On Windows, a stop error screen is often called a ____.',
+    back: 'BSOD',
+    clue: 'Blue Screen of Death',
+    tags: ['Windows'],
+  },
+  {
+    id: 'ccst-flash-sfc',
+    certification: 'ccst-it-support',
+    deck: 'Windows essentials',
+    topic: 'Repair',
+    type: 'term',
+    front: 'sfc /scannow purpose',
+    back: 'Scans protected Windows system files and repairs corrupted copies when possible.',
+    tags: ['Windows'],
+  },
+  {
+    id: 'ccst-flash-phish',
+    certification: 'ccst-it-support',
+    deck: 'Security awareness',
+    topic: 'Threats',
+    type: 'term',
+    front: 'Phishing',
+    back: 'Deceptive attempts to steal credentials or install malware, commonly via email or messaging.',
+    tags: ['Security'],
+  },
+  {
+    id: 'ccst-flash-malware',
+    certification: 'ccst-it-support',
+    deck: 'Security awareness',
+    topic: 'Threats',
+    type: 'term',
+    front: 'Malware vs virus (colloquial)',
+    back: 'Malware is the umbrella term for malicious software; viruses are one category that self-replicate.',
+    tags: ['Security'],
+  },
+  {
+    id: 'ccst-flash-backup',
+    certification: 'ccst-it-support',
+    deck: 'Operations',
+    topic: 'Data',
+    type: 'term',
+    front: '3-2-1 backup concept (high level)',
+    back: 'Keep three copies of data, on two media types, with one copy off-site.',
+    tags: ['Backup'],
+  },
+  {
+    id: 'ccst-flash-remote',
+    certification: 'ccst-it-support',
+    deck: 'Windows essentials',
+    topic: 'Support tools',
+    type: 'term',
+    front: 'RDP',
+    back: 'Remote Desktop Protocol — graphical remote session to another Windows host when permitted.',
+    tags: ['Windows'],
+  },
+  {
+    id: 'ccst-flash-ticket-fields',
+    certification: 'ccst-it-support',
+    deck: 'Service fundamentals',
+    topic: 'Documentation',
+    type: 'cloze',
+    front: 'Good ticket notes include reproduction steps, error text, recent changes, and ____ attempted.',
+    back: 'steps',
+    explanation: 'Future technicians rely on concise factual notes.',
+    tags: ['ITSM'],
+  },
+  {
+    id: 'ccst-flash-peripherals',
+    certification: 'ccst-it-support',
+    deck: 'Hardware basics',
+    topic: 'Peripherals',
+    type: 'term',
+    front: 'USB vs Thunderbolt (support lens)',
+    back: 'Both carry data (and often power). Thunderbolt lanes integrate PCIe/DisplayPort features on compatible ports; always verify cable and port markings.',
+    tags: ['Hardware'],
+  },
+]
+
+const ccstPbqScenarios: PBQScenario[] = [
+  {
+    id: 'ccst-pbq-match-types',
+    certification: 'ccst-it-support',
+    topic: 'Ticketing',
+    difficulty: 'easy',
+    type: 'match',
+    prompt: 'Match each record type to how service desks typically use it.',
+    instructions: 'Drag each label onto the best description.',
+    items: [
+      { id: 'incident', label: 'Incident' },
+      { id: 'request', label: 'Service request' },
+      { id: 'problem', label: 'Problem' },
+    ],
+    targets: [
+      { id: 'unplanned', label: 'Unplanned outage or degradation users notice right now' },
+      { id: 'standard', label: 'Routine fulfilled change such as access or a headset' },
+      { id: 'root', label: 'Underlying cause analysis spanning related incidents' },
+    ],
+    solution: {
+      incident: 'unplanned',
+      request: 'standard',
+      problem: 'root',
+    },
+    explanation: 'Incidents restore service quickly; requests follow catalogs; problems chase root causes.',
+  },
+  {
+    id: 'ccst-pbq-order-triage',
+    certification: 'ccst-it-support',
+    topic: 'Troubleshooting',
+    difficulty: 'intermediate',
+    type: 'order',
+    prompt: 'Order these tier-1 steps for a vague “internet is down” report.',
+    instructions: 'Arrange from first action to last among these choices.',
+    items: [
+      { id: 'confirm', label: 'Confirm scope (one device vs many, wired vs Wi-Fi)' },
+      { id: 'link', label: 'Check link status / IP settings on the affected device' },
+      { id: 'pinggw', label: 'Ping default gateway or known internal host' },
+      { id: 'doc', label: 'Document findings and next owner if unresolved' },
+    ],
+    targets: [
+      { id: '1', label: 'Step 1' },
+      { id: '2', label: 'Step 2' },
+      { id: '3', label: 'Step 3' },
+      { id: '4', label: 'Step 4' },
+    ],
+    solution: { confirm: 1, link: 2, pinggw: 3, doc: 4 },
+    explanation: 'Start broad to narrow impact, validate local stack, then escalate with evidence.',
+  },
+  {
+    id: 'ccst-pbq-match-tools',
+    certification: 'ccst-it-support',
+    topic: 'Diagnostics',
+    difficulty: 'easy',
+    type: 'match',
+    prompt: 'Match each Windows networking command to its typical use.',
+    instructions: 'Drag each command onto the task it fits best.',
+    items: [
+      { id: 'ping', label: 'ping' },
+      { id: 'nslookup', label: 'nslookup' },
+      { id: 'tracert', label: 'tracert' },
+    ],
+    targets: [
+      { id: 'reach', label: 'Quick reachability test to an IP or hostname' },
+      { id: 'dnsq', label: 'Query DNS records for a name' },
+      { id: 'path', label: 'Show routers along the path to a destination' },
+    ],
+    solution: {
+      ping: 'reach',
+      nslookup: 'dnsq',
+      tracert: 'path',
+    },
+    explanation: 'Ping checks basic connectivity, nslookup probes DNS, tracert maps route hops.',
+  },
+  {
+    id: 'ccst-pbq-order-boot-recovery',
+    certification: 'ccst-it-support',
+    topic: 'Windows',
+    difficulty: 'intermediate',
+    type: 'order',
+    prompt:
+      'A laptop loops into Automatic Repair after an update. Put these tier-1 actions in the best order before escalating.',
+    instructions: 'Arrange from first step to last.',
+    items: [
+      {
+        id: 'capture',
+        label: 'Capture exact screen text, codes, or photos (including BitLocker prompts if shown)',
+      },
+      {
+        id: 'peripherals',
+        label: 'Disconnect dock, USB hubs, and external storage; perform a clean cold boot',
+      },
+      {
+        id: 'startup-repair',
+        label: 'From recovery: run Startup Repair once',
+      },
+      {
+        id: 'remove-update',
+        label: 'If still failing: uninstall the latest quality update from Advanced Startup',
+      },
+      {
+        id: 'escalate',
+        label: 'Escalate to desktop/engineering with timeline, screenshots, and what was already tried',
+      },
+    ],
+    targets: [
+      { id: '1', label: 'Step 1' },
+      { id: '2', label: 'Step 2' },
+      { id: '3', label: 'Step 3' },
+      { id: '4', label: 'Step 4' },
+      { id: '5', label: 'Step 5' },
+    ],
+    solution: {
+      capture: 1,
+      peripherals: 2,
+      'startup-repair': 3,
+      'remove-update': 4,
+      escalate: 5,
+    },
+    explanation:
+      'Evidence first, reduce variables, then built-in repair paths; uninstalling a bad patch is common after failed boots; escalate with facts—not guesses.',
+  },
+  {
+    id: 'ccst-pbq-order-print-spooler',
+    certification: 'ccst-it-support',
+    topic: 'Peripherals',
+    difficulty: 'easy',
+    type: 'order',
+    prompt: 'One Windows PC cannot print to a shared network printer; others can. Order sensible checks.',
+    instructions: 'Arrange from first step to last.',
+    items: [
+      {
+        id: 'scope',
+        label: 'Confirm scope: same printer works for peers on the same network/VLAN',
+      },
+      {
+        id: 'queue',
+        label: 'Open the print queue on this PC—clear paused or stuck jobs',
+      },
+      {
+        id: 'spooler',
+        label: 'Restart the Print Spooler service on the affected workstation',
+      },
+      {
+        id: 'driver',
+        label: 'Repair driver/port: reinstall or pick correct printer/duplex settings',
+      },
+      {
+        id: 'wire',
+        label: 'If still failing, escalate with queue errors and Event Viewer Application log clues',
+      },
+    ],
+    targets: [
+      { id: '1', label: 'Step 1' },
+      { id: '2', label: 'Step 2' },
+      { id: '3', label: 'Step 3' },
+      { id: '4', label: 'Step 4' },
+      { id: '5', label: 'Step 5' },
+    ],
+    solution: {
+      scope: 1,
+      queue: 2,
+      spooler: 3,
+      driver: 4,
+      wire: 5,
+    },
+    explanation:
+      'Isolate whether it is user-specific, clear common queue/spooler faults locally, then driver corruption; escalate when logs point past tier-1 fixes.',
+  },
+  {
+    id: 'ccst-pbq-match-first-response',
+    certification: 'ccst-it-support',
+    topic: 'Triage',
+    difficulty: 'intermediate',
+    type: 'match',
+    prompt: 'Match each desk scenario to the best first focus (before deep dives).',
+    instructions: 'Drag each situation onto the opening move that fits best.',
+    items: [
+      { id: 'vpn-internal', label: 'VPN shows connected but intranet and file shares fail' },
+      { id: 'solo-email', label: 'Only one user cannot send mail; teammates are fine' },
+      { id: 'blank-dock', label: 'External monitors stay blank after docking—laptop lid works' },
+    ],
+    targets: [
+      {
+        id: 'routes-dns',
+        label: 'Split tunneling, DNS suffix, and routes for corporate names (often VPN-specific)',
+      },
+      {
+        id: 'mailbox-local',
+        label: 'That user’s Outlook profile, credentials, and mailbox permissions on this device',
+      },
+      {
+        id: 'video-path',
+        label: 'Dock video cable, monitor input source, and display detection / firmware',
+      },
+    ],
+    solution: {
+      'vpn-internal': 'routes-dns',
+      'solo-email': 'mailbox-local',
+      'blank-dock': 'video-path',
+    },
+    explanation:
+      'VPN-without-internal usually splits routing/DNS from “general internet”; single-user email failures rarely start at the mail gateway; blank dock displays usually trace to physical video path before OS bugs.',
+  },
+  {
+    id: 'ccst-pbq-order-credential-incident',
+    certification: 'ccst-it-support',
+    topic: 'Security',
+    difficulty: 'advanced',
+    type: 'order',
+    prompt:
+      'A user admits they submitted credentials on a phishing page. Order an immediate containment sequence.',
+    instructions: 'Arrange from first response to last listed action.',
+    items: [
+      {
+        id: 'reset-pw',
+        label: 'Have them change the password from a trusted device and known-good browser session',
+      },
+      {
+        id: 'revoke',
+        label: 'Revoke sessions / sign out everywhere your IdP supports',
+      },
+      {
+        id: 'notify-sec',
+        label: 'Notify the security team using the official incident channel',
+      },
+      {
+        id: 'scan',
+        label: 'Run an approved malware scan on the affected device',
+      },
+      {
+        id: 'document',
+        label: 'Document indicators (URL, time, MFA prompts) for the incident record',
+      },
+    ],
+    targets: [
+      { id: '1', label: 'Step 1' },
+      { id: '2', label: 'Step 2' },
+      { id: '3', label: 'Step 3' },
+      { id: '4', label: 'Step 4' },
+      { id: '5', label: 'Step 5' },
+    ],
+    solution: {
+      'reset-pw': 1,
+      revoke: 2,
+      'notify-sec': 3,
+      scan: 4,
+      document: 5,
+    },
+    explanation:
+      'Stop the bleed first (credential reset + session kill), loop in security early, verify endpoint hygiene, and preserve facts—actual IR playbooks may parallelize notify/document.',
+  },
+  {
+    id: 'ccst-pbq-map-handoff',
+    certification: 'ccst-it-support',
+    topic: 'Escalation',
+    difficulty: 'easy',
+    type: 'map',
+    prompt: 'Route each ticket theme to the team most likely to own the fix long-term.',
+    instructions: 'Assign each ticket to the best owning group.',
+    items: [
+      { id: 'ticket-ap-wifi', label: 'Dead spots only on floor 3 since AP swap—needs RF validation' },
+      { id: 'ticket-firewall', label: 'New SaaS app blocked for entire site—same URL works off-network' },
+      { id: 'ticket-ad', label: 'Repeated lockouts after password sync—identity directory mismatch suspected' },
+    ],
+    targets: [
+      { id: 'wireless', label: 'Wireless / network engineering (RF, controllers, AP configs)' },
+      { id: 'edge-filter', label: 'Security / firewall / proxy engineering (policy and egress paths)' },
+      { id: 'identity', label: 'Identity / directory services (AD/Azure AD sync and auth flows)' },
+    ],
+    solution: {
+      'ticket-ap-wifi': 'wireless',
+      'ticket-firewall': 'edge-filter',
+      'ticket-ad': 'identity',
+    },
+    explanation:
+      'Coverage issues follow RF/AP ownership; policy blocks affecting whole sites cross security architecture; repeating identity symptoms belong with directory and SSO specialists.',
+  },
+  {
+    id: 'ccst-pbq-order-problem-solving',
+    certification: 'ccst-it-support',
+    topic: 'Help Desk',
+    difficulty: 'intermediate',
+    type: 'order',
+    prompt:
+      'Order the core help-desk problem-solving flow (Cisco IT Support style). Start with understanding the issue; end with records.',
+    instructions: 'Arrange from first step to last.',
+    items: [
+      { id: 'ps-define', label: 'Define the problem: expected vs actual behavior' },
+      { id: 'ps-gather', label: 'Gather detailed information: scope, time, changes, error text' },
+      { id: 'ps-cause', label: 'Identify a probable cause from the facts (not guesses)' },
+      { id: 'ps-plan', label: 'Plan the smallest safe change to verify or fix' },
+      { id: 'ps-implement', label: 'Implement the change and observe whether symptoms stop' },
+      { id: 'ps-document', label: 'Document outcome, rollback notes, and escalate if still broken' },
+    ],
+    targets: [
+      { id: '1', label: 'Step 1' },
+      { id: '2', label: 'Step 2' },
+      { id: '3', label: 'Step 3' },
+      { id: '4', label: 'Step 4' },
+      { id: '5', label: 'Step 5' },
+      { id: '6', label: 'Step 6' },
+    ],
+    solution: {
+      'ps-define': 1,
+      'ps-gather': 2,
+      'ps-cause': 3,
+      'ps-plan': 4,
+      'ps-implement': 5,
+      'ps-document': 6,
+    },
+    explanation:
+      'Mirrors the documented CCST-style workflow: narrow scope with facts before changes, verify impact, then record—repeat deeper troubleshooting only when needed.',
+  },
+  {
+    id: 'ccst-pbq-order-ticket-lifecycle',
+    certification: 'ccst-it-support',
+    topic: 'Documentation',
+    difficulty: 'easy',
+    type: 'order',
+    prompt: 'Put a typical service desk ticket lifecycle in order from intake to closure.',
+    instructions: 'Arrange from first step to last.',
+    items: [
+      { id: 'tl-intake', label: 'Log intake: requester, channel, and brief description' },
+      { id: 'tl-triage', label: 'Triage: category, priority, SLA clock, and assignment' },
+      { id: 'tl-work', label: 'Investigate and troubleshoot with timestamped notes' },
+      { id: 'tl-resolve', label: 'Resolve or fulfill (fix applied or standard request completed)' },
+      { id: 'tl-verify', label: 'Verify with the user that service meets expectation' },
+      { id: 'tl-close', label: 'Close with resolution summary and knowledge-base hints if useful' },
+    ],
+    targets: [
+      { id: '1', label: 'Step 1' },
+      { id: '2', label: 'Step 2' },
+      { id: '3', label: 'Step 3' },
+      { id: '4', label: 'Step 4' },
+      { id: '5', label: 'Step 5' },
+      { id: '6', label: 'Step 6' },
+    ],
+    solution: {
+      'tl-intake': 1,
+      'tl-triage': 2,
+      'tl-work': 3,
+      'tl-resolve': 4,
+      'tl-verify': 5,
+      'tl-close': 6,
+    },
+    explanation:
+      'Reflects common ITSM practice: capture early, prioritize honestly, prove resolution with the customer, then codify learning.',
+  },
+  {
+    id: 'ccst-pbq-match-ports',
+    certification: 'ccst-it-support',
+    topic: 'Hardware',
+    difficulty: 'easy',
+    type: 'match',
+    prompt: 'Match each connector or interface to its best everyday description.',
+    instructions: 'Drag each label onto the description it fits best.',
+    items: [
+      { id: 'port-rj45', label: 'RJ45 / 8P8C modular jack' },
+      { id: 'port-hdmi', label: 'HDMI' },
+      { id: 'port-dp', label: 'DisplayPort' },
+      { id: 'port-usbc', label: 'USB-C (generic)' },
+    ],
+    targets: [
+      {
+        id: 'tp-lan',
+        label: 'Twisted-pair Ethernet jack for LAN cabling on desktops, docks, and switches',
+      },
+      {
+        id: 'tp-hdmi-use',
+        label: 'Common consumer digital AV plug for monitors and TVs (audio/video)',
+      },
+      {
+        id: 'tp-dp-use',
+        label: 'Digital PC display link common on business monitors and docking setups',
+      },
+      {
+        id: 'tp-usbc-use',
+        label: 'Reversible connector that may carry USB data, charging power, and Alt Mode video—verify markings/cables',
+      },
+    ],
+    solution: {
+      'port-rj45': 'tp-lan',
+      'port-hdmi': 'tp-hdmi-use',
+      'port-dp': 'tp-dp-use',
+      'port-usbc': 'tp-usbc-use',
+    },
+    explanation:
+      'CCST hardware chapters emphasize recognizing ports: RJ45 for Ethernet; HDMI/DisplayPort for digital video paths; USB-C is versatile—never assume speed or Thunderbolt without specs.',
+  },
+  {
+    id: 'ccst-pbq-match-osi-lite',
+    certification: 'ccst-it-support',
+    topic: 'Networking',
+    difficulty: 'intermediate',
+    type: 'match',
+    prompt: 'Match each OSI layer focus (lite set) to what it primarily deals with.',
+    instructions: 'Drag each layer label onto the plain-language role.',
+    items: [
+      { id: 'osi-l1', label: 'Layer 1 Physical' },
+      { id: 'osi-l2', label: 'Layer 2 Data Link' },
+      { id: 'osi-l3', label: 'Layer 3 Network' },
+      { id: 'osi-l4', label: 'Layer 4 Transport' },
+      { id: 'osi-l7', label: 'Layer 7 Application' },
+    ],
+    targets: [
+      {
+        id: 'osi-bits',
+        label: 'Raw bits across cable/fiber/Wi-Fi—the physical medium',
+      },
+      {
+        id: 'osi-mac',
+        label: 'Frames between adjacent hops using MAC addressing (switching)',
+      },
+      {
+        id: 'osi-ip',
+        label: 'Packets and logical addressing/routing between subnets',
+      },
+      {
+        id: 'osi-tcp',
+        label: 'Segments and reliability / multiplexing with ports (TCP/UDP)',
+      },
+      {
+        id: 'osi-app',
+        label: 'Protocols end users touch—HTTP, SMTP, APIs—not cabling itself',
+      },
+    ],
+    solution: {
+      'osi-l1': 'osi-bits',
+      'osi-l2': 'osi-mac',
+      'osi-l3': 'osi-ip',
+      'osi-l4': 'osi-tcp',
+      'osi-l7': 'osi-app',
+    },
+    explanation:
+      'Entry-level exams usually stay conceptual: separate cabling from switching from routing from transport reliability from user-visible apps.',
+  },
+  {
+    id: 'ccst-pbq-match-windows-diagnostics',
+    certification: 'ccst-it-support',
+    topic: 'Windows',
+    difficulty: 'intermediate',
+    type: 'match',
+    prompt:
+      'Match each Windows utility or command family to the diagnostic goal it serves best (beyond basic ping).',
+    instructions: 'Drag each tool onto the goal.',
+    items: [
+      { id: 'wd-ipconfig', label: 'ipconfig' },
+      { id: 'wd-netstat', label: 'netstat' },
+      { id: 'wd-event', label: 'Event Viewer' },
+      { id: 'wd-taskmgr', label: 'Task Manager' },
+      { id: 'wd-msinfo', label: 'System Information (msinfo32)' },
+    ],
+    targets: [
+      {
+        id: 'wd-ipcfg',
+        label: 'See IPv4/IPv6 addresses, mask, gateway, and DNS per adapter',
+      },
+      {
+        id: 'wd-sessions',
+        label: 'Inspect listening ports and established TCP/UDP sessions locally',
+      },
+      {
+        id: 'wd-logs',
+        label: 'Review Application/System logs for crashes, services, and drivers',
+      },
+      {
+        id: 'wd-process',
+        label: 'End hung apps or spot CPU/RAM pressure causing sluggishness',
+      },
+      {
+        id: 'wd-inventory',
+        label: 'Summarize OS build, hardware resources, and loaded components',
+      },
+    ],
+    solution: {
+      'wd-ipconfig': 'wd-ipcfg',
+      'wd-netstat': 'wd-sessions',
+      'wd-event': 'wd-logs',
+      'wd-taskmgr': 'wd-process',
+      'wd-msinfo': 'wd-inventory',
+    },
+    explanation:
+      'CCST Windows chapters highlight ipconfig, Task Manager, Event Viewer, and system summaries—pair tools to symptoms instead of guessing.',
+  },
+  {
+    id: 'ccst-pbq-map-threat-response',
+    certification: 'ccst-it-support',
+    topic: 'Security',
+    difficulty: 'intermediate',
+    type: 'map',
+    prompt: 'Map each user-reported situation to the **first-line support response** that fits best.',
+    instructions: 'Assign each situation to the immediate playbook bucket.',
+    items: [
+      {
+        id: 'tr-phish-mail',
+        label: 'Phishing email arrived—user has NOT clicked links or entered credentials',
+      },
+      {
+        id: 'tr-creds-entered',
+        label: 'User typed credentials into a fake login page moments ago',
+      },
+      {
+        id: 'tr-locker-popup',
+        label: 'Browser fullscreen warning demanding payment or phone call (“support scam”)',
+      },
+    ],
+    targets: [
+      {
+        id: 'tr-aware',
+        label: 'Educate, report or forward to security, delete/quarantine—no credential reuse',
+      },
+      {
+        id: 'tr-contain',
+        label: 'Contain credentials now: reset password on trusted device, revoke sessions, notify security/IR',
+      },
+      {
+        id: 'tr-malwarevec',
+        label: 'Treat as malware vector: kill browser/processes per policy, scan endpoint, escalate if persistent',
+      },
+    ],
+    solution: {
+      'tr-phish-mail': 'tr-aware',
+      'tr-creds-entered': 'tr-contain',
+      'tr-locker-popup': 'tr-malwarevec',
+    },
+    explanation:
+      'Aligns with Cisco’s emphasis on spotting threats: prevent accidental clicks first; active credential loss triggers containment; scareware often pairs with malware tactics.',
+  },
+  {
+    id: 'ccst-pbq-order-connectivity-stack',
+    certification: 'ccst-it-support',
+    topic: 'Networking',
+    difficulty: 'intermediate',
+    type: 'order',
+    prompt:
+      'Order **bottom-up connectivity checks** when a workstation cannot reach internal apps (story differs from “whole site internet down”).',
+    instructions: 'Arrange from first check to last.',
+    items: [
+      {
+        id: 'cs-link',
+        label: 'Confirm physical/virtual link: cable seated, Wi-Fi associated, correct VLAN SSID',
+      },
+      {
+        id: 'cs-ip',
+        label: 'Verify sensible IP configuration—not APIPA/169.254 unless designed',
+      },
+      {
+        id: 'cs-gw',
+        label: 'Ping or reach the default gateway / first-hop router',
+      },
+      {
+        id: 'cs-dns',
+        label: 'Resolve an internal hostname via DNS or ping known DNS targets',
+      },
+      {
+        id: 'cs-path',
+        label: 'Traceroute/tracert toward the application host to locate where loss begins',
+      },
+    ],
+    targets: [
+      { id: '1', label: 'Step 1' },
+      { id: '2', label: 'Step 2' },
+      { id: '3', label: 'Step 3' },
+      { id: '4', label: 'Step 4' },
+      { id: '5', label: 'Step 5' },
+    ],
+    solution: {
+      'cs-link': 1,
+      'cs-ip': 2,
+      'cs-gw': 3,
+      'cs-dns': 4,
+      'cs-path': 5,
+    },
+    explanation:
+      'Classic layered isolation: link → addressing → local routing → name resolution → path analysis—mirrors CCST networking troubleshooting chapters.',
+  },
+]
+
 const seedFlashcards: FlashcardItem[] = [
   {
     id: 'flash-osi',
@@ -264,6 +1248,7 @@ const seedFlashcards: FlashcardItem[] = [
 const sharedFlashcards: FlashcardItem[] = [
   ...(aPlusGlossaryFlashcards as unknown as FlashcardItem[]),
   ...seedFlashcards,
+  ...ccstFlashcards,
 ]
 
 const seedPBQ: PBQScenario[] = [
@@ -685,6 +1670,7 @@ const seedPBQ: PBQScenario[] = [
 const sharedPBQ: PBQScenario[] = [
   ...(aPlusGlossaryMatchScenarios as unknown as PBQScenario[]),
   ...seedPBQ,
+  ...ccstPbqScenarios,
 ]
 
 const subnetWeakZones: SubnettingWeakZoneCategory[] = [
@@ -782,6 +1768,29 @@ export const certificationPacks: CertificationPack[] = [
       supportedModes: ['full-drill', 'fields-only', 'seven-second', 'whiteboard', 'scratching-surface'],
       weakZones: subnetWeakZones,
       defaultCidrs: [24, 25, 26, 27, 28],
+    },
+  },
+  {
+    id: 'ccst-it-support',
+    label: 'CCST — IT Support',
+    examCode: 'Cisco CCST',
+    exam: {
+      questions: ccstItSupportQuestions,
+      domains: collectDomains(ccstItSupportQuestions),
+      topics: collectTopics(ccstItSupportQuestions),
+    },
+    flashcards: {
+      decks: [...new Set(cardsFor('ccst-it-support').map((card) => card.deck))],
+      cards: cardsFor('ccst-it-support'),
+    },
+    pbq: {
+      topics: [...new Set(pbqFor('ccst-it-support').map((scenario) => scenario.topic))],
+      scenarios: pbqFor('ccst-it-support'),
+    },
+    subnetting: {
+      supportedModes: ['full-drill', 'fields-only', 'seven-second', 'whiteboard', 'scratching-surface'],
+      weakZones: subnetWeakZones,
+      defaultCidrs: [24, 25, 26, 27, 28, 29, 30],
     },
   },
 ]

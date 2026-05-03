@@ -7,12 +7,8 @@ export type LayoutPresetId =
   | 'highlighter'
   | 'vault'
   | 'command-center'
-  | 'deep-focus'
-  | 'fluid-glass'
-  | 'meridian'
   | 'lumin'
   | 'folio'
-  | 'horizon'
   | 'atrium'
 export type AmbientBorderStyle =
   | 'steady'
@@ -479,12 +475,8 @@ function migrateSettings(raw: Partial<CustomizationState> & Record<string, unkno
     'highlighter',
     'vault',
     'command-center',
-    'deep-focus',
-    'fluid-glass',
-    'meridian',
     'lumin',
     'folio',
-    'horizon',
     'atrium',
   ]
   const lp = raw.layoutPreset as LayoutPresetId | undefined

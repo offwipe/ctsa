@@ -159,6 +159,21 @@ class AtmosphereEngine {
         },
       }
 
+      if (previous) {
+        const t = ctx.currentTime
+        previous.output.gain.cancelScheduledValues(t)
+        previous.output.gain.setValueAtTime(previous.output.gain.value, t)
+        previous.output.gain.linearRampToValueAtTime(0, t + FADE_OUT)
+        window.setTimeout(() => previous.cleanup(), (FADE_OUT + 0.25) * 1000)
+      }
+
+      try {
+        await audio.play()
+      } catch {
+        nodes.cleanup()
+        return
+      }
+
       this.currentNodes = nodes
       this.currentBed = null
       this.activeSampleUrl = sampleUrl
@@ -167,15 +182,6 @@ class AtmosphereEngine {
       nodes.output.gain.cancelScheduledValues(now)
       nodes.output.gain.setValueAtTime(0, now)
       nodes.output.gain.linearRampToValueAtTime(1, now + FADE_IN)
-
-      if (previous) {
-        const t = ctx.currentTime
-        previous.output.gain.cancelScheduledValues(t)
-        previous.output.gain.setValueAtTime(previous.output.gain.value, t)
-        previous.output.gain.linearRampToValueAtTime(0, t + FADE_OUT)
-        window.setTimeout(() => previous.cleanup(), (FADE_OUT + 0.25) * 1000)
-      }
-      void audio.play().catch(() => undefined)
       return
     }
 

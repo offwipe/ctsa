@@ -35,7 +35,6 @@
 }
 
 .titlebar[data-titlebar-style="highlighter"],
-.titlebar[data-titlebar-style="meridian"],
 .titlebar[data-titlebar-style="atrium"] {
   background:
     linear-gradient(90deg, color-mix(in srgb, var(--btn-solid, var(--accent)) 12%, transparent), transparent 52%),
@@ -48,8 +47,6 @@
   background: color-mix(in srgb, var(--bg-elevated, var(--bg-card)) calc(94% * var(--titlebar-opacity)), transparent);
 }
 
-.titlebar[data-titlebar-style="deep-focus"],
-.titlebar[data-titlebar-style="horizon"],
 .titlebar[data-titlebar-style="folio"] {
   background: color-mix(in srgb, var(--bg-main) calc(72% * var(--titlebar-opacity)), transparent);
 }

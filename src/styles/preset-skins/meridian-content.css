@@ -1,9 +1,0 @@
-/* Meridian — capsule nav rhythm */
-
-.app-shell[data-layout-preset='meridian'] .screen-title {
-  letter-spacing: -0.03em;
-}
-
-.app-shell[data-layout-preset='meridian'] .section {
-  border-radius: var(--radius-lg);
-}
