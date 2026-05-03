@@ -29,8 +29,6 @@ const ATMOSPHERE_MODE_OPTIONS = [
   { value: 'off', label: 'Off' },
   { value: 'snow', label: 'Snowfall' },
   { value: 'rain', label: 'Light rain' },
-  { value: 'wind', label: 'Wind & clouds' },
-  { value: 'stormy-focus', label: 'Stormy focus' },
 ]
 
 const BACKGROUND_SOUND_OPTIONS = [
@@ -446,7 +444,7 @@ export function SettingsScreen() {
           </>
         )}
 
-        {(s.atmosphereMode === 'rain' || s.atmosphereMode === 'stormy-focus') && (
+        {s.atmosphereMode === 'rain' && (
           <>
             <SettingsRow label="Intensity" description="Density of falling raindrops.">
               <Slider
@@ -492,61 +490,6 @@ export function SettingsScreen() {
             </SettingsRow>
             <SettingsRow label="Rain color">
               <ColorPicker value={s.rainColor} onChange={(v) => updateSetting('rainColor', v)} />
-            </SettingsRow>
-          </>
-        )}
-
-        {(s.atmosphereMode === 'wind' || s.atmosphereMode === 'stormy-focus') && (
-          <>
-            <SettingsRow label="Cloud density" description="How many drifting cloud layers.">
-              <Slider
-                value={s.windCloudDensity} min={0} max={100}
-                onChange={(v) => updateSetting('windCloudDensity', v)}
-                valueLabel={`${s.windCloudDensity}%`}
-              />
-            </SettingsRow>
-            <SettingsRow label="Drift speed" description="How fast layers glide. Default is slow and calm.">
-              <Slider
-                value={s.windDriftSpeed} min={0} max={100}
-                onChange={(v) => updateSetting('windDriftSpeed', v)}
-                valueLabel={`${s.windDriftSpeed}%`}
-              />
-            </SettingsRow>
-            <SettingsRow label="Cloud opacity" description="How visible the clouds are.">
-              <Slider
-                value={s.windCloudOpacity} min={0} max={100}
-                onChange={(v) => updateSetting('windCloudOpacity', v)}
-                valueLabel={`${s.windCloudOpacity}%`}
-              />
-            </SettingsRow>
-          </>
-        )}
-
-        {s.atmosphereMode === 'wind' && (
-          <>
-            <SettingsRow label="Chime bed" description="Subtle chimes under wind (add wind-chime.ogg in public/audio).">
-              <Slider
-                value={s.windChimeLevel} min={0} max={100}
-                onChange={(v) => updateSetting('windChimeLevel', v)}
-                valueLabel={`${s.windChimeLevel}%`}
-                disabled={!s.atmosphereAudioEnabled}
-              />
-            </SettingsRow>
-            <SettingsRow label="Howl tone" description="Pitch of the wind soundscape.">
-              <Slider
-                value={s.windTone} min={0} max={100}
-                onChange={(v) => updateSetting('windTone', v)}
-                valueLabel={`${s.windTone}%`}
-                disabled={!s.atmosphereAudioEnabled}
-              />
-            </SettingsRow>
-            <SettingsRow label="Howl intensity" description="Strength of the wind body in the audio bed.">
-              <Slider
-                value={s.windHowlIntensity} min={0} max={100}
-                onChange={(v) => updateSetting('windHowlIntensity', v)}
-                valueLabel={`${s.windHowlIntensity}%`}
-                disabled={!s.atmosphereAudioEnabled}
-              />
             </SettingsRow>
           </>
         )}

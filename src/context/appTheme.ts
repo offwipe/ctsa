@@ -15,12 +15,7 @@ export type AmbientBorderStyle =
   | 'drift'
   | 'breathe'
   | 'pulse'
-export type AtmosphereMode =
-  | 'off'
-  | 'snow'
-  | 'rain'
-  | 'wind'
-  | 'stormy-focus'
+export type AtmosphereMode = 'off' | 'snow' | 'rain'
 
 export type BackgroundSoundMode =
   | 'off'
@@ -370,7 +365,7 @@ export const defaultPresets: PresetRecord[] = [
       ambienceColor1: '#0a1f0a',
       ambienceColor2: '#102a18',
       ambienceColor3: '#1f3a0a',
-      atmosphereMode: 'wind',
+      atmosphereMode: 'off',
     },
   },
   {
@@ -441,7 +436,7 @@ const LEGACY_AMBIENT_STYLE_MAP: Record<string, AmbientBorderStyle> = {
   aurora: 'drift',
 }
 
-function migrateSettings(raw: Partial<CustomizationState> & Record<string, unknown>): CustomizationState {
+export function migrateSettings(raw: Partial<CustomizationState> & Record<string, unknown>): CustomizationState {
   const rawClean = { ...raw }
   delete (rawClean as Record<string, unknown>).liveModeTransitions
   const merged: CustomizationState = { ...defaultSettings, ...(rawClean as Partial<CustomizationState>) }
@@ -491,13 +486,11 @@ function migrateSettings(raw: Partial<CustomizationState> & Record<string, unkno
   } else {
     merged.layoutPreset = lp
   }
-  const validAtmo: AtmosphereMode[] = [
-    'off',
-    'snow',
-    'rain',
-    'wind',
-    'stormy-focus',
-  ]
+  const validAtmo: AtmosphereMode[] = ['off', 'snow', 'rain']
+  const archivedVisualAtmo: Record<string, AtmosphereMode> = {
+    wind: 'off',
+    'stormy-focus': 'rain',
+  }
   const validSound: BackgroundSoundMode[] = [
     'off',
     'rain',
@@ -515,7 +508,9 @@ function migrateSettings(raw: Partial<CustomizationState> & Record<string, unkno
     'ambient-rain-soft',
   ]
   const am = raw.atmosphereMode as string | undefined
-  if (am && validSound.includes(am as BackgroundSoundMode) && !validAtmo.includes(am as AtmosphereMode)) {
+  if (am && archivedVisualAtmo[am]) {
+    merged.atmosphereMode = archivedVisualAtmo[am]
+  } else if (am && validSound.includes(am as BackgroundSoundMode) && !validAtmo.includes(am as AtmosphereMode)) {
     merged.atmosphereMode = 'off'
     merged.backgroundSoundMode = am as BackgroundSoundMode
   } else if (!am || !validAtmo.includes(am as AtmosphereMode)) {

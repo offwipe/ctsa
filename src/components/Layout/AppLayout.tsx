@@ -6,7 +6,6 @@ import { useAppContext } from '../../context/useAppContext'
 import { AmbientFrame } from '../effects/AmbientFrame'
 import { WinterFrame } from '../effects/WinterFrame'
 import { RainFrame } from '../effects/RainFrame'
-import { WindFrame } from '../effects/WindFrame'
 import { useAtmosphereAudio } from '../../hooks/useAtmosphereAudio'
 import { NotebookOverlay } from '../overlays/NotebookOverlay'
 import { SevenSecondOverlay } from '../overlays/SevenSecondOverlay'
@@ -116,9 +115,14 @@ export function AppLayout() {
 
   const mode = s.atmosphereMode
   const showSnow = mode === 'snow' || s.winterFrameEnabled
-  const rainActive = mode === 'rain' || mode === 'stormy-focus'
-  const windActive = mode === 'wind' || mode === 'stormy-focus'
-  const stormy = mode === 'stormy-focus'
+  const rainActive = mode === 'rain'
+
+  const classic = s.layoutPreset === 'classic-base'
+  const classicNavRight = classic && s.sidebarPosition === 'right'
+  const mountClass =
+    'layout-preset-mount' +
+    (classic ? ' layout-preset-mount--classic' : '') +
+    (classicNavRight ? ' layout-preset-mount--classic-nav-right' : '')
 
   return (
     <div className="app-window-frame" style={shellStyle}>
@@ -138,43 +142,35 @@ export function AppLayout() {
           style={s.ambientBorderStyle}
           speed={s.ambientBorderSpeed}
         />
-        <div className="atm-stack" data-atmosphere={mode} aria-hidden>
-          <div className={'atm-layer atm-layer--snow' + (showSnow ? ' atm-layer--on' : '')}>
-            <WinterFrame
-              enabled={showSnow}
-              intensity={s.winterIntensity}
-              fallSpeed={s.winterFallSpeed}
-              snowflakeSize={s.winterSnowflakeSize}
-              borderZone={s.winterBorderZone}
-              glowEffect={s.winterGlowEffect}
-              windDrift={s.winterWindDrift}
-              snowColor={s.winterSnowColor}
-            />
-          </div>
-          <div className={'atm-layer atm-layer--rain' + (rainActive ? ' atm-layer--on' : '')}>
-            <RainFrame
-              enabled={rainActive}
-              intensity={stormy ? Math.round(s.rainIntensity * 0.88) : s.rainIntensity}
-              fallSpeed={s.rainFallSpeed}
-              dropSize={s.rainDropSize}
-              angle={s.rainAngle}
-              windMph={stormy ? Math.min(45, s.rainWindMph + 4) : s.rainWindMph}
-              turbulence={stormy ? Math.min(100, s.rainTurbulence + 12) : s.rainTurbulence}
-              rainColor={s.rainColor}
-              glow={s.rainGlow}
-            />
-          </div>
-          <div className={'atm-layer atm-layer--wind' + (windActive ? ' atm-layer--on' : '')}>
-            <WindFrame
-              enabled={windActive}
-              cloudDensity={stormy ? Math.round(s.windCloudDensity * 1.08) : s.windCloudDensity}
-              driftSpeed={stormy ? Math.round(s.windDriftSpeed * 1.12) : s.windDriftSpeed}
-              cloudOpacity={stormy ? Math.min(100, s.windCloudOpacity + 14) : s.windCloudOpacity}
-            />
-          </div>
-        </div>
         <Titlebar />
-        <div className="layout-preset-mount">
+        <div className={mountClass}>
+          <div className="atm-stack" data-atmosphere={mode} aria-hidden>
+            <div className={'atm-layer atm-layer--snow' + (showSnow ? ' atm-layer--on' : '')}>
+              <WinterFrame
+                enabled={showSnow}
+                intensity={s.winterIntensity}
+                fallSpeed={s.winterFallSpeed}
+                snowflakeSize={s.winterSnowflakeSize}
+                borderZone={s.winterBorderZone}
+                glowEffect={s.winterGlowEffect}
+                windDrift={s.winterWindDrift}
+                snowColor={s.winterSnowColor}
+              />
+            </div>
+            <div className={'atm-layer atm-layer--rain' + (rainActive ? ' atm-layer--on' : '')}>
+              <RainFrame
+                enabled={rainActive}
+                intensity={s.rainIntensity}
+                fallSpeed={s.rainFallSpeed}
+                dropSize={s.rainDropSize}
+                angle={s.rainAngle}
+                windMph={s.rainWindMph}
+                turbulence={s.rainTurbulence}
+                rainColor={s.rainColor}
+                glow={s.rainGlow}
+              />
+            </div>
+          </div>
           <LayoutPresetRouter preset={s.layoutPreset} locationKey={location.pathname} />
         </div>
 

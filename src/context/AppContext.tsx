@@ -4,6 +4,7 @@ import {
   defaultPresets,
   defaultSettings,
   loadSettings,
+  migrateSettings,
   persistSettings,
   loadCustomPresets,
   persistCustomPresets,
@@ -143,12 +144,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const applyPreset = useCallback((preset: PresetRecord) => {
-    setSettings((prev) => ({
-      ...defaultSettings,
-      ...preset.settings,
-      ambientFrameEnabled: false,
-      layoutPreset: prev.layoutPreset,
-    }))
+    setSettings((prev) =>
+      migrateSettings({
+        ...defaultSettings,
+        ...preset.settings,
+        ambientFrameEnabled: false,
+        layoutPreset: prev.layoutPreset,
+      } as Partial<CustomizationState> & Record<string, unknown>),
+    )
   }, [])
 
   const saveCurrentAsPreset = useCallback((name: string) => {

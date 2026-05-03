@@ -114,6 +114,12 @@ export function RainFrame( {
       const hPx = canvas.height
       const wCss = wPx / dpr
       const hCss = hPx / dpr
+
+      if (!Number.isFinite(wCss) || !Number.isFinite(hCss) || wCss < 4 || hCss < 4) {
+        rafRef.current = requestAnimationFrame(frame)
+        return
+      }
+
       const rm = reducedRef.current
       const count = rm
         ? Math.max( 6, Math.round( p.intensity * 0.4 ) )
@@ -125,8 +131,11 @@ export function RainFrame( {
       const fallVy = 320 + ( p.fallSpeed / 100 ) * 640
       const turb = ( p.turbulence / 100 ) * 1
 
+      ctx.save()
+      ctx.setTransform( 1, 0, 0, 1, 0, 0 )
+      ctx.clearRect( 0, 0, canvas.width, canvas.height )
+      ctx.restore()
       ctx.setTransform( dpr, 0, 0, dpr, 0, 0 )
-      ctx.clearRect( 0, 0, wCss, hCss )
 
       for ( const d of dropsRef.current ) {
         const gust = rm ? 0 : ( Math.random() - 0.5 ) * 2 * turb * wCss * 0.04
@@ -178,7 +187,11 @@ export function RainFrame( {
 
   useEffect( () => {
     if ( !enabled ) return
-    resize()
+    const kick = () => {
+      resize()
+      requestAnimationFrame( () => resize() )
+    }
+    kick()
     const c = canvasRef.current
     const ro = new ResizeObserver( () => resize() )
     if ( c?.parentElement ) ro.observe( c.parentElement )

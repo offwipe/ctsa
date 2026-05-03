@@ -47,13 +47,49 @@
   position: relative;
   z-index: 10;
   overflow: hidden;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
 }
 
-/* Weather / particles sit behind main chrome (sidebar, cards, title bar); clicks pass through */
+/* Classic Base: sidebar + main are promoted via display:contents — particles sit above nav, below reading column */
+.layout-preset-mount--classic {
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.layout-preset-mount--classic-nav-right {
+  flex-direction: row-reverse;
+}
+
+.layout-preset-mount--classic-nav-right .sidebar {
+  border-right: none;
+  border-left: 1px solid var(--border-subtle);
+}
+
+.classic-base-contents {
+  display: contents;
+}
+
+.layout-preset-mount--classic > .sidebar {
+  position: relative;
+  z-index: 5;
+}
+
+.layout-preset-mount--classic > .app-main {
+  position: relative;
+  z-index: 8;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Weather / particles: above ambient chrome, below main reading stack on Classic Base */
 .atm-stack {
   position: absolute;
   inset: 0;
-  z-index: 3;
+  z-index: 6;
   pointer-events: none;
   overflow: hidden;
   border-radius: inherit;
@@ -116,27 +152,6 @@
     );
   filter: blur(calc((1 - var(--ambience-softness, 0.8)) * 30px));
   transition: opacity 300ms ease, filter 300ms ease, background 300ms ease;
-}
-
-.app-layout {
-  display: flex;
-  flex-direction: row;
-  flex: 1;
-  min-height: 0;
-  position: relative;
-  z-index: 2;
-  color: var(--text-primary);
-  font-family: var(--font-sans);
-  overflow: hidden;
-}
-
-.app-layout--sidebar-right {
-  flex-direction: row-reverse;
-}
-
-.app-layout--sidebar-right .sidebar {
-  border-right: none;
-  border-left: 1px solid var(--border-subtle);
 }
 
 .app-main {
