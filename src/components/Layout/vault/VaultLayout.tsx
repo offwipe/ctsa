@@ -7,46 +7,66 @@ import './VaultLayout.css'
 export function VaultLayout({ locationKey }: { locationKey: string }) {
   const { notebookText, setNotebookText, settings } = useAppContext()
   const navRight = settings.sidebarPosition === 'right'
+  const activeSound = settings.atmosphereAudioEnabled && settings.backgroundSoundMode !== 'off'
 
   return (
     <div className={'vault-shell' + (navRight ? ' vault-shell--nav-right' : '')}>
-      <aside className="vault-shell__left" aria-label="Certification modules">
-        <div className="vault-shell__left-head">
-          <p className="vault-shell__left-title">Knowledge map</p>
-        </div>
-        <div className="vault-shell__left-scroll">
-          <div className="vault-tree">
-            {certificationPacks.map((pack) => (
-              <details key={pack.id} className="vault-tree__cert" open>
-                <summary>
-                  <span>{pack.label}</span>
-                  <span className="vault-tree__code">{pack.examCode}</span>
-                </summary>
-                <div className="vault-tree__body">
-                  <p className="vault-tree__domains">
-                    Domains include {pack.exam.domains.slice(0, 4).join(', ')}
-                    {pack.exam.domains.length > 4 ? '…' : '.'}
-                  </p>
-                  <div className="vault-tree__decks-label">Flashcard decks</div>
-                  <ul className="vault-tree__deck-list">
-                    {pack.flashcards.decks.map((deck) => (
-                      <li key={`${pack.id}-${deck}`}>{deck}</li>
-                    ))}
-                  </ul>
-                </div>
-              </details>
-            ))}
+      <aside className="vault-shell__left" aria-label="Dark Minimalistic navigation">
+        <div className="vault-brand">
+          <span className="vault-brand__mark" aria-hidden />
+          <div>
+            <p className="vault-brand__eyebrow">Dark Minimalistic</p>
+            <h2>Midnight workspace</h2>
           </div>
+        </div>
+        <nav className="vault-quick" aria-label="Primary routes">
+          {MAIN_NAV.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              end={item.to === '/'}
+              className={({ isActive }) => 'vault-quick__link' + (isActive ? ' vault-quick__link--active' : '')}
+            >
+              <span className="vault-quick__icon" aria-hidden>
+                <item.Icon size={15} />
+              </span>
+              <span>{item.label}</span>
+            </NavLink>
+          ))}
+        </nav>
+        <div className="vault-status" aria-label="Layout status">
+          <span>Atmosphere</span>
+          <strong>{settings.atmosphereMode}</strong>
+          <span>Sound</span>
+          <strong>{activeSound ? settings.backgroundSoundMode : 'muted'}</strong>
         </div>
       </aside>
 
       <main className="vault-shell__center">
+        <div className="vault-shell__mast">
+          <span>Quiet contrast</span>
+          <span>Readable panels · even spacing · no visual noise</span>
+        </div>
         <div key={locationKey} className="vault-shell__center-inner page-transition">
           <Outlet />
         </div>
       </main>
 
-      <aside className="vault-shell__right" aria-label="Scratchpad and quick links">
+      <aside className="vault-shell__right" aria-label="Study map and scratchpad">
+        <section className="vault-cert-stack" aria-label="Certification overview">
+          <h2>Certification map</h2>
+          <div className="vault-cert-list">
+            {certificationPacks.map((pack) => (
+              <article key={pack.id} className="vault-cert">
+                <div>
+                  <strong>{pack.label}</strong>
+                  <span>{pack.examCode}</span>
+                </div>
+                <p>{pack.exam.domains.slice(0, 3).join(' · ')}</p>
+              </article>
+            ))}
+          </div>
+        </section>
         <h2>Scratchpad</h2>
         <div className="vault-scratch">
           <label htmlFor="vault-scratch-area" className="sr-only">
@@ -60,22 +80,6 @@ export function VaultLayout({ locationKey }: { locationKey: string }) {
             spellCheck
           />
         </div>
-        <h2>Navigate</h2>
-        <nav className="vault-quick" aria-label="Primary routes">
-          {MAIN_NAV.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              end={item.to === '/'}
-              className={({ isActive }) => 'vault-quick__link' + (isActive ? ' vault-quick__link--active' : '')}
-            >
-              <span className="vault-quick__icon" aria-hidden>
-                <item.Icon size={14} />
-              </span>
-              <span>{item.label}</span>
-            </NavLink>
-          ))}
-        </nav>
       </aside>
     </div>
   )

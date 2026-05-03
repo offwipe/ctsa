@@ -19,11 +19,11 @@ export function LayoutPresetRouter({
       return <ClassicBaseShell locationKey={locationKey} />
     case 'highlighter':
       return <HighlighterLayout locationKey={locationKey} />
-    case 'vault':
+    case 'dark-minimalistic':
       return <VaultLayout locationKey={locationKey} />
-    case 'command-center':
+    case 'french-beige':
       return <CommandCenterLayout locationKey={locationKey} />
-    case 'lumin':
+    case 'aurora-grid':
       return <LuminLayout locationKey={locationKey} />
     case 'folio':
       return <FolioLayout locationKey={locationKey} />

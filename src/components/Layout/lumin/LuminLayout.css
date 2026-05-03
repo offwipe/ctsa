@@ -1,104 +1,196 @@
-/* Lumin — ultra-thin icon rail (dashboard / analytics density) */
+/* Aurora Grid — luminous focus matrix with a calm analytical rail. */
 
 .lumin-shell {
   flex: 1;
   min-height: 0;
-  display: flex;
-  flex-direction: row;
-  background: var(--lumin-bg, var(--bg-main));
+  display: grid;
+  grid-template-columns: minmax(210px, 260px) minmax(0, 1fr);
+  background:
+    radial-gradient(circle at 8% 0%, rgba(94, 234, 212, 0.14), transparent 30%),
+    radial-gradient(circle at 86% 10%, rgba(167, 139, 250, 0.14), transparent 32%),
+    var(--ag-bg, var(--bg-main));
+  color: var(--text-primary);
 }
 
 .lumin-shell--rail-right {
-  flex-direction: row-reverse;
-}
-
-.lumin-rail {
-  width: 56px;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  padding: 12px 6px;
-  border-right: 1px solid var(--lumin-border, var(--border));
-  background: var(--lumin-rail-bg, var(--bg-panel));
+  grid-template-columns: minmax(0, 1fr) minmax(210px, 260px);
 }
 
 .lumin-shell--rail-right .lumin-rail {
+  grid-column: 2;
   border-right: none;
-  border-left: 1px solid var(--lumin-border, var(--border));
+  border-left: 1px solid var(--ag-border, var(--border));
+}
+
+.lumin-shell--rail-right .lumin-main {
+  grid-column: 1;
+}
+
+.lumin-rail {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  border-right: 1px solid var(--ag-border, var(--border));
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 44%),
+    var(--ag-rail-bg, var(--bg-panel));
+  box-shadow: 16px 0 42px rgba(0, 0, 0, 0.14);
+}
+
+.lumin-rail__brand {
+  padding: 0.8rem;
+  border: 1px solid rgba(94, 234, 212, 0.14);
+  border-radius: 18px;
+  background: rgba(94, 234, 212, 0.055);
+}
+
+.lumin-rail__brand span {
+  display: block;
+  font-size: 1rem;
+  font-weight: 760;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+
+.lumin-rail__brand small,
+.lumin-rail__ambient span {
+  display: block;
+  color: var(--ag-muted, var(--text-muted));
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.lumin-rail__brand small {
+  margin-top: 0.28rem;
+}
+
+.lumin-rail__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.32rem;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 .lumin-rail__btn {
-  position: relative;
-  display: flex;
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
   align-items: center;
-  justify-content: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
+  gap: 0.72rem;
+  min-width: 0;
+  padding: 0.64rem 0.72rem;
+  border-radius: 15px;
   color: var(--text-secondary);
   border: 1px solid transparent;
   text-decoration: none;
-  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  font-size: 0.88rem;
+  line-height: 1.2;
+  transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
   cursor: pointer;
+}
+
+.lumin-rail__btn svg {
+  color: var(--ag-accent, var(--accent));
+}
+
+.lumin-rail__btn span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .lumin-rail__btn:hover {
   color: var(--text-primary);
-  background: var(--bg-hover);
+  background: rgba(94, 234, 212, 0.08);
+  border-color: rgba(94, 234, 212, 0.16);
 }
 
 .lumin-rail__btn--active {
-  color: var(--accent);
-  background: var(--accent-subtle);
-  border-color: var(--accent-border, transparent);
-}
-
-.lumin-rail__tip {
-  position: absolute;
-  left: calc(100% + 10px);
-  top: 50%;
-  transform: translateY(-50%);
-  padding: 4px 10px;
-  border-radius: 8px;
-  font-size: 11px;
-  font-weight: 600;
-  white-space: nowrap;
-  background: var(--bg-elevated);
-  border: 1px solid var(--border);
   color: var(--text-primary);
-  opacity: 0;
-  pointer-events: none;
-  z-index: 5;
-  box-shadow: var(--shadow-card);
+  background:
+    linear-gradient(90deg, rgba(94, 234, 212, 0.16), rgba(167, 139, 250, 0.08)),
+    rgba(94, 234, 212, 0.08);
+  border-color: rgba(94, 234, 212, 0.26);
 }
 
-.lumin-shell--rail-right .lumin-rail__tip {
-  left: auto;
-  right: calc(100% + 10px);
+.lumin-rail__ambient {
+  margin-top: auto;
+  padding: 0.82rem;
+  border: 1px solid rgba(94, 234, 212, 0.14);
+  border-radius: 18px;
+  background: rgba(7, 30, 38, 0.48);
+  overflow-wrap: anywhere;
 }
 
-@media (hover: hover) {
-  .lumin-rail__btn:hover .lumin-rail__tip {
-    opacity: 1;
-  }
+.lumin-rail__ambient strong {
+  display: block;
+  margin-top: 0.34rem;
+  color: var(--text-primary);
+  font-size: 0.84rem;
 }
 
 .lumin-main {
-  flex: 1;
+  position: relative;
   min-width: 0;
   overflow: auto;
-  padding: clamp(1rem, 2.5vw, 2rem);
+  padding: clamp(1rem, 2.6vw, 2.25rem);
+}
+
+.lumin-main__gridline {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.18;
+  background-image:
+    linear-gradient(rgba(94, 234, 212, 0.22) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(94, 234, 212, 0.18) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(circle at center, black, transparent 74%);
 }
 
 .lumin-main__inner {
-  max-width: 920px;
+  position: relative;
+  z-index: 1;
+  width: min(100%, 1040px);
   margin: 0 auto;
 }
 
-@media (max-width: 640px) {
-  .lumin-rail__tip {
+@media (max-width: 820px) {
+  .lumin-shell,
+  .lumin-shell--rail-right {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+
+  .lumin-rail,
+  .lumin-shell--rail-right .lumin-rail,
+  .lumin-main,
+  .lumin-shell--rail-right .lumin-main {
+    grid-column: 1;
+  }
+
+  .lumin-rail {
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid var(--ag-border, var(--border));
+  }
+
+  .lumin-rail__nav {
+    flex-direction: row;
+    overflow-x: auto;
+  }
+
+  .lumin-rail__btn {
+    flex: 0 0 auto;
+  }
+
+  .lumin-rail__ambient {
     display: none;
   }
 }

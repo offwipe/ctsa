@@ -1,10 +1,27 @@
-/* Lumin — data-dense rails */
+/* Aurora Grid — luminous study cockpit with a soft analytical grid */
 
-.app-shell[data-layout-preset='lumin'] .screen-title {
-  font-weight: 700;
-  letter-spacing: -0.04em;
+.app-shell[data-layout-preset='aurora-grid'] .screen-title {
+  font-weight: 760;
+  letter-spacing: -0.05em;
+  text-wrap: balance;
 }
 
-.app-shell[data-layout-preset='lumin'] .cert-card {
+.app-shell[data-layout-preset='aurora-grid'] .screen-description {
+  max-width: 72ch;
+  line-height: 1.68;
+  text-wrap: pretty;
+}
+
+.app-shell[data-layout-preset='aurora-grid'] .cert-card,
+.app-shell[data-layout-preset='aurora-grid'] .section,
+.app-shell[data-layout-preset='aurora-grid'] .flashcards-card-flip,
+.app-shell[data-layout-preset='aurora-grid'] .pbq-workspace {
   border-radius: var(--radius-md);
+  border-color: var(--border);
+}
+
+.app-shell[data-layout-preset='aurora-grid'] .section-title,
+.app-shell[data-layout-preset='aurora-grid'] .settings-row-label {
+  letter-spacing: -0.02em;
+  text-wrap: balance;
 }

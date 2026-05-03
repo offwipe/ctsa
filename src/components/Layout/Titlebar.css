@@ -41,9 +41,9 @@
     color-mix(in srgb, var(--bg-card) calc(84% * var(--titlebar-opacity)), transparent);
 }
 
-.titlebar[data-titlebar-style="vault"],
-.titlebar[data-titlebar-style="command-center"],
-.titlebar[data-titlebar-style="lumin"] {
+.titlebar[data-titlebar-style="dark-minimalistic"],
+.titlebar[data-titlebar-style="french-beige"],
+.titlebar[data-titlebar-style="aurora-grid"] {
   background: color-mix(in srgb, var(--bg-elevated, var(--bg-card)) calc(94% * var(--titlebar-opacity)), transparent);
 }
 

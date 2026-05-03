@@ -5,9 +5,9 @@ export type SidebarPos = 'left' | 'right'
 export type LayoutPresetId =
   | 'classic-base'
   | 'highlighter'
-  | 'vault'
-  | 'command-center'
-  | 'lumin'
+  | 'dark-minimalistic'
+  | 'french-beige'
+  | 'aurora-grid'
   | 'folio'
   | 'atrium'
 export type AmbientBorderStyle =
@@ -473,15 +473,23 @@ function migrateSettings(raw: Partial<CustomizationState> & Record<string, unkno
   const layoutIds: LayoutPresetId[] = [
     'classic-base',
     'highlighter',
-    'vault',
-    'command-center',
-    'lumin',
+    'dark-minimalistic',
+    'french-beige',
+    'aurora-grid',
     'folio',
     'atrium',
   ]
-  const lp = raw.layoutPreset as LayoutPresetId | undefined
+  const legacyLayoutMap: Record<string, LayoutPresetId> = {
+    vault: 'dark-minimalistic',
+    'command-center': 'french-beige',
+    lumin: 'aurora-grid',
+  }
+  const lpRaw = raw.layoutPreset as string | undefined
+  const lp = lpRaw ? legacyLayoutMap[lpRaw] ?? (lpRaw as LayoutPresetId) : undefined
   if (!lp || !layoutIds.includes(lp)) {
     merged.layoutPreset = defaultSettings.layoutPreset
+  } else {
+    merged.layoutPreset = lp
   }
   const validAtmo: AtmosphereMode[] = [
     'off',

@@ -1,73 +1,67 @@
-/* Command Center — HUD tiles, cyan diagnostics, tight corners */
+/* French Beige — patisserie cream system, refined cards, restrained hierarchy */
 
-html[data-theme='dark'] .app-shell[data-layout-preset='command-center'] {
-  --screen-card-shine-top: rgba(56, 189, 248, 0.07);
-  --screen-card-shine-bottom: rgba(8, 11, 18, 0.55);
-  --screen-card-inset-top: rgba(56, 189, 248, 0.12);
-  --screen-card-shadow-outer:
-    0 0 0 1px rgba(56, 189, 248, 0.18),
-    0 16px 40px rgba(0, 0, 0, 0.5);
-  --screen-card-gradient-corner: linear-gradient(135deg, rgba(56, 189, 248, 0.1), transparent 40%);
-  --screen-list-divider: rgba(56, 189, 248, 0.15);
-  --screen-preview-stage-border: rgba(56, 189, 248, 0.2);
-  --screen-preview-stage-bg: rgba(8, 11, 18, 0.88);
-  --screen-queue-border: rgba(56, 189, 248, 0.14);
-  --screen-queue-bg: rgba(15, 23, 42, 0.55);
-  --screen-flash-border: rgba(56, 189, 248, 0.22);
-  --cert-hover-border: rgba(56, 189, 248, 0.45);
-  --cert-hover-shadow: 0 0 24px rgba(56, 189, 248, 0.15);
+html[data-theme='dark'] .app-shell[data-layout-preset='french-beige'],
+html[data-theme='light'] .app-shell[data-layout-preset='french-beige'] {
+  --screen-card-shine-top: rgba(255, 255, 255, 0.86);
+  --screen-card-shine-bottom: rgba(255, 250, 240, 0.92);
+  --screen-card-inset-top: rgba(185, 129, 59, 0.14);
+  --screen-card-shadow-outer: 0 14px 34px rgba(95, 57, 24, 0.1);
+  --screen-card-gradient-corner: linear-gradient(135deg, rgba(185, 129, 59, 0.1), transparent 44%);
+  --screen-list-divider: rgba(133, 88, 45, 0.13);
+  --screen-preview-stage-border: rgba(133, 88, 45, 0.16);
+  --screen-preview-stage-bg: rgba(255, 250, 240, 0.86);
+  --screen-queue-border: rgba(133, 88, 45, 0.14);
+  --screen-queue-bg: rgba(255, 250, 240, 0.68);
+  --screen-flash-border: rgba(185, 129, 59, 0.22);
+  --cert-hover-border: rgba(185, 129, 59, 0.36);
+  --cert-hover-shadow: 0 12px 30px rgba(95, 57, 24, 0.12);
 }
 
-html[data-theme='light'] .app-shell[data-layout-preset='command-center'] {
-  --screen-card-shine-top: rgba(255, 255, 255, 0.9);
-  --screen-card-shine-bottom: rgba(220, 231, 242, 0.95);
-  --screen-card-inset-top: rgba(14, 165, 233, 0.2);
-  --screen-card-shadow-outer: 0 1px 0 rgba(14, 116, 144, 0.2), 0 14px 32px rgba(15, 23, 42, 0.1);
-  --screen-card-gradient-corner: linear-gradient(135deg, rgba(14, 165, 233, 0.12), transparent 42%);
-  --cert-hover-border: rgba(14, 165, 233, 0.45);
-  --cert-hover-shadow: 0 8px 28px rgba(14, 165, 233, 0.12);
+.app-shell[data-layout-preset='french-beige'] .screen-title {
+  letter-spacing: -0.045em;
+  font-size: clamp(1.75rem, 3vw, 2.45rem);
+  font-weight: 760;
+  color: #3f2a1c;
+  text-wrap: balance;
 }
 
-.app-shell[data-layout-preset='command-center'] .screen-title {
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  font-size: clamp(1.25rem, 2vw, 1.5rem);
-  font-weight: 800;
+.app-shell[data-layout-preset='french-beige'] .screen-description {
+  font-size: 0.98rem;
+  line-height: 1.72;
+  color: #6b4f38;
+  max-width: 70ch;
+  text-wrap: pretty;
 }
 
-.app-shell[data-layout-preset='command-center'] .screen-description {
-  letter-spacing: 0.03em;
-  font-size: 0.8125rem;
-  text-transform: uppercase;
-  color: var(--text-muted);
+.app-shell[data-layout-preset='french-beige'] .cert-card {
+  border-radius: var(--radius-lg);
+  border-color: rgba(133, 88, 45, 0.18);
 }
 
-.app-shell[data-layout-preset='command-center'] .cert-card {
-  border-radius: var(--radius-sm);
-  border-color: rgba(56, 189, 248, 0.25);
+.app-shell[data-layout-preset='french-beige'] .section {
+  border-radius: var(--radius-lg);
+  border-color: rgba(133, 88, 45, 0.16);
 }
 
-.app-shell[data-layout-preset='command-center'] .section {
-  border-radius: var(--radius-sm);
-  border-color: rgba(56, 189, 248, 0.22);
+.app-shell[data-layout-preset='french-beige'] .section-title {
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
-.app-shell[data-layout-preset='command-center'] .section-title {
-  font-size: 0.9375rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+.app-shell[data-layout-preset='french-beige'] .section-badge {
+  border-radius: 999px;
+  border-color: rgba(185, 129, 59, 0.22);
+  background: rgba(185, 129, 59, 0.1);
+  color: #6b4f38;
 }
 
-.app-shell[data-layout-preset='command-center'] .section-badge {
-  border-radius: 2px;
+.app-shell[data-layout-preset='french-beige'] .blitz-hud-card,
+.app-shell[data-layout-preset='french-beige'] .exam-metric-card,
+.app-shell[data-layout-preset='french-beige'] .subnet-grid {
+  border-radius: var(--radius-md);
 }
 
-.app-shell[data-layout-preset='command-center'] .blitz-hud-card,
-.app-shell[data-layout-preset='command-center'] .exam-metric-card,
-.app-shell[data-layout-preset='command-center'] .subnet-grid {
-  border-radius: var(--radius-sm);
-}
-
-.app-shell[data-layout-preset='command-center'] .settings-row {
-  border-bottom-color: rgba(56, 189, 248, 0.12);
+.app-shell[data-layout-preset='french-beige'] .settings-row {
+  border-bottom-color: rgba(133, 88, 45, 0.12);
 }

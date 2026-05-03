@@ -61,9 +61,9 @@ const TITLEBAR_STYLE_OPTIONS: { value: TitlebarStyle; label: string }[] = [
 const LAYOUT_PRESET_OPTIONS: { value: LayoutPresetId; label: string }[] = [
   { value: 'classic-base', label: 'Classic Base' },
   { value: 'highlighter', label: 'HighLighter' },
-  { value: 'vault', label: 'The Vault' },
-  { value: 'command-center', label: 'Command Center' },
-  { value: 'lumin', label: 'Lumin Beacon' },
+  { value: 'dark-minimalistic', label: 'Dark Minimalistic' },
+  { value: 'french-beige', label: 'French Beige' },
+  { value: 'aurora-grid', label: 'Aurora Grid' },
   { value: 'folio', label: 'Folio Spine' },
   { value: 'atrium', label: 'Atrium Studio' },
 ]

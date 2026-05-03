@@ -10,15 +10,18 @@ export function CommandCenterLayout({ locationKey }: { locationKey: string }) {
   return (
     <div className={'command-shell' + (railRight ? ' command-shell--rail-right' : '')}>
       <header className="command-shell__ribbon">
-        <span>Command Center</span>
-        <span>Study shell · dashboard density</span>
+        <span>French Beige</span>
+        <span>Patisserie calm · warm study surfaces</span>
       </header>
 
-      <nav className="command-shell__rail" aria-label="Jump navigation">
-        <div className="command-shell__rail-label">Routes</div>
+      <nav className="command-shell__rail" aria-label="French Beige navigation">
+        <div className="command-shell__rail-label">Menu du jour</div>
         {MAIN_NAV.map((item) => (
           <NavLink key={item.to} to={item.to} end={item.to === '/'}>
-            {item.label}
+            <span className="command-shell__rail-icon" aria-hidden>
+              <item.Icon size={15} />
+            </span>
+            <span>{item.label}</span>
           </NavLink>
         ))}
       </nav>
@@ -29,9 +32,9 @@ export function CommandCenterLayout({ locationKey }: { locationKey: string }) {
         </div>
       </section>
 
-      <aside className="command-shell__meta" aria-label="Environment status">
+      <aside className="command-shell__meta" aria-label="French Beige status">
         <div className="command-meta__block">
-          <h3>Atmosphere</h3>
+          <h3>Ambience</h3>
           <div className="command-meta__kv">
             Mode: <strong style={{ fontWeight: 600 }}>{settings.atmosphereMode}</strong>
             <br />
@@ -42,16 +45,16 @@ export function CommandCenterLayout({ locationKey }: { locationKey: string }) {
         </div>
         <div className="command-meta__widgets">
           <div className="command-meta__tile">
-            <strong>Sidebar</strong>
+            <strong>Service side</strong>
             {settings.sidebarPosition}
           </div>
           <div className="command-meta__tile">
-            <strong>Theme</strong>
+            <strong>Cream mode</strong>
             {settings.mode}
           </div>
         </div>
         <div className="command-meta__block">
-          <h3>Widgets</h3>
+          <h3>Chef’s shortcuts</h3>
           <NavLink to="/settings">Open settings</NavLink>
           <br />
           <NavLink to="/pomodoro">Pomodoro timer</NavLink>

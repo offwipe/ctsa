@@ -1,6 +1,12 @@
 /* HighLighter — technical notebook: sharp geometry, amber signal, monospace cadence */
 
 html[data-theme='dark'] .app-shell[data-layout-preset='highlighter'] {
+  --btn-solid: #facc15;
+  --btn-solid-hover: #fde047;
+  --btn-glow: rgba(250, 204, 21, 0.24);
+  --btn-glow-blur: 18px;
+  --btn-gradient: linear-gradient(135deg, #facc15 0%, #fde047 100%);
+  --btn-subtle: rgba(250, 204, 21, 0.12);
   --screen-card-shine-top: rgba(250, 204, 21, 0.06);
   --screen-card-shine-bottom: rgba(24, 24, 27, 0.4);
   --screen-card-inset-top: rgba(250, 204, 21, 0.06);
@@ -14,6 +20,12 @@ html[data-theme='dark'] .app-shell[data-layout-preset='highlighter'] {
 }
 
 html[data-theme='light'] .app-shell[data-layout-preset='highlighter'] {
+  --btn-solid: #eab308;
+  --btn-solid-hover: #facc15;
+  --btn-glow: rgba(234, 179, 8, 0.18);
+  --btn-glow-blur: 16px;
+  --btn-gradient: linear-gradient(135deg, #eab308 0%, #facc15 100%);
+  --btn-subtle: rgba(234, 179, 8, 0.14);
   --screen-card-shine-top: rgba(254, 240, 138, 0.55);
   --screen-card-shine-bottom: rgba(244, 244, 245, 0.9);
   --screen-card-inset-top: rgba(234, 179, 8, 0.15);
@@ -63,4 +75,69 @@ html[data-theme='light'] .app-shell[data-layout-preset='highlighter'] {
 
 .app-shell[data-layout-preset='highlighter'] .settings-row-label {
   font-size: 0.8125rem;
+}
+
+.app-shell[data-layout-preset='highlighter'] .primary-button {
+  color: #18181b;
+  border-color: rgba(250, 204, 21, 0.38);
+  box-shadow:
+    0 12px 24px rgba(250, 204, 21, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.22) inset;
+}
+
+.app-shell[data-layout-preset='highlighter'] .blitz-active-header {
+  align-items: center;
+  gap: 1rem;
+}
+
+.app-shell[data-layout-preset='highlighter'] .blitz-active-header > div:first-child {
+  flex: 1 1 380px;
+  min-width: min(100%, 320px);
+}
+
+.app-shell[data-layout-preset='highlighter'] .blitz-active-header .screen-title {
+  font-size: clamp(1.55rem, 2.8vw, 2.25rem);
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+.app-shell[data-layout-preset='highlighter'] .blitz-hud {
+  flex: 1 1 330px;
+  justify-content: flex-end;
+}
+
+.app-shell[data-layout-preset='highlighter'] .blitz-hud-card {
+  min-width: 108px;
+  padding: 12px 16px;
+}
+
+.app-shell[data-layout-preset='highlighter'] .blitz-card {
+  min-height: 300px;
+  padding: clamp(1.45rem, 3vw, 2.3rem);
+}
+
+.app-shell[data-layout-preset='highlighter'] .blitz-card-front {
+  max-width: 68ch;
+  font-size: clamp(1.08rem, 1.8vw, 1.38rem);
+  line-height: 1.62;
+  overflow-wrap: break-word;
+  word-break: normal;
+  text-wrap: pretty;
+}
+
+.app-shell[data-layout-preset='highlighter'] .blitz-card-back,
+.app-shell[data-layout-preset='highlighter'] .blitz-card-explanation {
+  overflow-wrap: break-word;
+  word-break: normal;
+  text-wrap: pretty;
+}
+
+@media (max-width: 760px) {
+  .app-shell[data-layout-preset='highlighter'] .blitz-hud {
+    justify-content: stretch;
+  }
+
+  .app-shell[data-layout-preset='highlighter'] .blitz-hud-card {
+    flex: 1 1 104px;
+  }
 }
