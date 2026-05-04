@@ -1,0 +1,153 @@
+.ccst-game-tabs {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 4px;
+  margin-bottom: var(--space-6);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+}
+
+.ccst-game-tab {
+  border: 0;
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  background: transparent;
+  color: var(--text-secondary);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+}
+
+.ccst-game-tab--active {
+  color: #fff;
+  background: var(--btn-solid, var(--accent));
+  box-shadow: 0 0 var(--btn-glow-blur, 12px) var(--btn-glow, rgba(139, 92, 246, 0.22));
+}
+
+.ccst-order-list,
+.ccst-match-grid {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.ccst-order-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-elevated, var(--bg-card));
+}
+
+.ccst-order-rank {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  color: #fff;
+  background: var(--btn-solid, var(--accent));
+  font-weight: var(--font-bold);
+  font-variant-numeric: tabular-nums;
+}
+
+.ccst-order-card p {
+  margin: 0;
+  color: var(--text-primary);
+  line-height: 1.45;
+}
+
+.ccst-order-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.ccst-order-actions button,
+.ccst-match-card,
+.ccst-match-target,
+.ccst-game-actions > button {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
+}
+
+.ccst-order-actions button {
+  padding: 7px 10px;
+}
+
+.ccst-order-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.ccst-match-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.ccst-match-column {
+  display: grid;
+  align-content: start;
+  gap: var(--space-3);
+}
+
+.ccst-match-card,
+.ccst-match-target {
+  min-height: 76px;
+  padding: var(--space-4);
+  text-align: left;
+}
+
+.ccst-match-card {
+  display: grid;
+  gap: 6px;
+}
+
+.ccst-match-card strong {
+  color: var(--text-primary);
+}
+
+.ccst-match-card span {
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}
+
+.ccst-match-card--active,
+.ccst-match-card:hover,
+.ccst-match-target:hover,
+.ccst-order-actions button:hover {
+  border-color: var(--btn-solid, var(--accent));
+  background: var(--btn-subtle, rgba(139, 92, 246, 0.1));
+}
+
+.ccst-game-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+.ccst-game-result {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+}
+
+@media (max-width: 760px) {
+  .ccst-match-grid,
+  .ccst-order-card {
+    grid-template-columns: 1fr;
+  }
+
+  .ccst-order-actions {
+    justify-content: flex-start;
+  }
+}

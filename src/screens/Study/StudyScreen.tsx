@@ -6,6 +6,7 @@ import { PrimaryButton } from '../../components/ui/PrimaryButton'
 import { Dropdown } from '../../components/ui/Dropdown'
 import { certificationPacks, getCertificationPack } from '../../data/certificationPacks'
 import type { CertificationId, FlashcardItem } from '../../data/certificationPacks'
+import { useAppContext } from '../../context/useAppContext'
 
 /*
  * Blitz mode: a rapid-fire active-recall round.
@@ -72,6 +73,7 @@ function blitzDisplaySeconds(remainingMs: number): number {
 }
 
 export function StudyScreen() {
+  const { activeCertification, setActiveCertification } = useAppContext()
   const [phase, setPhase] = useState<Phase>('setup')
   const [certification, setCertification] = useState<CertificationId>('a-plus')
   const [deck, setDeck] = useState<string | 'all'>('all')
@@ -123,6 +125,15 @@ export function StudyScreen() {
   }, [stopTimer, timerSeconds])
 
   useEffect(() => () => stopTimer(), [stopTimer])
+
+  useEffect(() => {
+    if (!activeCertification || activeCertification === certification || phase !== 'setup') return
+    const id = window.setTimeout(() => {
+      setCertification(activeCertification)
+      setDeck('all')
+    }, 0)
+    return () => window.clearTimeout(id)
+  }, [activeCertification, certification, phase])
 
   const beginRound = useCallback(() => {
     if (availablePool.length === 0) return
@@ -234,7 +245,9 @@ export function StudyScreen() {
                 value={certification}
                 options={certificationPacks.map((pack) => ({ value: pack.id, label: `${pack.label} • ${pack.examCode}` }))}
                 onChange={(value) => {
-                  setCertification(value as CertificationId)
+                  const next = value as CertificationId
+                  setCertification(next)
+                  setActiveCertification(next)
                   setDeck('all')
                 }}
               />

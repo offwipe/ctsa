@@ -1,11 +1,12 @@
 import { NavLink, Outlet } from 'react-router-dom'
-import { MAIN_NAV } from '../mainNav'
+import { getMainNav } from '../mainNav'
 import { useAppContext } from '../../../context/useAppContext'
 import './CommandCenterLayout.css'
 
 export function CommandCenterLayout({ locationKey }: { locationKey: string }) {
-  const { settings } = useAppContext()
+  const { settings, activeCertification } = useAppContext()
   const railRight = settings.sidebarPosition === 'right'
+  const nav = getMainNav(activeCertification)
 
   return (
     <div className={'command-shell' + (railRight ? ' command-shell--rail-right' : '')}>
@@ -16,7 +17,7 @@ export function CommandCenterLayout({ locationKey }: { locationKey: string }) {
 
       <nav className="command-shell__rail" aria-label="French Beige navigation">
         <div className="command-shell__rail-label">Menu du jour</div>
-        {MAIN_NAV.map((item) => (
+        {nav.map((item) => (
           <NavLink key={item.to} to={item.to} end={item.to === '/'}>
             <span className="command-shell__rail-icon" aria-hidden>
               <item.Icon size={15} />

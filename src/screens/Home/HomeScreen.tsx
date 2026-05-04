@@ -1,4 +1,7 @@
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { useAppContext } from '../../context/useAppContext'
+import { getCertificationPack } from '../../data/certificationPacks'
+import type { CertificationId } from '../../data/certificationPacks'
 import '../ScreenShell.css'
 import './HomeScreen.css'
 
@@ -46,17 +49,35 @@ const certifications = [
 ]
 
 export function HomeScreen() {
+  const navigate = useNavigate()
+  const { activeCertification, setActiveCertification } = useAppContext()
+  const activePack = activeCertification ? getCertificationPack(activeCertification) : null
+
+  const selectCertification = (id: string) => {
+    const certification = id as CertificationId
+    setActiveCertification(certification)
+    navigate(certification === 'ccst-it-support' ? '/pbq' : '/study')
+  }
+
   return (
     <>
-      <h1 className="screen-title">Choose your certification</h1>
+      <h1 className="screen-title">{activePack ? `Current exam: ${activePack.label}` : 'Choose your exam'}</h1>
       <p className="screen-description">
-        Select a CompTIA exam to start studying. Each certification has its own study material,
-        practice exams, subnetting drills, and flashcards.
+        {activePack
+          ? 'Switch exams anytime from here. The sidebar, PBQs, exam prep, and titlebar follow the selected exam.'
+          : 'Pick an exam before studying. The app will tailor navigation and practice modes to that selection.'}
       </p>
 
       <div className="cert-grid">
         {certifications.map((cert) => (
-          <div key={cert.id} className={'cert-card' + (cert.ready ? '' : ' cert-card--coming')}>
+          <div
+            key={cert.id}
+            className={
+              'cert-card' +
+              (cert.ready ? '' : ' cert-card--coming') +
+              (activeCertification === cert.id ? ' cert-card--active' : '')
+            }
+          >
             <div className="cert-card-accent" style={{ background: cert.color }} />
             <div className="cert-card-body">
               <div className="cert-card-header">
@@ -65,10 +86,10 @@ export function HomeScreen() {
               </div>
               <p className="cert-card-desc">{cert.description}</p>
               {cert.ready ? (
-                <Link to="/study" className="cert-card-link">
-                  Run a Blitz round
+                <button type="button" className="cert-card-link" onClick={() => selectCertification(cert.id)}>
+                  {activeCertification === cert.id ? 'Selected' : 'Select exam'}
                   <ArrowIcon />
-                </Link>
+                </button>
               ) : (
                 <span className="cert-card-coming">Coming soon</span>
               )}

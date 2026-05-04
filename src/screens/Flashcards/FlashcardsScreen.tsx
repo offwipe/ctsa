@@ -9,6 +9,7 @@ import { Toggle } from '../../components/ui/Toggle'
 import { certificationPacks, getCertificationPack } from '../../data/certificationPacks'
 import type { CertificationId, FlashcardItem } from '../../data/certificationPacks'
 import { useLocalStorageState } from '../../hooks/useLocalStorageState'
+import { useAppContext } from '../../context/useAppContext'
 
 type FlashcardRating = 'again' | 'reviewing' | 'known'
 type FlashcardMode = 'standard' | 'rapid-review' | 'again-only'
@@ -64,6 +65,7 @@ function getFilteredCards(setup: FlashcardSetup) {
 }
 
 export function FlashcardsScreen() {
+  const { activeCertification, setActiveCertification } = useAppContext()
   const [state, setState] = useLocalStorageState<FlashcardState>(STORAGE_KEY, DEFAULT_STATE)
   const pack = getCertificationPack(state.setup.certification)
   const baseCards = useMemo(() => getFilteredCards(state.setup), [state.setup])
@@ -87,6 +89,7 @@ export function FlashcardsScreen() {
   const againCount = Object.values(state.ratings).filter((value) => value === 'again').length
 
   const updateSetup = <K extends keyof FlashcardSetup>(key: K, value: FlashcardSetup[K]) => {
+    if (key === 'certification') setActiveCertification(value as CertificationId)
     setState((previous) => ({
       ...previous,
       phase: 'setup',
@@ -95,6 +98,17 @@ export function FlashcardsScreen() {
       setup: { ...previous.setup, [key]: value },
     }))
   }
+
+  useEffect(() => {
+    if (!activeCertification || state.phase !== 'setup' || state.setup.certification === activeCertification) return
+    setState((previous) => ({
+      ...previous,
+      phase: 'setup',
+      current: 0,
+      flipped: false,
+      setup: { ...previous.setup, certification: activeCertification, deck: 'all' },
+    }))
+  }, [activeCertification, state.phase, state.setup.certification, setState])
 
   const startStudy = () => {
     const nextCards = state.setup.shuffle ? shuffle(cards) : cards

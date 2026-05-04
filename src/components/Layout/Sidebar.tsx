@@ -1,12 +1,16 @@
 import { NavLink } from 'react-router-dom'
 import './Sidebar.css'
-import { MAIN_NAV } from './mainNav'
+import { useAppContext } from '../../context/useAppContext'
+import { getMainNav } from './mainNav'
 
 export function Sidebar() {
+  const { activeCertification } = useAppContext()
+  const nav = getMainNav(activeCertification)
+
   return (
     <aside className="sidebar">
       <nav className="sidebar-nav">
-        {MAIN_NAV.map(({ to, label, Icon }) => (
+        {nav.map(({ to, label, Icon }) => (
           <NavLink
             key={to}
             to={to}

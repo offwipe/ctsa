@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useMemo } from 'react'
 import '../ScreenShell.css'
 import './PomodoroScreen.css'
 import { Section } from '../../components/ui/Section'
@@ -8,209 +8,36 @@ import { Dropdown } from '../../components/ui/Dropdown'
 import { PrimaryButton } from '../../components/ui/PrimaryButton'
 import { ResetButton } from '../../components/ui/ResetButton'
 import { SettingsRow } from '../../components/ui/SettingsRow'
-import { playRinger, RINGER_OPTIONS } from './pomodoroSounds'
+import { formatClock, phaseLabel, RINGER_OPTIONS, usePomodoro } from '../../context/PomodoroContext'
 import type { RingerSound } from './pomodoroSounds'
 import {
-  defaultStats,
   formatHours,
   levelFromXP,
   levelTitle,
-  loadStats,
-  persistStats,
-  recordSession,
 } from './pomodoroStats'
 
-type Mode = 'pomodoro' | 'stopwatch'
-type Phase = 'work' | 'short-break' | 'long-break'
-
-type Settings = {
-  workMinutes: number
-  shortBreakMinutes: number
-  longBreakMinutes: number
-  cyclesBeforeLongBreak: number
-  autoCycle: boolean
-  ringer: RingerSound
-  volume: number
-}
-
-const SETTINGS_KEY = 'comptia-study-pomodoro-settings'
-const defaultPomoSettings: Settings = {
-  workMinutes: 25,
-  shortBreakMinutes: 5,
-  longBreakMinutes: 15,
-  cyclesBeforeLongBreak: 4,
-  autoCycle: true,
-  ringer: 'chime',
-  volume: 60,
-}
-
-function loadPomoSettings(): Settings {
-  try {
-    const raw = localStorage.getItem(SETTINGS_KEY)
-    if (!raw) return defaultPomoSettings
-    return { ...defaultPomoSettings, ...JSON.parse(raw) }
-  } catch {
-    return defaultPomoSettings
-  }
-}
-
-function savePomoSettings(s: Settings) {
-  try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(s)) } catch { /* noop */ }
-}
-
-function formatClock(totalSeconds: number): string {
-  const t = Math.max(0, Math.floor(totalSeconds))
-  const h = Math.floor(t / 3600)
-  const m = Math.floor((t % 3600) / 60)
-  const s = t % 60
-  if (h > 0) return `${h}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
-  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
-}
-
-function phaseDuration(phase: Phase, s: Settings): number {
-  if (phase === 'work') return s.workMinutes * 60
-  if (phase === 'short-break') return s.shortBreakMinutes * 60
-  return s.longBreakMinutes * 60
-}
-
-function phaseLabel(phase: Phase): string {
-  if (phase === 'work') return 'Focus'
-  if (phase === 'short-break') return 'Short Break'
-  return 'Long Break'
-}
-
 export function PomodoroScreen() {
-  const [mode, setMode] = useState<Mode>('pomodoro')
-  const [settings, setSettings] = useState<Settings>(() => loadPomoSettings())
-  const [stats, setStats] = useState(() => loadStats())
-
-  const [phase, setPhase] = useState<Phase>('work')
-  const [completedWorkCycles, setCompletedWorkCycles] = useState(0)
-  const [secondsLeft, setSecondsLeft] = useState(() => settings.workMinutes * 60)
-  const [running, setRunning] = useState(false)
-
-  const [stopwatchSeconds, setStopwatchSeconds] = useState(0)
-  const [stopwatchRunning, setStopwatchRunning] = useState(false)
-
-  const tickRef = useRef<number | null>(null)
-  const swRef = useRef<number | null>(null)
-  const lastSettingsRef = useRef(settings)
-
-  useEffect(() => { savePomoSettings(settings) }, [settings])
-  useEffect(() => { persistStats(stats) }, [stats])
-
-  useEffect(() => {
-    if (running) return
-    if (lastSettingsRef.current.workMinutes !== settings.workMinutes && phase === 'work') {
-      setSecondsLeft(settings.workMinutes * 60)
-    } else if (lastSettingsRef.current.shortBreakMinutes !== settings.shortBreakMinutes && phase === 'short-break') {
-      setSecondsLeft(settings.shortBreakMinutes * 60)
-    } else if (lastSettingsRef.current.longBreakMinutes !== settings.longBreakMinutes && phase === 'long-break') {
-      setSecondsLeft(settings.longBreakMinutes * 60)
-    }
-    lastSettingsRef.current = settings
-  }, [settings, phase, running])
-
-  useEffect(() => {
-    if (!running) {
-      if (tickRef.current != null) {
-        window.clearInterval(tickRef.current)
-        tickRef.current = null
-      }
-      return
-    }
-    tickRef.current = window.setInterval(() => {
-      setSecondsLeft((prev) => {
-        if (prev <= 1) {
-          window.setTimeout(() => handlePhaseComplete(), 0)
-          return 0
-        }
-        return prev - 1
-      })
-    }, 1000)
-    return () => {
-      if (tickRef.current != null) window.clearInterval(tickRef.current)
-      tickRef.current = null
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [running])
-
-  useEffect(() => {
-    if (!stopwatchRunning) {
-      if (swRef.current != null) {
-        window.clearInterval(swRef.current)
-        swRef.current = null
-      }
-      return
-    }
-    swRef.current = window.setInterval(() => {
-      setStopwatchSeconds((p) => p + 1)
-    }, 1000)
-    return () => {
-      if (swRef.current != null) window.clearInterval(swRef.current)
-      swRef.current = null
-    }
-  }, [stopwatchRunning])
-
-  const completeWorkPhase = (focusCreditSeconds: number | null) => {
-    setRunning(false)
-    playRinger(settings.ringer, settings.volume / 100)
-    if (focusCreditSeconds !== null && focusCreditSeconds > 0) {
-      setStats((prev) => recordSession(prev, focusCreditSeconds))
-    }
-    const newCount = completedWorkCycles + 1
-    setCompletedWorkCycles(newCount)
-    const nextPhase: Phase =
-      newCount % settings.cyclesBeforeLongBreak === 0 ? 'long-break' : 'short-break'
-    setPhase(nextPhase)
-    setSecondsLeft(phaseDuration(nextPhase, settings))
-    if (settings.autoCycle) setRunning(true)
-  }
-
-  const completeBreakPhase = () => {
-    setRunning(false)
-    playRinger(settings.ringer, settings.volume / 100)
-    setPhase('work')
-    setSecondsLeft(phaseDuration('work', settings))
-    if (settings.autoCycle) setRunning(true)
-  }
-
-  const handlePhaseComplete = () => {
-    if (phase === 'work') {
-      completeWorkPhase(settings.workMinutes * 60)
-    } else {
-      completeBreakPhase()
-    }
-  }
-
-  const skip = () => {
-    if (phase === 'work') {
-      const total = phaseDuration('work', settings)
-      const inFinalTenPercent = secondsLeft <= total * 0.1
-      const creditSeconds = inFinalTenPercent ? settings.workMinutes * 60 : null
-      completeWorkPhase(creditSeconds)
-    } else {
-      completeBreakPhase()
-    }
-  }
-
-  const totalDuration = phaseDuration(phase, settings)
-  const progress = totalDuration > 0 ? 1 - secondsLeft / totalDuration : 0
-  const dashOffset = 282.74 * (1 - progress)
-
-  const startPause = () => setRunning((r) => !r)
-  const reset = () => {
-    setRunning(false)
-    setSecondsLeft(phaseDuration(phase, settings))
-  }
-
-  const startPauseSW = () => setStopwatchRunning((r) => !r)
-  const resetSW = () => { setStopwatchRunning(false); setStopwatchSeconds(0) }
-
-  const updateSetting = <K extends keyof Settings>(k: K, v: Settings[K]) =>
-    setSettings((p) => ({ ...p, [k]: v }))
-
-  const resetStats = () => setStats(defaultStats)
+  const {
+    mode,
+    setMode,
+    settings,
+    updateSetting,
+    stats,
+    resetStats,
+    phase,
+    completedWorkCycles,
+    secondsLeft,
+    running,
+    stopwatchSeconds,
+    stopwatchRunning,
+    dashOffset,
+    startPause,
+    reset,
+    skip,
+    startPauseSW,
+    resetSW,
+    previewRinger,
+  } = usePomodoro()
 
   const { level, intoLevel, xpForNext } = levelFromXP(stats.xp)
   const levelProgress = Math.min(100, Math.round((intoLevel / xpForNext) * 100))
@@ -457,7 +284,7 @@ export function PomodoroScreen() {
           />
         </SettingsRow>
         <div className="pomo-controls">
-          <PrimaryButton onClick={() => playRinger(settings.ringer, settings.volume / 100)}>
+          <PrimaryButton onClick={previewRinger}>
             Preview ringer
           </PrimaryButton>
         </div>

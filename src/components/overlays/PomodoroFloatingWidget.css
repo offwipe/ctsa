@@ -1,0 +1,72 @@
+.pomo-float {
+  position: absolute;
+  top: 48px;
+  right: 16px;
+  z-index: 35;
+  display: grid;
+  gap: 8px;
+  min-width: 220px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background:
+    linear-gradient(135deg, var(--btn-subtle, rgba(139, 92, 246, 0.12)), transparent),
+    color-mix(in srgb, var(--bg-card) 90%, transparent);
+  box-shadow: var(--shadow-lg), 0 0 var(--btn-glow-blur, 14px) var(--btn-glow, rgba(139, 92, 246, 0.14));
+  backdrop-filter: blur(16px);
+  color: var(--text-primary);
+}
+
+.pomo-float__label {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--text-muted);
+  font-size: 10px;
+  font-weight: var(--font-semibold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.pomo-float__time {
+  display: block;
+  font-size: 1.7rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+}
+
+.pomo-float__actions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.pomo-float__actions button {
+  min-height: 30px;
+  padding: 0 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--bg-elevated, var(--bg-card)) 86%, transparent);
+  color: var(--text-primary);
+  font-size: 11px;
+  font-weight: var(--font-semibold);
+  cursor: pointer;
+}
+
+.pomo-float__actions button:hover:not(:disabled) {
+  border-color: var(--btn-solid, var(--accent));
+  background: var(--btn-subtle, rgba(139, 92, 246, 0.12));
+}
+
+.pomo-float__actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+@media (max-width: 680px) {
+  .pomo-float {
+    left: 12px;
+    right: 12px;
+    top: 44px;
+  }
+}

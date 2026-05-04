@@ -1,5 +1,6 @@
 /* eslint-disable react-refresh/only-export-components -- shared nav defs + icon set for multiple shells */
 import type { ComponentType, ReactNode } from 'react'
+import type { CertificationId } from '../../data/certificationPacks'
 
 export type NavIconProps = { size?: number; className?: string }
 
@@ -98,6 +99,19 @@ export function ClockIcon({ size = 18 }: NavIconProps) {
   )
 }
 
+export function GameIcon({ size = 18 }: NavIconProps) {
+  return strokeIcon(
+    <>
+      <rect x="3" y="6" width="18" height="12" rx="3" />
+      <path d="M8 12h4" />
+      <path d="M10 10v4" />
+      <circle cx="16.5" cy="11" r="0.8" />
+      <circle cx="18.5" cy="14" r="0.8" />
+    </>,
+    size,
+  )
+}
+
 export function SettingsIcon({ size = 18 }: NavIconProps) {
   return strokeIcon(
     <>
@@ -119,6 +133,20 @@ export const MAIN_NAV: MainNavEntry[] = [
   { to: '/settings', label: 'Settings', group: 'system', Icon: SettingsIcon },
 ]
 
+export const CCST_NAV: MainNavEntry[] = [
+  { to: '/', label: 'Home', group: 'study', Icon: HomeIcon },
+  { to: '/pbq', label: 'PBQ Practice', group: 'study', Icon: LightbulbIcon },
+  { to: '/exam', label: 'Exam Prep', group: 'study', Icon: ExamIcon },
+  { to: '/subnetting', label: 'Subnetting', group: 'study', Icon: NetworkIcon },
+  { to: '/ccst-minigames', label: 'CCST Minigames', group: 'study', Icon: GameIcon },
+  { to: '/pomodoro', label: 'Pomodoro', group: 'study', Icon: ClockIcon },
+]
+
+export function getMainNav(activeCertification: CertificationId | null): MainNavEntry[] {
+  if (!activeCertification) return [{ to: '/', label: 'Home', group: 'study', Icon: HomeIcon }]
+  return activeCertification === 'ccst-it-support' ? CCST_NAV : MAIN_NAV
+}
+
 const CRUMB: Record<string, string> = {
   '/': 'Home',
   '/study': 'Blitz',
@@ -127,6 +155,7 @@ const CRUMB: Record<string, string> = {
   '/pbq': 'PBQ Practice',
   '/flashcards': 'Flashcards',
   '/pomodoro': 'Pomodoro',
+  '/ccst-minigames': 'CCST Minigames',
   '/settings': 'Settings',
 }
 

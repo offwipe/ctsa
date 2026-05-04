@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { useAppContext } from '../../../context/useAppContext'
-import { MAIN_NAV, breadcrumbTitle } from '../mainNav'
+import { breadcrumbTitle, getMainNav } from '../mainNav'
 import './HighlighterLayout.css'
 
 function NavGroup({ label, children }: { label: string; children: ReactNode }) {
@@ -15,10 +15,11 @@ function NavGroup({ label, children }: { label: string; children: ReactNode }) {
 
 export function HighlighterLayout({ locationKey }: { locationKey: string }) {
   const { pathname } = useLocation()
-  const { settings } = useAppContext()
+  const { settings, activeCertification } = useAppContext()
   const sidebarRight = settings.sidebarPosition === 'right'
-  const study = MAIN_NAV.filter((n) => n.group === 'study')
-  const system = MAIN_NAV.filter((n) => n.group === 'system')
+  const nav = getMainNav(activeCertification)
+  const study = nav.filter((n) => n.group === 'study')
+  const system = nav.filter((n) => n.group === 'system')
 
   return (
     <div className={'highlighter-shell' + (sidebarRight ? ' highlighter-shell--sidebar-right' : '')}>
@@ -42,23 +43,25 @@ export function HighlighterLayout({ locationKey }: { locationKey: string }) {
               </li>
             ))}
           </NavGroup>
-          <NavGroup label="System">
-            {system.map((item) => (
-              <li key={item.to}>
-                <NavLink
-                  to={item.to}
-                  className={({ isActive }) =>
-                    'hl-nav-link' + (isActive ? ' hl-nav-link--active' : '')
-                  }
-                >
-                  <span className="hl-nav-link__icon">
-                    <item.Icon size={15} />
-                  </span>
-                  <span>{item.label}</span>
-                </NavLink>
-              </li>
-            ))}
-          </NavGroup>
+          {system.length > 0 && (
+            <NavGroup label="System">
+              {system.map((item) => (
+                <li key={item.to}>
+                  <NavLink
+                    to={item.to}
+                    className={({ isActive }) =>
+                      'hl-nav-link' + (isActive ? ' hl-nav-link--active' : '')
+                    }
+                  >
+                    <span className="hl-nav-link__icon">
+                      <item.Icon size={15} />
+                    </span>
+                    <span>{item.label}</span>
+                  </NavLink>
+                </li>
+              ))}
+            </NavGroup>
+          )}
         </nav>
         <div className="highlighter-shell__footer">
           <button type="button" className="highlighter-shell__help" disabled title="Coming soon">

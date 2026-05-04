@@ -10,10 +10,13 @@ import {
   persistCustomPresets,
 } from './appTheme'
 import type { CustomizationState, PresetRecord } from './appTheme'
+import { certificationPacks } from '../data/certificationPacks'
+import type { CertificationId } from '../data/certificationPacks'
 import { AppContext } from './appContextShared'
 import type { AppContextValue } from './appContextShared'
 
 const NOTEBOOK_KEY = 'comptia-study-notebook'
+const ACTIVE_CERTIFICATION_KEY = 'ctsa-active-certification'
 
 function loadNotebookText(): string {
   try {
@@ -23,8 +26,18 @@ function loadNotebookText(): string {
   }
 }
 
+function loadActiveCertification(): CertificationId | null {
+  try {
+    const raw = localStorage.getItem(ACTIVE_CERTIFICATION_KEY) as CertificationId | null
+    return raw && certificationPacks.some((pack) => pack.id === raw) ? raw : null
+  } catch {
+    return null
+  }
+}
+
 export function AppProvider({ children }: { children: ReactNode }) {
   const [settings, setSettings] = useState<CustomizationState>(() => loadSettings())
+  const [activeCertification, setActiveCertification] = useState<CertificationId | null>(() => loadActiveCertification())
   const [customPresets, setCustomPresets] = useState<PresetRecord[]>(() => loadCustomPresets())
   const [notebookOpen, setNotebookOpen] = useState(false)
   const [chartOpen, setChartOpen] = useState(false)
@@ -40,6 +53,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     persistSettings(settings)
   }, [settings])
+
+  useEffect(() => {
+    try {
+      if (activeCertification) localStorage.setItem(ACTIVE_CERTIFICATION_KEY, activeCertification)
+      else localStorage.removeItem(ACTIVE_CERTIFICATION_KEY)
+    } catch {
+      // noop
+    }
+  }, [activeCertification])
 
   useEffect(() => {
     persistCustomPresets(customPresets)
@@ -182,6 +204,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const value = useMemo<AppContextValue>(() => ({
     settings,
+    activeCertification,
+    setActiveCertification,
     presets: allPresets,
     customPresets,
     updateSetting,
@@ -204,7 +228,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     chartOpen,
     toggleChart,
     setChartOpen,
-  }), [settings, allPresets, customPresets, updateSetting, updateSettings, resetAll, resetAmbientFrame, resetWinterFrame, resetAtmosphere, resetButtons, resetAmbience, applyPreset, saveCurrentAsPreset, deleteCustomPreset, renameCustomPreset, notebookOpen, toggleNotebook, notebookText, chartOpen, toggleChart])
+  }), [settings, activeCertification, allPresets, customPresets, updateSetting, updateSettings, resetAll, resetAmbientFrame, resetWinterFrame, resetAtmosphere, resetButtons, resetAmbience, applyPreset, saveCurrentAsPreset, deleteCustomPreset, renameCustomPreset, notebookOpen, toggleNotebook, notebookText, chartOpen, toggleChart])
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>
 }

@@ -7,6 +7,7 @@ import { useLocalStorageState } from '../../hooks/useLocalStorageState'
 import { Section } from '../../components/ui/Section'
 import { PrimaryButton } from '../../components/ui/PrimaryButton'
 import { Dropdown } from '../../components/ui/Dropdown'
+import { useAppContext } from '../../context/useAppContext'
 
 type PBQSetup = {
   certification: CertificationId
@@ -54,7 +55,9 @@ function randomScenario(setup: PBQSetup) {
 }
 
 export function PBQScreen() {
+  const { activeCertification, setActiveCertification } = useAppContext()
   const [state, setState] = useLocalStorageState<PBQState>(STORAGE_KEY, DEFAULT_STATE)
+  const isCcstMode = activeCertification === 'ccst-it-support'
   const pack = getCertificationPack(state.setup.certification)
   const scenarios = useMemo(() => getFilteredScenarios(state.setup), [state.setup])
   const scenario = scenarios.find((item) => item.id === state.scenarioId) ?? null
@@ -78,7 +81,26 @@ export function PBQScreen() {
     }
   }, [])
 
+  useEffect(() => {
+    if (!activeCertification || state.setup.certification === activeCertification) return
+    setState((previous) => ({
+      ...previous,
+      phase: 'setup',
+      scenarioId: null,
+      placements: {},
+      submitted: false,
+      setup: {
+        ...previous.setup,
+        certification: activeCertification,
+        topic: 'all',
+        type: 'all',
+        difficulty: 'all',
+      },
+    }))
+  }, [activeCertification, state.setup.certification, setState])
+
   const updateSetup = <K extends keyof PBQSetup>(key: K, value: PBQSetup[K]) => {
+    if (key === 'certification') setActiveCertification(value as CertificationId)
     setState((previous) => ({
       ...previous,
       phase: 'setup',
@@ -162,12 +184,14 @@ export function PBQScreen() {
             description="Use the current content pack to launch PBQs by topic, type, and difficulty."
           >
             <div className="pbq-setup-grid">
-              <Dropdown
-                label="Certification"
-                value={state.setup.certification}
-                options={certificationPacks.map((option) => ({ value: option.id, label: `${option.label} • ${option.examCode}` }))}
-                onChange={(value) => updateSetup('certification', value as CertificationId)}
-              />
+              {!isCcstMode && (
+                <Dropdown
+                  label="Certification"
+                  value={state.setup.certification}
+                  options={certificationPacks.map((option) => ({ value: option.id, label: `${option.label} • ${option.examCode}` }))}
+                  onChange={(value) => updateSetup('certification', value as CertificationId)}
+                />
+              )}
               <Dropdown
                 label="Topic"
                 value={state.setup.topic}

@@ -8,6 +8,7 @@ import { Section } from '../../components/ui/Section'
 import { PrimaryButton } from '../../components/ui/PrimaryButton'
 import { Slider } from '../../components/ui/Slider'
 import { Dropdown } from '../../components/ui/Dropdown'
+import { useAppContext } from '../../context/useAppContext'
 
 type ExamMode = 'practice' | 'timed' | 'weak-areas'
 
@@ -83,7 +84,19 @@ function getFilteredQuestions(setup: ExamSetup) {
 
 function createSession(setup: ExamSetup): ActiveExamSession {
   const filtered = getFilteredQuestions(setup)
-  const selectedQuestions = shuffle(filtered).slice(0, Math.min(setup.questionCount, filtered.length))
+  let selectedQuestions = shuffle(filtered).slice(0, Math.min(setup.questionCount, filtered.length))
+  if (setup.certification === 'ccst-it-support' && filtered.length > 0 && selectedQuestions.length < setup.questionCount) {
+    const expanded: ExamQuestion[] = []
+    while (expanded.length < setup.questionCount) {
+      expanded.push(
+        ...shuffle(filtered).map((question, index) => ({
+          ...question,
+          id: `${question.id}--ccst-repeat-${expanded.length + index}`,
+        })),
+      )
+    }
+    selectedQuestions = expanded.slice(0, setup.questionCount)
+  }
   return {
     phase: 'active',
     setup,
@@ -97,15 +110,20 @@ function createSession(setup: ExamSetup): ActiveExamSession {
 }
 
 export function ExamScreen() {
+  const { activeCertification, setActiveCertification } = useAppContext()
   const [session, setSession] = useLocalStorageState<ExamSession>(STORAGE_KEY, {
     phase: 'setup',
     setup: DEFAULT_SETUP,
   })
 
   const setup = session.setup
+  const isCcstMode = activeCertification === 'ccst-it-support'
   const pack = getCertificationPack(setup.certification)
   const filteredQuestions = useMemo(() => getFilteredQuestions(setup), [setup])
   const availableQuestions = filteredQuestions.length
+  const questionSliderMin = isCcstMode ? 42 : 5
+  const questionSliderMax = isCcstMode ? 50 : Math.max(5, availableQuestions || 5)
+  const questionSliderValue = Math.min(Math.max(setup.questionCount, questionSliderMin), questionSliderMax)
   const isActivePaused = session.phase === 'active' ? session.paused : false
   const remainingSeconds = session.phase === 'active'
     ? Math.max(0, session.setup.timerMinutes * 60 - session.elapsedSeconds)
@@ -137,9 +155,32 @@ export function ExamScreen() {
     return () => window.clearInterval(interval)
   }, [session.phase, isActivePaused, session.setup.mode, session.setup.timerMinutes, setSession])
 
+  useEffect(() => {
+    if (!activeCertification) return
+    setSession((previous) => {
+      if (previous.phase !== 'setup') return previous
+      const nextSetup: ExamSetup = {
+        ...previous.setup,
+        certification: activeCertification,
+        ...(activeCertification === 'ccst-it-support'
+          ? {
+              mode: 'timed' as ExamMode,
+              timerMinutes: 50,
+              questionCount: Math.min(50, Math.max(42, previous.setup.questionCount)),
+              domain: 'all',
+              topic: 'all',
+              difficulty: 'all' as DifficultyLevel | 'all',
+            }
+          : {}),
+      }
+      return JSON.stringify(nextSetup) === JSON.stringify(previous.setup) ? previous : { phase: 'setup', setup: nextSetup }
+    })
+  }, [activeCertification, setSession])
+
   const updateSetup = useCallback(<K extends keyof ExamSetup>(key: K, value: ExamSetup[K]) => {
+    if (key === 'certification') setActiveCertification(value as CertificationId)
     setSession((previous) => ({ phase: 'setup', setup: { ...previous.setup, [key]: value } }))
-  }, [setSession])
+  }, [setActiveCertification, setSession])
 
   const startExam = useCallback(() => {
     setSession((previous) => createSession(previous.setup))
@@ -260,12 +301,14 @@ export function ExamScreen() {
               description="Every exam tab now runs from a real multi-cert question bank with setup state stored locally."
             >
               <div className="exam-setup-grid">
-                <Dropdown
-                  label="Certification"
-                  value={setup.certification}
-                  options={certificationPacks.map((option) => ({ value: option.id, label: `${option.label} • ${option.examCode}` }))}
-                  onChange={(value) => updateSetup('certification', value as CertificationId)}
-                />
+                {!isCcstMode && (
+                  <Dropdown
+                    label="Certification"
+                    value={setup.certification}
+                    options={certificationPacks.map((option) => ({ value: option.id, label: `${option.label} • ${option.examCode}` }))}
+                    onChange={(value) => updateSetup('certification', value as CertificationId)}
+                  />
+                )}
                 <Dropdown
                   label="Mode"
                   value={setup.mode}
@@ -301,7 +344,7 @@ export function ExamScreen() {
                 />
                 <div className="exam-timer-presets">
                   <span className="exam-inline-label">Timer presets</span>
-                  {[15, 30, 45, 60, 90].map((minutes) => (
+                  {(isCcstMode ? [50] : [15, 30, 45, 60, 90]).map((minutes) => (
                     <button
                       key={minutes}
                       type="button"
@@ -314,22 +357,22 @@ export function ExamScreen() {
                 </div>
                 <Slider
                   label="Question count"
-                  value={Math.min(setup.questionCount, Math.max(5, availableQuestions || 5))}
-                  min={5}
-                  max={Math.max(5, availableQuestions || 5)}
+                  value={questionSliderValue}
+                  min={questionSliderMin}
+                  max={questionSliderMax}
                   step={1}
                   onChange={(value) => updateSetup('questionCount', value)}
-                  valueLabel={`${Math.min(setup.questionCount, availableQuestions || 5)} / ${availableQuestions}`}
+                  valueLabel={isCcstMode ? `${questionSliderValue} / 42-50` : `${Math.min(setup.questionCount, availableQuestions || 5)} / ${availableQuestions}`}
                 />
                 <Slider
                   label="Timer minutes"
                   value={setup.timerMinutes}
-                  min={5}
-                  max={120}
+                  min={isCcstMode ? 50 : 5}
+                  max={isCcstMode ? 50 : 120}
                   step={5}
                   onChange={(value) => updateSetup('timerMinutes', value)}
                   valueLabel={`${setup.timerMinutes} min`}
-                  disabled={setup.mode === 'practice'}
+                  disabled={setup.mode === 'practice' || isCcstMode}
                 />
               </div>
 
@@ -337,7 +380,11 @@ export function ExamScreen() {
                 <PrimaryButton onClick={startExam} disabled={availableQuestions === 0}>
                   Start {setup.mode === 'practice' ? 'Practice Session' : 'Exam Session'}
                 </PrimaryButton>
-                <span className="exam-supporting-text">{availableQuestions} questions available with the current filters.</span>
+                <span className="exam-supporting-text">
+                  {isCcstMode
+                    ? `${availableQuestions} source questions rotate into a 42-50 question, 50-minute CCST-style run.`
+                    : `${availableQuestions} questions available with the current filters.`}
+                </span>
               </div>
             </Section>
           </div>

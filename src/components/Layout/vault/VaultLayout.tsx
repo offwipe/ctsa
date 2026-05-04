@@ -1,13 +1,14 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import { certificationPacks } from '../../../data/certificationPacks'
 import { useAppContext } from '../../../context/useAppContext'
-import { MAIN_NAV } from '../mainNav'
+import { getMainNav } from '../mainNav'
 import './VaultLayout.css'
 
 export function VaultLayout({ locationKey }: { locationKey: string }) {
-  const { notebookText, setNotebookText, settings } = useAppContext()
+  const { notebookText, setNotebookText, settings, activeCertification } = useAppContext()
   const navRight = settings.sidebarPosition === 'right'
   const activeSound = settings.atmosphereAudioEnabled && settings.backgroundSoundMode !== 'off'
+  const nav = getMainNav(activeCertification)
 
   return (
     <div className={'vault-shell' + (navRight ? ' vault-shell--nav-right' : '')}>
@@ -20,7 +21,7 @@ export function VaultLayout({ locationKey }: { locationKey: string }) {
           </div>
         </div>
         <nav className="vault-quick" aria-label="Primary routes">
-          {MAIN_NAV.map((item) => (
+          {nav.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}

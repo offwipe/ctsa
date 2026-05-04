@@ -1,8 +1,11 @@
 import { createContext } from 'react'
+import type { CertificationId } from '../data/certificationPacks'
 import type { CustomizationState, PresetRecord } from './appTheme'
 
 export interface AppContextValue {
   settings: CustomizationState
+  activeCertification: CertificationId | null
+  setActiveCertification: (certification: CertificationId | null) => void
   presets: PresetRecord[]
   customPresets: PresetRecord[]
   updateSetting: <K extends keyof CustomizationState>(key: K, value: CustomizationState[K]) => void

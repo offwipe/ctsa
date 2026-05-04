@@ -20,6 +20,11 @@
   transform: translateY(-2px);
 }
 
+.cert-card--active {
+  border-color: var(--btn-solid, var(--accent));
+  box-shadow: 0 0 var(--btn-glow-blur, 18px) var(--btn-glow, rgba(139, 92, 246, 0.18));
+}
+
 .cert-card--coming {
   opacity: 0.55;
   pointer-events: none;
@@ -68,12 +73,17 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
+  width: fit-content;
+  padding: 0;
+  border: 0;
+  background: transparent;
   font-size: var(--text-sm);
   font-weight: var(--font-semibold);
   color: var(--accent);
   text-decoration: none;
   margin-top: var(--space-1);
   transition: color var(--transition-fast);
+  cursor: pointer;
 }
 
 .cert-card-link:hover {

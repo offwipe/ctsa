@@ -1,10 +1,13 @@
 import { useAppContext } from '../../context/useAppContext'
 import type { CSSProperties } from 'react'
+import { getCertificationPack } from '../../data/certificationPacks'
 import './Titlebar.css'
 
 export function Titlebar() {
-  const { settings, notebookOpen, toggleNotebook, chartOpen, toggleChart } = useAppContext()
+  const { settings, activeCertification, notebookOpen, toggleNotebook, chartOpen, toggleChart } = useAppContext()
   const titlebarStyle = settings.titlebarStyle === 'auto' ? settings.layoutPreset : settings.titlebarStyle
+  const activePack = activeCertification ? getCertificationPack(activeCertification) : null
+  const appTitle = activePack ? `ctsa - ${activePack.label.replace(' — ', ' ')}` : 'ctsa'
   const titlebarVars = {
     '--titlebar-opacity': `${settings.titlebarOpacity / 100}`,
   } as CSSProperties
@@ -38,7 +41,7 @@ export function Titlebar() {
       data-tauri-drag-region
       style={titlebarVars}
     >
-      {settings.titlebarShowTitle && <span className="titlebar-title" data-tauri-drag-region>ctsa</span>}
+      {settings.titlebarShowTitle && <span className="titlebar-title" data-tauri-drag-region>{appTitle}</span>}
       <div className="titlebar-controls">
         <button
           className={'titlebar-btn titlebar-btn--tool' + (chartOpen ? ' titlebar-btn--active' : '')}

@@ -1,18 +1,19 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import { useAppContext } from '../../../context/useAppContext'
-import { MAIN_NAV } from '../mainNav'
+import { getMainNav } from '../mainNav'
 import './FolioLayout.css'
 
 export function FolioLayout({ locationKey }: { locationKey: string }) {
-  const { settings } = useAppContext()
+  const { settings, activeCertification } = useAppContext()
   const spineRight = settings.sidebarPosition === 'right'
+  const nav = getMainNav(activeCertification)
 
   return (
     <div className={'folio-shell' + (spineRight ? ' folio-shell--spine-right' : '')}>
       <aside className="folio-spine" aria-label="Section navigation">
         <p className="folio-spine__label">Contents</p>
         <nav className="folio-spine__nav">
-          {MAIN_NAV.map((item) => (
+          {nav.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}

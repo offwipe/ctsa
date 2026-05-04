@@ -1,12 +1,13 @@
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { useAppContext } from '../../../context/useAppContext'
-import { MAIN_NAV, breadcrumbTitle } from '../mainNav'
+import { breadcrumbTitle, getMainNav } from '../mainNav'
 import './AtriumLayout.css'
 
 export function AtriumLayout({ locationKey }: { locationKey: string }) {
-  const { settings } = useAppContext()
+  const { settings, activeCertification } = useAppContext()
   const { pathname } = useLocation()
   const alignEnd = settings.sidebarPosition === 'right'
+  const nav = getMainNav(activeCertification)
 
   return (
     <div className={'atrium-shell' + (alignEnd ? ' atrium-shell--nav-end' : '')}>
@@ -16,7 +17,7 @@ export function AtriumLayout({ locationKey }: { locationKey: string }) {
           <span className="atrium-cap__crumb">{breadcrumbTitle(pathname)}</span>
         </div>
         <nav className="atrium-pills" aria-label="Routes">
-          {MAIN_NAV.map((item) => (
+          {nav.map((item) => (
             <NavLink
               key={item.to}
               to={item.to}

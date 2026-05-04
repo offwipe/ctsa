@@ -1,5 +1,5 @@
 import { useMemo, useDeferredValue, useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { Navigate, useLocation } from 'react-router-dom'
 import { Titlebar } from './Titlebar'
 import { rgba, lightenHex } from '../../context/appTheme'
 import { useAppContext } from '../../context/useAppContext'
@@ -8,6 +8,7 @@ import { WinterFrame } from '../effects/WinterFrame'
 import { RainFrame } from '../effects/RainFrame'
 import { useAtmosphereAudio } from '../../hooks/useAtmosphereAudio'
 import { NotebookOverlay } from '../overlays/NotebookOverlay'
+import { PomodoroFloatingWidget } from '../overlays/PomodoroFloatingWidget'
 import { SevenSecondOverlay } from '../overlays/SevenSecondOverlay'
 import { LayoutPresetRouter } from './LayoutPresetRouter'
 import '../../styles/layoutPresetVars.css'
@@ -15,7 +16,7 @@ import './AppLayout.css'
 
 export function AppLayout() {
   const location = useLocation()
-  const { settings } = useAppContext()
+  const { settings, activeCertification } = useAppContext()
   const s = useDeferredValue(settings)
   const [maximized, setMaximized] = useState(false)
 
@@ -124,6 +125,17 @@ export function AppLayout() {
     (classic ? ' layout-preset-mount--classic' : '') +
     (classicNavRight ? ' layout-preset-mount--classic-nav-right' : '')
 
+  if (!activeCertification && location.pathname !== '/') {
+    return <Navigate to="/" replace />
+  }
+
+  if (
+    activeCertification === 'ccst-it-support' &&
+    !['/', '/pbq', '/exam', '/subnetting', '/ccst-minigames', '/pomodoro'].includes(location.pathname)
+  ) {
+    return <Navigate to="/pbq" replace />
+  }
+
   return (
     <div className="app-window-frame" style={shellStyle}>
       <div className="app-shell" data-layout-preset={s.layoutPreset}>
@@ -175,6 +187,7 @@ export function AppLayout() {
         </div>
 
         <NotebookOverlay />
+        <PomodoroFloatingWidget />
         <SevenSecondOverlay />
       </div>
     </div>
