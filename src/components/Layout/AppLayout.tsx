@@ -131,7 +131,9 @@ export function AppLayout() {
 
   if (
     activeCertification === 'ccst-it-support' &&
-    !['/', '/pbq', '/exam', '/subnetting', '/ccst-minigames', '/pomodoro'].includes(location.pathname)
+    !['/', '/pbq', '/exam', '/subnetting', '/ccst-minigames', '/pomodoro', '/settings'].includes(
+      location.pathname,
+    )
   ) {
     return <Navigate to="/pbq" replace />
   }

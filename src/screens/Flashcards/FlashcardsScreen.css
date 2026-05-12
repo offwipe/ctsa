@@ -40,6 +40,11 @@
   padding: var(--space-2) 0;
 }
 
+/* Separate deck filters / toggles from primary launch (matches Exam / Blitz / Subnet spacing) */
+.flashcards-start-row {
+  margin-top: var(--space-5);
+}
+
 /* ── Study: fill vertical space, stage + rail ── */
 
 .flashcards-study {

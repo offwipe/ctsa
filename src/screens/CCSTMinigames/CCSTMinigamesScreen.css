@@ -92,6 +92,23 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.ccst-match-grid--stacked {
+  grid-template-columns: 1fr;
+}
+
+.ccst-match-hint {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  line-height: 1.45;
+}
+
+.ccst-match-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
 .ccst-match-column {
   display: grid;
   align-content: start;
@@ -143,6 +160,7 @@
 
 @media (max-width: 760px) {
   .ccst-match-grid,
+  .ccst-match-columns,
   .ccst-order-card {
     grid-template-columns: 1fr;
   }

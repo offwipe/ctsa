@@ -140,6 +140,7 @@ export const CCST_NAV: MainNavEntry[] = [
   { to: '/subnetting', label: 'Subnetting', group: 'study', Icon: NetworkIcon },
   { to: '/ccst-minigames', label: 'CCST Minigames', group: 'study', Icon: GameIcon },
   { to: '/pomodoro', label: 'Pomodoro', group: 'study', Icon: ClockIcon },
+  { to: '/settings', label: 'Settings', group: 'system', Icon: SettingsIcon },
 ]
 
 export function getMainNav(activeCertification: CertificationId | null): MainNavEntry[] {

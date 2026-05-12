@@ -22,6 +22,11 @@
   gap: var(--space-4);
 }
 
+/* Breathing room between filter grid and primary action (section-body has no default gap) */
+.pbq-action-row {
+  margin-top: var(--space-5);
+}
+
 .pbq-meta,
 .pbq-explanation {
   color: var(--text-secondary);
