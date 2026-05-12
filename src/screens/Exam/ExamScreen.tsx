@@ -118,8 +118,14 @@ export function ExamScreen() {
 
   const setup = session.setup
   const isCcstMode = activeCertification === 'ccst-it-support'
-  const pack = getCertificationPack(setup.certification)
-  const filteredQuestions = useMemo(() => getFilteredQuestions(setup), [setup])
+  /** Persisted exam setup can lag behind the sidebar cert (e.g. switched during an active session). */
+  const examCertification: CertificationId = (activeCertification ?? setup.certification) as CertificationId
+  const setupForFilter: ExamSetup = useMemo(
+    () => ({ ...setup, certification: examCertification }),
+    [setup, examCertification],
+  )
+  const pack = useMemo(() => getCertificationPack(examCertification), [examCertification])
+  const filteredQuestions = useMemo(() => getFilteredQuestions(setupForFilter), [setupForFilter])
   const availableQuestions = filteredQuestions.length
   const questionSliderMin = isCcstMode ? 42 : 5
   const questionSliderMax = isCcstMode ? 50 : Math.max(5, availableQuestions || 5)
@@ -156,26 +162,48 @@ export function ExamScreen() {
   }, [session.phase, isActivePaused, session.setup.mode, session.setup.timerMinutes, setSession])
 
   useEffect(() => {
-    if (!activeCertification) return
+    if (!activeCertification || session.phase !== 'setup') return
     setSession((previous) => {
       if (previous.phase !== 'setup') return previous
+      if (previous.setup.certification === activeCertification) return previous
+
       const nextSetup: ExamSetup = {
         ...previous.setup,
         certification: activeCertification,
+        domain: 'all',
+        topic: 'all',
+        difficulty: 'all',
         ...(activeCertification === 'ccst-it-support'
           ? {
               mode: 'timed' as ExamMode,
               timerMinutes: 50,
               questionCount: Math.min(50, Math.max(42, previous.setup.questionCount)),
-              domain: 'all',
-              topic: 'all',
-              difficulty: 'all' as DifficultyLevel | 'all',
             }
           : {}),
       }
-      return JSON.stringify(nextSetup) === JSON.stringify(previous.setup) ? previous : { phase: 'setup', setup: nextSetup }
+      return { phase: 'setup', setup: nextSetup }
     })
-  }, [activeCertification, setSession])
+  }, [activeCertification, session.phase, setSession])
+
+  /** Drop domain/topic values that do not exist on the resolved pack (stale filters after cert switch). */
+  useEffect(() => {
+    if (session.phase !== 'setup') return
+    const p = getCertificationPack(examCertification)
+    const badDomain = setup.domain !== 'all' && !p.exam.domains.includes(setup.domain)
+    const badTopic = setup.topic !== 'all' && !p.exam.topics.includes(setup.topic)
+    if (!badDomain && !badTopic) return
+    setSession((previous) => {
+      if (previous.phase !== 'setup') return previous
+      return {
+        phase: 'setup',
+        setup: {
+          ...previous.setup,
+          domain: badDomain ? 'all' : previous.setup.domain,
+          topic: badTopic ? 'all' : previous.setup.topic,
+        },
+      }
+    })
+  }, [session.phase, examCertification, setup.domain, setup.topic, setSession])
 
   const updateSetup = useCallback(<K extends keyof ExamSetup>(key: K, value: ExamSetup[K]) => {
     if (key === 'certification') setActiveCertification(value as CertificationId)
@@ -183,8 +211,11 @@ export function ExamScreen() {
   }, [setActiveCertification, setSession])
 
   const startExam = useCallback(() => {
-    setSession((previous) => createSession(previous.setup))
-  }, [setSession])
+    setSession((previous) => {
+      const cert = (activeCertification ?? previous.setup.certification) as CertificationId
+      return createSession({ ...previous.setup, certification: cert })
+    })
+  }, [setSession, activeCertification])
 
   const selectAnswer = useCallback((questionId: string, answer: string) => {
     setSession((previous) => previous.phase === 'active'
