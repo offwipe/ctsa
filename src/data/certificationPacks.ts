@@ -1,5 +1,6 @@
 import { intermediateQuestions } from './questions'
 import { aPlusGlossaryFlashcards, aPlusGlossaryMatchScenarios } from './aPlusGlossaryGenerated'
+import { ccstPdfImportMcqs, ccstPdfImportPbqs } from './ccstPdfImport'
 
 export type CertificationId = 'a-plus' | 'network-plus' | 'security-plus' | 'ccst-it-support'
 export type DifficultyLevel = 'easy' | 'intermediate' | 'advanced'
@@ -204,7 +205,7 @@ const securityPlusQuestions: ExamQuestion[] = [
   },
 ]
 
-const ccstItSupportQuestions: ExamQuestion[] = [
+const ccstItSupportQuestionsBase: ExamQuestion[] = [
   {
     id: 'ccst-1',
     certification: 'ccst-it-support',
@@ -2176,6 +2177,8 @@ const ccstItSupportQuestions: ExamQuestion[] = [
   },
 ]
 
+const ccstItSupportQuestions: ExamQuestion[] = [...ccstItSupportQuestionsBase, ...ccstPdfImportMcqs]
+
 const ccstFlashcards: FlashcardItem[] = [
   {
     id: 'ccst-flash-sla',
@@ -2362,7 +2365,7 @@ const ccstFlashcards: FlashcardItem[] = [
   },
 ]
 
-const ccstPbqScenarios: PBQScenario[] = [
+const ccstPbqScenariosBase: PBQScenario[] = [
   {
     id: 'ccst-pbq-match-types',
     certification: 'ccst-it-support',
@@ -3070,6 +3073,8 @@ const ccstPbqScenarios: PBQScenario[] = [
       'Queues govern priority; ticketing systems record truth over time; time management avoids idle waiting; KPIs quantify performance versus commitments.',
   },
 ]
+
+const ccstPbqScenarios: PBQScenario[] = [...ccstPbqScenariosBase, ...ccstPdfImportPbqs]
 
 const seedFlashcards: FlashcardItem[] = [
   {
