@@ -1,6 +1,7 @@
 import { intermediateQuestions } from './questions'
 import { aPlusGlossaryFlashcards, aPlusGlossaryMatchScenarios } from './aPlusGlossaryGenerated'
 import { ccstPdfImportMcqs, ccstPdfImportPbqs } from './ccstPdfImport'
+import { ccstPdfPracticeSet3And4Mcqs } from './ccstPdfPracticeSets'
 
 export type CertificationId = 'a-plus' | 'network-plus' | 'security-plus' | 'ccst-it-support'
 export type DifficultyLevel = 'easy' | 'intermediate' | 'advanced'
@@ -2177,7 +2178,11 @@ const ccstItSupportQuestionsBase: ExamQuestion[] = [
   },
 ]
 
-const ccstItSupportQuestions: ExamQuestion[] = [...ccstItSupportQuestionsBase, ...ccstPdfImportMcqs]
+const ccstItSupportQuestions: ExamQuestion[] = [
+  ...ccstItSupportQuestionsBase,
+  ...ccstPdfImportMcqs,
+  ...ccstPdfPracticeSet3And4Mcqs,
+]
 
 const ccstFlashcards: FlashcardItem[] = [
   {
